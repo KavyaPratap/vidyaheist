@@ -1,7 +1,6 @@
-// src/components/shared/Header.tsx
 "use client";
 import Link from "next/link";
-import { BookOpenText, Home, ShoppingBag, User, Menu, MessageSquareHeart, GitBranch, LayoutDashboard, FileText } from "lucide-react";
+import { Home, ShoppingBag, User, Menu, MessageSquareHeart, GitBranch, LayoutDashboard } from "lucide-react";
 import { AuthButton } from "./AuthButton";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { usePathname } from 'next/navigation';
@@ -12,16 +11,17 @@ import { useIsMobile } from "@/hooks/use-mobile";
 import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetClose, SheetDescription } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { useUser } from "@/firebase";
+import Image from 'next/image';
 
 const signedOutNavItems = [
   { href: "/", label: "Home", icon: Home },
-  { href: "/store", label: "Test Series", icon: ShoppingBag },
+  { href: "/store", label: "Courses", icon: ShoppingBag },
   { href: "/counselling", label: "Counselling", icon: MessageSquareHeart },
 ];
 
 const signedInNavItems = [
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
-  { href: "/store", label: "Test Series", icon: ShoppingBag },
+  { href: "/store", label: "Courses", icon: ShoppingBag },
   { href: "/predictor", label: "Predictor", icon: GitBranch },
   { href: "/profile", label: "Profile", icon: User },
 ];
@@ -32,7 +32,6 @@ export function Header() {
   const { user, loading } = useUser();
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
 
-  // Close mobile nav on route change
   useEffect(() => {
     setIsMobileNavOpen(false);
   }, [pathname]);
@@ -43,9 +42,7 @@ export function Header() {
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center">
         <Link href={user ? "/dashboard" : "/"} className="mr-6 flex items-center space-x-2">
-          {/* Your Logo */}
-          <img src="/logo.png" alt="App Logo" className="h-8 w-8 object-contain" />
-          {/* APP_NAME */}
+          <Image src="/logo.jpeg" alt={`${APP_NAME} Logo`} width={32} height={32} className="h-8 w-8 object-contain rounded-sm" />
           <span className="font-bold text-xl leading-none">{APP_NAME}</span>
         </Link>
         {isMobile ? (
@@ -81,7 +78,7 @@ export function Header() {
               </SheetContent>
             </Sheet>
           </div>
- ) : (
+        ) : (
           <>
             <nav className="hidden md:flex items-center space-x-1">
               {navItems.map((item) => (

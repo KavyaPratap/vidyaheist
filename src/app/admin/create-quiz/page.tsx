@@ -32,10 +32,10 @@ import { collection, addDoc, serverTimestamp, doc } from "firebase/firestore";
 import { Suspense } from "react";
 
 const testSeriesSchema = z.object({
-  name: z.string().min(5, { message: "Test series name must be at least 5 characters." }),
+  name: z.string().min(5, { message: "Course name must be at least 5 characters." }),
   description: z.string().optional(),
   price: z.coerce.number().min(0, { message: "Price must be a positive number or zero." }),
-  subject: z.string().min(3, { message: "Subject is required." }),
+  subject: z.string().min(3, { message: "Exam category is required." }),
   numberOfTests: z.coerce.number().optional().nullable(),
   durationPerTest: z.coerce.number().optional().nullable(),
   imageUrl: z.string().url({ message: "Please enter a valid URL." }).optional().or(z.literal('')),
@@ -165,21 +165,21 @@ function CreateQuizContent() {
 
       const docRef = await addDoc(collection(firestore, "testSeries"), insertData);
       
-      toast({ title: "Success", description: `Test Series "${data.name}" created successfully!` });
+      toast({ title: "Success", description: `Course "${data.name}" created successfully!` });
       setCreatedTestSeriesId(docRef.id);
       setCreatedTestSeriesName(data.name);
       qForm.setValue("subject", data.subject || ""); 
       tsForm.reset(); 
       setQuestionsForCurrentSeries([]); 
     } catch (error: any) {
-      console.error("Error creating test series:", error);
-      toast({ title: "Error", description: error.message || "Failed to create test series.", variant: "destructive" });
+      console.error("Error creating course:", error);
+      toast({ title: "Error", description: error.message || "Failed to create course.", variant: "destructive" });
     }
   }
 
   async function onQuestionSubmit(data: QuestionFormValues) {
      if (!user || !adminUID || !createdTestSeriesId || !firestore) {
-      toast({ title: "Error", description: "Admin user, Test Series ID not identified, or Firestore not available.", variant: "destructive" });
+      toast({ title: "Error", description: "Admin user, Course ID not identified, or Firestore not available.", variant: "destructive" });
       return;
     }
 
@@ -269,9 +269,9 @@ function CreateQuizContent() {
       {!createdTestSeriesId ? (
         <Card className="shadow-xl">
           <CardHeader>
-            <CardTitle>Step 1: Create Test Series</CardTitle>
+            <CardTitle>Step 1: Create Course</CardTitle>
             <CardDescription>
-              Fill in the details below to create a new test series.
+              Fill in the details below to create a new course/test series.
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -282,8 +282,8 @@ function CreateQuizContent() {
                   name="name"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Test Series Name</FormLabel>
-                      <FormControl><Input placeholder="e.g., JEE Main Full Syllabus Mock 1" {...field} /></FormControl>
+                      <FormLabel>Course Name</FormLabel>
+                      <FormControl><Input placeholder="e.g., NEST Full Syllabus Mock 1" {...field} /></FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
@@ -294,7 +294,7 @@ function CreateQuizContent() {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Description (Optional)</FormLabel>
-                      <FormControl><Textarea placeholder="A brief description of the test series" {...field} /></FormControl>
+                      <FormControl><Textarea placeholder="A brief description of the course content" {...field} /></FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
@@ -316,14 +316,12 @@ function CreateQuizContent() {
                     name="subject"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Subject / Category</FormLabel>
+                        <FormLabel>Exam Category</FormLabel>
                         <Select onValueChange={field.onChange} defaultValue={field.value}>
-                          <FormControl><SelectTrigger><SelectValue placeholder="Select subject (e.g., JEE Main, NEET UG)" /></SelectTrigger></FormControl>
+                          <FormControl><SelectTrigger><SelectValue placeholder="Select exam (e.g., IAT, NEST)" /></SelectTrigger></FormControl>
                           <SelectContent>
-                            <SelectItem value="JEE Main">JEE Main</SelectItem>
-                            <SelectItem value="JEE Advanced">JEE Advanced</SelectItem>
-                            <SelectItem value="NEET UG">NEET UG</SelectItem>
-                            <SelectItem value="IAT">IAT</SelectItem>
+                            <SelectItem value="IAT">IAT (IISER Aptitude Test)</SelectItem>
+                            <SelectItem value="NEST">NEST (NISER/UM-DAE CEBS)</SelectItem>
                             <SelectItem value="General Aptitude">General Aptitude</SelectItem>
                             <SelectItem value="Other">Other (Specify)</SelectItem>
                           </SelectContent>
@@ -334,7 +332,7 @@ function CreateQuizContent() {
                             name="subject" 
                             render={({ field: otherField }) => (
                               <Input 
-                                placeholder="Specify other subject" 
+                                placeholder="Specify other exam" 
                                 className="mt-2" 
                                 {...otherField}
                                 onChange={(e) => otherField.onChange(e.target.value)}
@@ -378,7 +376,7 @@ function CreateQuizContent() {
                         <FormItem>
                         <FormLabel>Image URL (Optional)</FormLabel>
                         <FormControl><Input type="url" placeholder="https://example.com/image.png" {...field} /></FormControl>
-                        <FormDescription>Paste a URL to an image for the test series.</FormDescription>
+                        <FormDescription>Paste a URL to an image for the course banner.</FormDescription>
                         <FormMessage />
                         </FormItem>
                     )}
@@ -389,7 +387,7 @@ function CreateQuizContent() {
                     render={({ field }) => (
                         <FormItem>
                         <FormLabel>Image Placeholder Hint (Optional)</FormLabel>
-                        <FormControl><Input placeholder="e.g., 'jee exam' or 'medical study'" {...field} value={field.value ?? ''} /></FormControl>
+                        <FormControl><Input placeholder="e.g., 'exam prep' or 'science student'" {...field} value={field.value ?? ''} /></FormControl>
                         <FormDescription>Keywords for finding a placeholder image if URL is not provided (max 2 words).</FormDescription>
                         <FormMessage />
                         </FormItem>
@@ -397,7 +395,7 @@ function CreateQuizContent() {
                 />
                 <Button type="submit" className="w-full" disabled={tsForm.formState.isSubmitting}>
                   {tsForm.formState.isSubmitting ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
-                  Save Test Series and Add Questions
+                  Save Course and Add Questions
                 </Button>
               </form>
             </Form>
@@ -413,7 +411,7 @@ function CreateQuizContent() {
                 </div>
             {createdTestSeriesId && (
                 <Button variant="outline" onClick={() => router.push(`/admin/edit-quiz/${createdTestSeriesId}`)}>
-                    <ChevronLeft className="mr-2 h-4 w-4" /> Back to Test Series Dashboard
+                    <ChevronLeft className="mr-2 h-4 w-4" /> Back to Dashboard
                 </Button>
             )}
 
@@ -428,7 +426,7 @@ function CreateQuizContent() {
                     setDebugQuestionText(""); 
                     setQuestionsForCurrentSeries([]);
                 }}>
-                    Create Another Test Series
+                    Create Another Course
                 </Button>
             </div>
           </CardHeader>
@@ -468,8 +466,8 @@ function CreateQuizContent() {
                     render={({ field }) => (
                         <FormItem>
                         <FormLabel>Question Subject (Optional)</FormLabel>
-                        <FormControl><Input placeholder="e.g., Physics (Defaults to series subject)" {...field} /></FormControl>
-                        <FormDescription>Defaults to test series subject if left blank.</FormDescription>
+                        <FormControl><Input placeholder="e.g., Physics (Defaults to course subject)" {...field} /></FormControl>
+                        <FormDescription>Defaults to course subject if left blank.</FormDescription>
                         <FormMessage />
                         </FormItem>
                     )}
@@ -587,7 +585,7 @@ function CreateQuizContent() {
         </CardHeader>
         <CardContent>
             <p className="text-sm text-muted-foreground">
-                Your admin UID for database entries (`createdBy` field): {adminUID || "NOT SET (Check .env.local and restart server)"}.
+                Your admin UID: {adminUID || "NOT SET"}.
             </p>
         </CardContent>
       </Card>
