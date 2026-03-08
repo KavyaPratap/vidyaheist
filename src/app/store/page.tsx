@@ -61,6 +61,7 @@ export default function StorePage() {
           createdAt: new Date().toISOString(),
         };
 
+<<<<<<< HEAD
         const demoPaidSeries: TestSeriesType = {
           id: 'demo-paid-test',
           name: 'Premium Mock Test (Demo)',
@@ -79,6 +80,29 @@ export default function StorePage() {
       } catch (err: any) {
         console.error("Error fetching test series:", err);
         setError("Failed to load courses. Please try again later.");
+=======
+        setAllTestSeries([questionBankSeries, ...mappedData]);
+        setFilteredSeries([questionBankSeries, ...mappedData]);
+      } catch (err: any) {
+        console.error("Error fetching test series:", err);
+        setError("Failed to load courses. Please try again later.");
+        
+        const questionBankSeries: TestSeriesType = {
+          id: 'latex-question-bank',
+          name: 'General Question Bank (from .tex)',
+          description: 'A collection of questions rendered from a LaTeX file. This is a view-only document, not an interactive quiz.',
+          price: 0,
+          imageUrl: 'https://picsum.photos/seed/latex-questions/600/400',
+          data_ai_hint: 'library books',
+          subject: 'General',
+          numberOfTests: 1,
+          durationPerTest: null,
+          createdAt: new Date().toISOString(),
+        };
+        setAllTestSeries([questionBankSeries]);
+        setFilteredSeries([questionBankSeries]);
+
+>>>>>>> 5fb6feedee6a90fc34192f815a856bf0e71d60e0
       } finally {
         setLoading(false);
       }

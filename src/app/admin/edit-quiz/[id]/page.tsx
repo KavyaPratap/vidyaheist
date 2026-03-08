@@ -94,6 +94,16 @@ function QuestionEditForm({ questionData, onSave, onCancel, formInstance }: Ques
   const watchedOptions = watch("options");
   const watchedCorrectOptionId = watch("correctOptionId");
 
+<<<<<<< HEAD
+=======
+  useEffect(() => {
+    const currentCorrectOption = watchedOptions.find(opt => opt.id === watchedCorrectOptionId);
+    if (!currentCorrectOption && watchedOptions.length > 0) {
+      // Logic to handle if correct option is removed
+    }
+  }, [watchedOptions, watchedCorrectOptionId, setValue]);
+
+>>>>>>> 5fb6feedee6a90fc34192f815a856bf0e71d60e0
   const onSubmit = async (data: QuestionEditFormValues) => {
     if (!data.options.find(opt => opt.id === data.correctOptionId)) {
         toast({
@@ -285,8 +295,13 @@ export default function EditQuizPage() {
 
 
   async function onTestSeriesUpdate(data: TestSeriesFormValues) {
+<<<<<<< HEAD
     if (!user || !isAdmin || !seriesId || !firestore) {
       toast({ title: "Error", description: "Admin authentication required.", variant: "destructive" });
+=======
+    if (!user || !adminUIDFromEnv || !seriesId || !firestore) {
+      toast({ title: "Error", description: "Admin user or Course ID not identified.", variant: "destructive" });
+>>>>>>> 5fb6feedee6a90fc34192f815a856bf0e71d60e0
       return;
     }
     try {
@@ -709,6 +724,20 @@ export default function EditQuizPage() {
           )}
         </CardContent>
       </Card>
+<<<<<<< HEAD
+=======
+
+      <Card className="mt-8 shadow-md">
+        <CardHeader>
+            <CardTitle>Admin Details</CardTitle>
+        </CardHeader>
+        <CardContent>
+            <p className="text-sm text-muted-foreground">
+                Admin UID: {adminUIDFromEnv || "NOT SET"}.
+            </p>
+        </CardContent>
+      </Card>
+>>>>>>> 5fb6feedee6a90fc34192f815a856bf0e71d60e0
     </div>
   );
 }

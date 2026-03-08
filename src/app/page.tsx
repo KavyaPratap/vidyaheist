@@ -14,19 +14,26 @@ import {
   Star,
   Quote,
   ChevronLeft,
+<<<<<<< HEAD
   ChevronRight,
   HelpCircle
+=======
+  ChevronRight
+>>>>>>> 5fb6feedee6a90fc34192f815a856bf0e71d60e0
 } from "lucide-react";
 import { useUser } from "@/firebase";
 import { useRouter } from "next/navigation";
 import { APP_NAME } from "@/lib/constants";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+<<<<<<< HEAD
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+=======
+>>>>>>> 5fb6feedee6a90fc34192f815a856bf0e71d60e0
 import Image from 'next/image';
 
 const testimonials = [
@@ -52,6 +59,7 @@ const testimonials = [
     image: "https://picsum.photos/seed/student3/100/100",
   },
 ];
+<<<<<<< HEAD
 
 const faqs = [
   {
@@ -79,6 +87,8 @@ const faqs = [
     answer: "Yes. Vidyaheist provides specialized college counselling and admission guidance for premium research institutes like IISERs, NISER, and UM-DAE CEBS."
   }
 ];
+=======
+>>>>>>> 5fb6feedee6a90fc34192f815a856bf0e71d60e0
 
 export default function MarketingPage() {
   const { user, loading } = useUser();
@@ -151,7 +161,11 @@ function HeroSection() {
             </motion.div>
             
             <h1 className="text-5xl font-extrabold tracking-tight sm:text-6xl md:text-7xl lg:text-8xl leading-[1.1]">
+<<<<<<< HEAD
               <span className="block">Heist your</span>
+=======
+              Heist your <br className="hidden lg:block"/>
+>>>>>>> 5fb6feedee6a90fc34192f815a856bf0e71d60e0
               <span className="block text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-primary animate-gradient-x">
                 Dream College 
               </span>
@@ -189,6 +203,10 @@ function HeroSection() {
           transition={{ duration: 1, ease: "easeOut" }}
           className="relative w-full max-w-[600px] mx-auto flex flex-col gap-4"
         >
+<<<<<<< HEAD
+=======
+          {/* Est Rank Card moved above face */}
+>>>>>>> 5fb6feedee6a90fc34192f815a856bf0e71d60e0
           <motion.div 
             initial={{ x: -20, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
@@ -399,6 +417,10 @@ function TestimonialsSection() {
             </motion.div>
           </AnimatePresence>
 
+<<<<<<< HEAD
+=======
+          {/* Controls */}
+>>>>>>> 5fb6feedee6a90fc34192f815a856bf0e71d60e0
           <button 
             onClick={() => setCurrent((prev) => (prev - 1 + testimonials.length) % testimonials.length)}
             className="absolute left-0 top-1/2 -translate-y-1/2 p-2 rounded-full bg-background border border-border shadow-md hover:bg-secondary transition-colors"
@@ -412,6 +434,10 @@ function TestimonialsSection() {
             <ChevronRight className="w-6 h-6" />
           </button>
 
+<<<<<<< HEAD
+=======
+          {/* Dots */}
+>>>>>>> 5fb6feedee6a90fc34192f815a856bf0e71d60e0
           <div className="flex justify-center gap-2 mt-8">
             {testimonials.map((_, i) => (
               <button

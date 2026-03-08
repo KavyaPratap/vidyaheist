@@ -20,8 +20,11 @@ import {
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Image from 'next/image';
+<<<<<<< HEAD
 import { useRouter } from 'next/navigation';
 import { useUser } from '@/firebase';
+=======
+>>>>>>> 5fb6feedee6a90fc34192f815a856bf0e71d60e0
 
 const counsellingModules = [
   {
@@ -76,8 +79,11 @@ const testimonials = [
 
 export default function CounsellingPage() {
   const [current, setCurrent] = useState(0);
+<<<<<<< HEAD
   const router = useRouter();
   const { user } = useUser();
+=======
+>>>>>>> 5fb6feedee6a90fc34192f815a856bf0e71d60e0
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -86,6 +92,7 @@ export default function CounsellingPage() {
     return () => clearInterval(timer);
   }, []);
 
+<<<<<<< HEAD
   const handleAction = () => {
     if (!user) {
       router.push('/signup');
@@ -95,6 +102,8 @@ export default function CounsellingPage() {
     }
   };
 
+=======
+>>>>>>> 5fb6feedee6a90fc34192f815a856bf0e71d60e0
   return (
     <div className="flex flex-col space-y-12 pb-20">
       {/* Header Section */}
@@ -156,7 +165,11 @@ export default function CounsellingPage() {
               </CardContent>
 
               <CardFooter className="relative">
+<<<<<<< HEAD
                 <Button onClick={handleAction} className="w-full group/btn rounded-xl py-6" variant="outline">
+=======
+                <Button className="w-full group/btn rounded-xl py-6" variant="outline">
+>>>>>>> 5fb6feedee6a90fc34192f815a856bf0e71d60e0
                   View Details 
                   <ArrowRight className="ml-2 w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
                 </Button>
@@ -251,7 +264,11 @@ export default function CounsellingPage() {
             </div>
           </div>
           <div className="w-full md:w-1/3 flex justify-center">
+<<<<<<< HEAD
              <Button onClick={handleAction} size="lg" className="rounded-full px-8 py-8 text-lg font-bold shadow-xl hover:scale-105 transition-transform">
+=======
+             <Button size="lg" className="rounded-full px-8 py-8 text-lg font-bold shadow-xl hover:scale-105 transition-transform">
+>>>>>>> 5fb6feedee6a90fc34192f815a856bf0e71d60e0
                 Book a Free Slot
              </Button>
           </div>

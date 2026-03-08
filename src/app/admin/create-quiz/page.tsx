@@ -176,8 +176,13 @@ function CreateQuizContent() {
   }
 
   async function onQuestionSubmit(data: QuestionFormValues) {
+<<<<<<< HEAD
      if (!user || !isAdmin || !createdTestSeriesId || !firestore) {
       toast({ title: "Error", description: "Admin authentication required.", variant: "destructive" });
+=======
+     if (!user || !adminUID || !createdTestSeriesId || !firestore) {
+      toast({ title: "Error", description: "Admin user, Course ID not identified, or Firestore not available.", variant: "destructive" });
+>>>>>>> 5fb6feedee6a90fc34192f815a856bf0e71d60e0
       return;
     }
 
@@ -576,6 +581,20 @@ function CreateQuizContent() {
           </CardContent>
         </Card>
       )}
+<<<<<<< HEAD
+=======
+
+      <Card className="mt-8 shadow-md">
+        <CardHeader>
+            <CardTitle>Admin Details</CardTitle>
+        </CardHeader>
+        <CardContent>
+            <p className="text-sm text-muted-foreground">
+                Your admin UID: {adminUID || "NOT SET"}.
+            </p>
+        </CardContent>
+      </Card>
+>>>>>>> 5fb6feedee6a90fc34192f815a856bf0e71d60e0
     </div>
   );
 }

@@ -1,7 +1,13 @@
+<<<<<<< HEAD
 
 "use client";
 import Link from "next/link";
 import { Home, ShoppingBag, User, Menu, MessageSquareHeart, GitBranch, LayoutDashboard, PlusCircle, ClipboardList } from "lucide-react";
+=======
+"use client";
+import Link from "next/link";
+import { Home, ShoppingBag, User, Menu, MessageSquareHeart, GitBranch, LayoutDashboard } from "lucide-react";
+>>>>>>> 5fb6feedee6a90fc34192f815a856bf0e71d60e0
 import { AuthButton } from "./AuthButton";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { usePathname } from 'next/navigation';
