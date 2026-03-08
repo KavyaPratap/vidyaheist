@@ -1,36 +1,90 @@
+
 "use client";
 
 import React, { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Loader2, 
-  Rocket, 
-  BrainCircuit, 
-  LineChart, 
-  GraduationCap, 
-  Users, 
-  ShieldCheck, 
-  CheckCircle2, 
   ArrowRight,
   PlayCircle,
-  Sparkles,
-  ChevronRight,
   Target,
   Zap,
-  BarChart3
+  BarChart3,
+  CheckCircle2,
+  Star,
+  Quote,
+  ChevronLeft,
+  ChevronRight,
+  HelpCircle
 } from "lucide-react";
 import { useUser } from "@/firebase";
 import { useRouter } from "next/navigation";
 import { APP_NAME } from "@/lib/constants";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import Image from 'next/image';
+
+const testimonials = [
+  {
+    name: "Rahul Sharma",
+    college: "IISER Pune",
+    text: "The mock tests were exactly like the actual IAT paper. The AI explanations helped me clear my physics concepts in minutes! Truly a heist for my dream college.",
+    rating: 5,
+    image: "https://picsum.photos/seed/student1/100/100",
+  },
+  {
+    name: "Priyanshu Kumar",
+    college: "NISER Bhubaneswar",
+    text: "VidyaHeist's NEST series is a lifesaver. The interface is so realistic that I didn't feel any exam pressure on the big day. The detailed analytics are spot on.",
+    rating: 5,
+    image: "https://picsum.photos/seed/student2/100/100",
+  },
+  {
+    name: "Aditi Mishra",
+    college: "IISER Kolkata",
+    text: "The personalized mentorship and the rank predictor gave me the confidence I needed. I could track my growth daily and focus on my weak chapters efficiently.",
+    rating: 5,
+    image: "https://picsum.photos/seed/student3/100/100",
+  },
+];
+
+const faqs = [
+  {
+    question: "What makes Vidyaheist different from other platforms?",
+    answer: "Vidyaheist focuses specifically on students who want to pursue research careers. We provide personalized learning paths, expert mentorship, and strategic preparation for research-oriented exams like IAT and NEST."
+  },
+  {
+    question: "Who should join Vidyaheist?",
+    answer: "Students who want to pursue scientific research, are preparing for exams like the IISER Aptitude Test (IAT), want guidance for institutes like IISERs/NISER, and need structured preparation with mentorship."
+  },
+  {
+    question: "What services does Vidyaheist provide?",
+    answer: "Vidyaheist offers personalized courses, advanced test series, one-to-one mentorship, college counselling for research institutes, and strategy sessions for competitive exams."
+  },
+  {
+    question: "How is the course personalized?",
+    answer: "Each student receives a customized study plan, performance analysis from tests, and mentorship guidance based specifically on their unique strengths and weaknesses."
+  },
+  {
+    question: "Does Vidyaheist provide mentorship?",
+    answer: "Yes. Students receive direct mentorship from experienced educators and research students who have already cracked these exams to guide you in academics, exams, and research careers."
+  },
+  {
+    question: "Do you help with college selection?",
+    answer: "Yes. Vidyaheist provides specialized college counselling and admission guidance for premium research institutes like IISERs, NISER, and UM-DAE CEBS."
+  }
+];
 
 export default function MarketingPage() {
   const { user, loading } = useUser();
   const router = useRouter();
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
-  // Handle Mouse Move for Global Spotlight Effect
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       setMousePosition({ x: e.clientX, y: e.clientY });
@@ -39,7 +93,6 @@ export default function MarketingPage() {
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
-  // Redirect if logged in
   useEffect(() => {
     if (!loading && user) {
       router.push('/dashboard');
@@ -57,8 +110,6 @@ export default function MarketingPage() {
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-background text-foreground transition-colors duration-300">
-      
-      {/* Global Dynamic Spotlight */}
       <div 
         className="pointer-events-none fixed inset-0 z-0 transition-opacity duration-300"
         style={{
@@ -70,7 +121,9 @@ export default function MarketingPage() {
         <HeroSection />
         <StatsSection />
         <FeaturesSection />
+        <TestimonialsSection />
         <HowItWorksSection />
+        <FAQSection />
         <CTASection />
       </div>
     </div>
@@ -81,8 +134,6 @@ function HeroSection() {
   return (
     <section className="relative w-full pt-20 md:pt-32 lg:pt-40 pb-16 overflow-hidden">
       <div className="container px-4 md:px-6 mx-auto grid gap-12 lg:grid-cols-2 lg:gap-8 items-center">
-        
-        {/* Left Content */}
         <motion.div 
           initial={{ opacity: 0, x: -50 }}
           animate={{ opacity: 1, x: 0 }}
@@ -96,19 +147,21 @@ function HeroSection() {
               transition={{ delay: 0.2 }}
               className="inline-flex items-center rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-sm font-medium text-primary backdrop-blur-sm"
             >
-              <Sparkles className="mr-2 h-4 w-4" />
-              <span>Rank #1 in JEE & NEET Prep</span>
+              <span>Rank #1 in IAT & NEST Prep</span>
             </motion.div>
             
             <h1 className="text-5xl font-extrabold tracking-tight sm:text-6xl md:text-7xl lg:text-8xl leading-[1.1]">
-              Unlock Your <br className="hidden lg:block"/>
+              <span className="block">Heist your</span>
+              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-primary animate-gradient-x">
+                Dream College 
+              </span>
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-primary animate-gradient-x">
-                True Potential
+                with {APP_NAME}
               </span>
             </h1>
             
             <p className="max-w-[600px] mx-auto lg:mx-0 text-foreground/70 md:text-xl leading-relaxed font-light">
-              Ace your exams with ultra-realistic NTA simulations, AI-powered mistake analysis, and expert-curated mock tests designed to guarantee success.
+              VidyaHeist helps you turn ambition into admission with proper personal mentorship and structured planning.
             </p>
           </div>
 
@@ -130,90 +183,53 @@ function HeroSection() {
           </motion.div>
         </motion.div>
 
-        {/* Right Content - Floating Visual */}
         <motion.div 
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1, ease: "easeOut" }}
-          className="relative lg:h-[600px] w-full max-w-[600px] mx-auto flex items-center justify-center"
+          className="relative w-full max-w-[600px] mx-auto flex flex-col gap-4"
         >
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-gradient-to-tr from-primary/20 to-accent/20 blur-[100px] rounded-full z-0"></div>
-
-          <motion.div
-            animate={{ y: [0, -20, 0] }}
-            transition={{ repeat: Infinity, duration: 6, ease: "easeInOut" }}
-            className="relative z-10 w-full rounded-2xl border border-border bg-background/50 p-2 shadow-2xl backdrop-blur-xl"
+          <motion.div 
+            initial={{ x: -20, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ delay: 0.6 }}
+            className="bg-background/90 backdrop-blur-md rounded-lg p-3 shadow-lg border border-border flex items-center gap-3 w-fit self-start ml-4 z-20"
           >
-            <div className="relative rounded-xl overflow-hidden aspect-[4/3] bg-secondary/30">
-              <img 
-                src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=2000&auto=format&fit=crop" 
-                alt="Student analyzing performance" 
-                className="object-cover w-full h-full opacity-80 mix-blend-overlay"
-              />
-              
-              <div className="absolute inset-0 p-6 flex flex-col justify-between">
-                <div className="flex justify-between items-start">
-                  <div className="bg-background/80 backdrop-blur-md rounded-lg p-3 shadow-lg border border-border flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-green-500/20 flex items-center justify-center text-green-500">
-                      <LineChart className="w-5 h-5" />
-                    </div>
-                    <div>
-                      <p className="text-xs text-muted-foreground">Est. Rank</p>
-                      <p className="font-bold text-foreground">Top 1%</p>
-                    </div>
-                  </div>
-                </div>
-
-                <motion.div 
-                  initial={{ x: 50, opacity: 0 }}
-                  animate={{ x: 0, opacity: 1 }}
-                  transition={{ delay: 1 }}
-                  className="self-end bg-background/80 backdrop-blur-md rounded-lg p-4 shadow-lg border border-border w-48"
-                >
-                  <p className="text-xs text-muted-foreground mb-2">Accuracy Rate</p>
-                  <div className="h-2 w-full bg-secondary rounded-full overflow-hidden">
-                    <motion.div 
-                      initial={{ width: 0 }} 
-                      animate={{ width: "85%" }} 
-                      transition={{ duration: 1.5, delay: 1.2 }}
-                      className="h-full bg-primary"
-                    />
-                  </div>
-                  <p className="text-right text-sm font-bold mt-1">85%</p>
-                </motion.div>
-              </div>
+            <div className="w-10 h-10 rounded-full bg-green-500/20 flex items-center justify-center text-green-500">
+              <BarChart3 className="w-5 h-5" />
+            </div>
+            <div>
+              <p className="text-xs text-muted-foreground">Est. Rank</p>
+              <p className="text-sm font-bold text-primary">Top 1%</p>
             </div>
           </motion.div>
 
-          <FloatingBadge icon={<BrainCircuit/>} text="AI Analysis" delay={0.2} top="-10%" left="10%" />
-          <FloatingBadge icon={<ShieldCheck/>} text="NTA Pattern" delay={0.5} bottom="10%" right="-5%" />
+          <div className="relative z-10 w-full rounded-2xl border border-border bg-background shadow-2xl overflow-hidden">
+            <div className="relative aspect-[4/3] bg-background">
+              <Image 
+                src="/imghome.jpeg"
+                alt="Student analyzing performance" 
+                width={800}
+                height={600}
+                className="object-cover w-full h-full"
+                priority
+              />
+            </div>
+          </div>
+          
+          <div className="absolute -top-1/4 left-1/2 -translate-x-1/2 w-[120%] h-[120%] bg-gradient-to-tr from-primary/10 to-accent/10 blur-[100px] rounded-full -z-10 pointer-events-none"></div>
         </motion.div>
       </div>
     </section>
   );
 }
 
-function FloatingBadge({ icon, text, delay, top, left, right, bottom }: any) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, scale: 0 }}
-      animate={{ opacity: 1, scale: 1 }}
-      transition={{ delay: 1 + delay, type: "spring" }}
-      className="absolute z-20 bg-background border border-border shadow-xl rounded-full px-4 py-2 flex items-center gap-2 backdrop-blur-md"
-      style={{ top, left, right, bottom }}
-    >
-      <span className="text-primary">{icon}</span>
-      <span className="text-sm font-medium">{text}</span>
-    </motion.div>
-  );
-}
-
 function StatsSection() {
   const stats = [
-    { label: "Active Students", value: "50,000+" },
-    { label: "Mock Tests Attempted", value: "1.2M+" },
-    { label: "Questions Bank", value: "100K+" },
-    { label: "Selection Rate", value: "3x Higher" },
+    { label: "Mentored Students", value: "1000+" },
+    { label: "Mock Tests Attempted", value: "1.2k+" },
+    { label: "Questions Bank", value: "35+" },
+    { label: "Selection Rate", value: "2x Higher" },
   ];
 
   return (
@@ -225,7 +241,7 @@ function StatsSection() {
               key={index}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false, margin: "-50px" }}
+              viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
               className="space-y-2"
             >
@@ -243,9 +259,9 @@ function FeaturesSection() {
   const features = [
     {
       title: "Realistic Exam Simulation",
-      description: "Experience the actual JEE/NEET environment with identical UI and timed tests.",
+      description: "Experience the actual IAT/NEST environment with identical UI and timed tests.",
       icon: <Target className="w-8 h-8 text-primary" />,
-      items: ["NTA Pattern Implementation", "Strict Timed Sessions", "Distraction-free mode", "Realistic UI", "Live Mock Feed"]
+      items: ["Strict Timed Sessions", "Distraction-free mode", "Realistic UI", "Live Mock Feed"]
     },
     {
       title: "AI-Enhanced Explanations",
@@ -268,7 +284,7 @@ function FeaturesSection() {
           <motion.div 
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, margin: "-50px" }}
+            viewport={{ once: true }}
             className="inline-block rounded-full bg-secondary px-4 py-1.5 text-sm font-bold text-primary border border-border"
           >
             The Ultimate Toolkit
@@ -276,7 +292,7 @@ function FeaturesSection() {
           <motion.h2 
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, margin: "-50px" }}
+            viewport={{ once: true }}
             transition={{ delay: 0.1 }}
             className="text-4xl font-bold tracking-tighter sm:text-5xl"
           >
@@ -293,7 +309,7 @@ function FeaturesSection() {
               key={idx}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false, margin: "-50px" }}
+              viewport={{ once: true }}
               transition={{ delay: idx * 0.1, duration: 0.5 }}
             >
               <Card className="h-full transition-all hover:shadow-xl hover:border-primary/50 group">
@@ -323,11 +339,99 @@ function FeaturesSection() {
   );
 }
 
+function TestimonialsSection() {
+  const [current, setCurrent] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrent((prev) => (prev + 1) % testimonials.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, []);
+
+  return (
+    <section className="w-full py-24 bg-primary/5 relative z-10 overflow-hidden">
+      <div className="container px-4 md:px-6 mx-auto">
+        <div className="text-center mb-16">
+          <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl mb-4 text-primary">Success Stories</h2>
+          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">Hear from students who heist their way into India's top research institutes.</p>
+        </div>
+
+        <div className="relative max-w-4xl mx-auto px-12">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={current}
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+              transition={{ duration: 0.5 }}
+              className="bg-background rounded-3xl p-8 md:p-12 shadow-2xl border border-primary/10 flex flex-col md:flex-row gap-8 items-center"
+            >
+              <div className="relative flex-shrink-0">
+                <div className="w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden border-4 border-primary/20 shadow-xl">
+                  <Image 
+                    src={testimonials[current].image} 
+                    alt={testimonials[current].name}
+                    width={128}
+                    height={128}
+                    className="object-cover"
+                  />
+                </div>
+                <div className="absolute -bottom-2 -right-2 bg-primary text-primary-foreground p-2 rounded-full shadow-lg">
+                  <Quote className="w-4 h-4" />
+                </div>
+              </div>
+
+              <div className="flex-grow space-y-4 text-center md:text-left">
+                <div className="flex justify-center md:justify-start gap-1">
+                  {[...Array(testimonials[current].rating)].map((_, i) => (
+                    <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" />
+                  ))}
+                </div>
+                <p className="text-xl md:text-2xl font-medium italic text-foreground/90 leading-relaxed">
+                  "{testimonials[current].text}"
+                </p>
+                <div>
+                  <h4 className="text-xl font-bold text-primary">{testimonials[current].name}</h4>
+                  <p className="text-muted-foreground font-semibold">{testimonials[current].college}</p>
+                </div>
+              </div>
+            </motion.div>
+          </AnimatePresence>
+
+          <button 
+            onClick={() => setCurrent((prev) => (prev - 1 + testimonials.length) % testimonials.length)}
+            className="absolute left-0 top-1/2 -translate-y-1/2 p-2 rounded-full bg-background border border-border shadow-md hover:bg-secondary transition-colors"
+          >
+            <ChevronLeft className="w-6 h-6" />
+          </button>
+          <button 
+            onClick={() => setCurrent((prev) => (prev + 1) % testimonials.length)}
+            className="absolute right-0 top-1/2 -translate-y-1/2 p-2 rounded-full bg-background border border-border shadow-md hover:bg-secondary transition-colors"
+          >
+            <ChevronRight className="w-6 h-6" />
+          </button>
+
+          <div className="flex justify-center gap-2 mt-8">
+            {testimonials.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setCurrent(i)}
+                className={`w-2.5 h-2.5 rounded-full transition-all ${current === i ? 'bg-primary w-8' : 'bg-primary/20'}`}
+              />
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function HowItWorksSection() {
   const steps = [
     { num: "01", title: "Create Profile", desc: "Sign up and tell us your target exam and current prep level." },
-    { num: "02", title: "Take Diagnostic", desc: "Attempt a baseline mock test to identify your strong and weak zones." },
-    { num: "03", title: "Follow AI Plan", desc: "Get a personalized study roadmap and targeted practice questions." },
+    { num: "02", title: "Dashboard", desc: "A personalized dashbaord to identify your strong and weak zones." },
+    { num: "03", title: "Take test", desc: "Get a personalized study roadmap and targeted practice questions." },
     { num: "04", title: "Track & Conquer", desc: "Watch your rank improve in real-time as you clear your weaknesses." },
   ];
 
@@ -345,8 +449,7 @@ function HowItWorksSection() {
           </div>
 
           <div className="w-full md:w-2/3 relative">
-            {/* Timeline Line - Fixed centering and visibility */}
-            <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary via-accent to-transparent z-0 opacity-20"></div>
+            <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary via-accent to-transparent z-0 opacity-20 hidden md:block"></div>
 
             <div className="space-y-12 relative z-10">
               {steps.map((step, idx) => (
@@ -354,7 +457,7 @@ function HowItWorksSection() {
                   key={idx}
                   initial={{ opacity: 0, x: 50 }}
                   whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: false, margin: "-100px" }}
+                  viewport={{ once: true }}
                   transition={{ delay: idx * 0.15, duration: 0.5 }}
                   className="flex gap-6 items-start group"
                 >
@@ -376,6 +479,52 @@ function HowItWorksSection() {
   );
 }
 
+function FAQSection() {
+  return (
+    <section className="w-full py-24 bg-secondary/10 relative z-10 overflow-hidden">
+      <div className="container px-4 md:px-6 mx-auto max-w-4xl">
+        <div className="text-center mb-16 space-y-4">
+          <motion.div 
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-1.5 text-sm font-bold text-primary"
+          >
+            <HelpCircle className="h-4 w-4" />
+            <span>Common Questions</span>
+          </motion.div>
+          <motion.h2 
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+            className="text-4xl font-bold tracking-tighter sm:text-5xl"
+          >
+            Find your <span className="text-primary">Answers</span>
+          </motion.h2>
+        </div>
+
+        <Card className="shadow-2xl border-primary/10 overflow-hidden">
+          <CardContent className="p-0">
+            <Accordion type="single" collapsible className="w-full">
+              {faqs.map((faq, idx) => (
+                <AccordionItem key={idx} value={`home-item-${idx}`} className="border-b last:border-0 px-6 hover:bg-muted/30 transition-colors">
+                  <AccordionTrigger className="text-left font-bold text-lg hover:text-primary transition-colors hover:no-underline py-6">
+                    {faq.question}
+                  </AccordionTrigger>
+                  <AccordionContent className="text-muted-foreground text-base leading-relaxed pb-6">
+                    {faq.answer}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </CardContent>
+        </Card>
+      </div>
+    </section>
+  );
+}
+
 function CTASection() {
   return (
     <section className="w-full py-24 relative z-10">
@@ -383,7 +532,7 @@ function CTASection() {
         <motion.div 
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: false, margin: "-50px" }}
+          viewport={{ once: true }}
           transition={{ duration: 0.5 }}
           className="relative rounded-[3rem] overflow-hidden bg-primary px-6 py-16 md:py-24 text-center text-primary-foreground shadow-2xl"
         >
@@ -392,7 +541,7 @@ function CTASection() {
 
           <div className="relative z-10 max-w-3xl mx-auto space-y-8">
             <h2 className="text-4xl md:text-6xl font-extrabold tracking-tight">
-              Stop Dreaming. <br/>Start Scoring.
+              Heist your dream college. <br/>with VidyaHeist.
             </h2>
             <p className="text-lg md:text-2xl text-primary-foreground/80 max-w-2xl mx-auto">
               Join thousands of students who have already transformed their preparation and secured their dream colleges.
@@ -406,7 +555,6 @@ function CTASection() {
                 <ArrowRight className="ml-2 w-5 h-5" />
               </a>
             </div>
-            <p className="text-sm text-primary-foreground/60 mt-6">No credit card required. 7-day free trial on premium tests.</p>
           </div>
         </motion.div>
       </div>

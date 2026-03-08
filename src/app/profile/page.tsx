@@ -1,19 +1,20 @@
 
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
-import { useAuth, useUser } from "@/firebase";
-import { updatePassword } from "firebase/auth";
+import { useAuth, useUser, useFirestore } from "@/firebase";
+import { updatePassword, updateProfile } from "firebase/auth";
+import { doc, updateDoc } from "firebase/firestore";
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { Award, BarChart2, BookOpenCheck, Edit3, KeyRound, Loader2 } from "lucide-react";
+import { Award, BarChart2, BookOpenCheck, Edit3, KeyRound, Loader2, User as UserIcon, Phone, Image as ImageIcon } from "lucide-react";
 import { formatDistanceToNow } from 'date-fns';
 import {
   Form,
@@ -22,9 +23,19 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
+  FormDescription,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
 const changePasswordSchema = z.object({
   newPassword: z.string().min(6, { message: "New password must be at least 6 characters." }),
@@ -34,13 +45,22 @@ const changePasswordSchema = z.object({
   path: ["confirmPassword"],
 });
 
+const editProfileSchema = z.object({
+  displayName: z.string().min(2, { message: "Name must be at least 2 characters." }),
+  mobileNumber: z.string().regex(/^\d{10}$/, { message: "Mobile number must be 10 digits." }),
+  photoURL: z.string().url({ message: "Please enter a valid image URL." }).or(z.literal("")),
+});
+
 type ChangePasswordFormValues = z.infer<typeof changePasswordSchema>;
+type EditProfileFormValues = z.infer<typeof editProfileSchema>;
 
 export default function ProfilePage() {
   const { user, loading: userLoading } = useUser();
   const auth = useAuth();
+  const firestore = useFirestore();
   const router = useRouter();
   const { toast } = useToast();
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
 
   const passwordForm = useForm<ChangePasswordFormValues>({
     resolver: zodResolver(changePasswordSchema),
@@ -50,11 +70,29 @@ export default function ProfilePage() {
     },
   });
 
+  const profileForm = useForm<EditProfileFormValues>({
+    resolver: zodResolver(editProfileSchema),
+    defaultValues: {
+      displayName: "",
+      mobileNumber: "",
+      photoURL: "",
+    },
+  });
+
   useEffect(() => {
-    if (!userLoading && !user) {
-      router.push("/login");
+    if (!userLoading) {
+      if (!user) {
+        router.push("/login");
+      } else {
+        // Initialize form with current values
+        profileForm.reset({
+          displayName: user.displayName || "",
+          mobileNumber: "", // Will be fetched from Firestore if needed
+          photoURL: user.photoURL || "",
+        });
+      }
     }
-  }, [user, userLoading, router]);
+  }, [user, userLoading, router, profileForm]);
 
   async function onChangePasswordSubmit(data: ChangePasswordFormValues) {
     if (!auth?.currentUser) {
@@ -82,6 +120,40 @@ export default function ProfilePage() {
     }
   }
 
+  async function onEditProfileSubmit(data: EditProfileFormValues) {
+    if (!auth?.currentUser || !firestore) return;
+
+    try {
+      // 1. Update Firebase Auth Profile
+      await updateProfile(auth.currentUser, {
+        displayName: data.displayName,
+        photoURL: data.photoURL || null,
+      });
+
+      // 2. Update Firestore User Doc
+      const userDocRef = doc(firestore, "users", auth.currentUser.uid);
+      await updateDoc(userDocRef, {
+        displayName: data.displayName,
+        mobileNumber: data.mobileNumber,
+        photoURL: data.photoURL || null,
+      });
+
+      toast({
+        title: "Profile Updated",
+        description: "Your changes have been saved successfully.",
+      });
+      setIsEditDialogOpen(false);
+      router.refresh();
+    } catch (error: any) {
+      console.error("Error updating profile:", error);
+      toast({
+        title: "Update Failed",
+        description: error.message || "An error occurred while updating your profile.",
+        variant: "destructive",
+      });
+    }
+  }
+
   if (userLoading) {
     return (
       <div className="flex items-center justify-center h-[calc(100vh-10rem)]">
@@ -92,7 +164,6 @@ export default function ProfilePage() {
   }
 
   if (!user) {
-    // This will be briefly visible before the useEffect redirects
     return (
       <div className="flex flex-col items-center justify-center h-[calc(100vh-10rem)]">
         <p className="text-lg text-muted-foreground mb-4">Redirecting to login...</p>
@@ -114,19 +185,93 @@ export default function ProfilePage() {
       </section>
 
       <Card className="shadow-xl">
-        <CardHeader className="flex flex-row items-center space-x-4 pb-4">
+        <CardHeader className="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-4 pb-4">
           <Avatar className="h-20 w-20">
             <AvatarImage src={avatarUrl} alt={displayName} />
             <AvatarFallback>{displayName.substring(0, 1).toUpperCase()}</AvatarFallback>
           </Avatar>
-          <div>
+          <div className="text-center sm:text-left">
             <CardTitle className="text-2xl">{displayName}</CardTitle>
             <CardDescription>{user.email}</CardDescription>
             <CardDescription>Joined: {joinDate}</CardDescription>
           </div>
-          <Button variant="outline" size="sm" className="ml-auto" disabled> {/* Edit profile not implemented yet */}
-            <Edit3 className="mr-2 h-4 w-4" /> Edit Profile
-          </Button>
+          
+          <div className="ml-auto">
+            <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
+              <DialogTrigger asChild>
+                <Button variant="outline" size="sm">
+                  <Edit3 className="mr-2 h-4 w-4" /> Edit Profile
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="sm:max-w-[425px]">
+                <DialogHeader>
+                  <DialogTitle>Edit Profile</DialogTitle>
+                  <DialogDescription>
+                    Make changes to your profile here. Click save when you're done.
+                  </DialogDescription>
+                </DialogHeader>
+                <Form {...profileForm}>
+                  <form onSubmit={profileForm.handleSubmit(onEditProfileSubmit)} className="space-y-4">
+                    <FormField
+                      control={profileForm.control}
+                      name="displayName"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Full Name</FormLabel>
+                          <div className="relative">
+                            <UserIcon className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                            <FormControl>
+                              <Input className="pl-9" placeholder="John Doe" {...field} />
+                            </FormControl>
+                          </div>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={profileForm.control}
+                      name="mobileNumber"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Mobile Number</FormLabel>
+                          <div className="relative">
+                            <Phone className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                            <FormControl>
+                              <Input className="pl-9" placeholder="10-digit number" {...field} maxLength={10} />
+                            </FormControl>
+                          </div>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={profileForm.control}
+                      name="photoURL"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Profile Picture URL</FormLabel>
+                          <div className="relative">
+                            <ImageIcon className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                            <FormControl>
+                              <Input className="pl-9" placeholder="https://example.com/avatar.png" {...field} />
+                            </FormControl>
+                          </div>
+                          <FormDescription>Link to an external image file.</FormDescription>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <DialogFooter>
+                      <Button type="submit" disabled={profileForm.formState.isSubmitting}>
+                        {profileForm.formState.isSubmitting ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
+                        Save Changes
+                      </Button>
+                    </DialogFooter>
+                  </form>
+                </Form>
+              </DialogContent>
+            </Dialog>
+          </div>
         </CardHeader>
         
         <Separator />

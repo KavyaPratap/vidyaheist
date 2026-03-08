@@ -1,3 +1,4 @@
+
 // src/components/shared/Header.tsx
 "use client";
 import Link from "next/link";
@@ -15,13 +16,13 @@ import { useUser } from "@/firebase";
 
 const signedOutNavItems = [
   { href: "/", label: "Home", icon: Home },
-  { href: "/store", label: "Test Series", icon: ShoppingBag },
+  { href: "/store", label: "Courses", icon: ShoppingBag },
   { href: "/counselling", label: "Counselling", icon: MessageSquareHeart },
 ];
 
 const signedInNavItems = [
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
-  { href: "/store", label: "Test Series", icon: ShoppingBag },
+  { href: "/store", label: "Courses", icon: ShoppingBag },
   { href: "/predictor", label: "Predictor", icon: GitBranch },
   { href: "/profile", label: "Profile", icon: User },
 ];
@@ -44,7 +45,7 @@ export function Header() {
       <div className="container flex h-16 items-center">
         <Link href={user ? "/dashboard" : "/"} className="mr-6 flex items-center space-x-2">
           {/* Your Logo */}
-          <img src="/logo.png" alt="App Logo" className="h-8 w-8 object-contain" />
+          <img src="/logo.jpeg" alt="App Logo" className="h-8 w-8 object-contain rounded-sm" />
           {/* APP_NAME */}
           <span className="font-bold text-xl leading-none">{APP_NAME}</span>
         </Link>
@@ -81,7 +82,7 @@ export function Header() {
               </SheetContent>
             </Sheet>
           </div>
- ) : (
+        ) : (
           <>
             <nav className="hidden md:flex items-center space-x-1">
               {navItems.map((item) => (

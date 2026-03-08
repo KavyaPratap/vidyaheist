@@ -14,7 +14,7 @@ export function Footer() {
           {/* Column 1: App Info */}
           <div className="space-y-4">
             <Link href="/" className="flex items-center space-x-2">
-                 <Image src="/logo.png" alt="Vidyaheist Logo" width={32} height={32} />
+                 <Image src="/logo.jpeg" alt="Vidyaheist Logo" width={32} height={32} className="rounded-sm" />
                  <span className="text-2xl font-bold">{APP_NAME}</span>
             </Link>
             <p className="text-sm text-muted-foreground">
