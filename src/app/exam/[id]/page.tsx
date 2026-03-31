@@ -19,7 +19,8 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 import { useFirestore, useUser } from "@/firebase";
 import { doc, getDoc, collection, getDocs, query, where } from "firebase/firestore";
-import { getQuestionsFromTex } from "@/lib/tex-parser";
+// Removed: import { getQuestionsFromTex } from "@/lib/tex-parser";
+
 import { MathText } from "@/components/shared/MathText";
 
 
@@ -126,6 +127,13 @@ const QuestionPalette = memo(function QuestionPalette({
     </Card>
   );
 });
+
+async function getQuestionsFromTex() {
+  const res = await fetch("/api/questions?filePath=physics/1.tex");
+  if (!res.ok) throw new Error("Failed to fetch questions from TeX file.");
+  const data = await res.json();
+  return data.questions || [];
+}
 
 export default function ExamPage() {
   const params = useParams();

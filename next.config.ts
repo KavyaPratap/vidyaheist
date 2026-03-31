@@ -37,6 +37,9 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  outputFileTracingRoot: process.cwd(),
 };
+
+
 
 export default nextConfig;

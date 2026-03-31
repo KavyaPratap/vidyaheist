@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useUser, useFirestore } from "@/firebase";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -112,7 +112,7 @@ const TreeViewNode = ({ node, activeFilePath, setActiveFilePath, selectedPaths, 
   );
 };
 
-export default function CreateQuizPage() {
+function CreateQuizContent() {
   const { user, loading: userLoading } = useUser();
   const firestore = useFirestore();
   const router = useRouter();
@@ -589,3 +589,12 @@ export default function CreateQuizPage() {
     </div>
   );
 }
+
+export default function CreateQuizPage() {
+  return (
+    <Suspense fallback={<div className="flex justify-center py-20"><Loader2 className="animate-spin" /></div>}>
+      <CreateQuizContent />
+    </Suspense>
+  );
+}
+
