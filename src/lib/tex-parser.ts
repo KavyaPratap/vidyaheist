@@ -1,88 +1,188 @@
-
 import type { QuestionType, QuestionOption } from './types';
 
-function parseLatex(latexContent: string): QuestionType[] {
+export function parseQuestionFile(content: string, type: 'tex' | 'txt'): QuestionType[] {
+  // Intelligent sniffing: if it's meant to be a TXT but contains LaTeX code, switch it.
+  if (type === 'txt' && (content.includes('\\item') || content.includes('\\begin{document}'))) {
+    type = 'tex';
+  }
+
+  if (type === 'tex') {
+    return parseLatex(content);
+  } else if (type === 'txt') {
+    return parseText(content);
+  }
+  return [];
+}
+
+export function parseLatex(latexContent: string): QuestionType[] {
   const questions: QuestionType[] = [];
 
-  // Start parsing from \begin{document}
-  const docContentStartIndex = latexContent.indexOf('\\begin{document}');
-  if (docContentStartIndex === -1) {
-    return [];
-  }
-  const content = latexContent.substring(docContentStartIndex);
+  let content = latexContent;
+  const docStart = content.indexOf('\\begin{document}');
+  if (docStart !== -1) content = content.substring(docStart);
 
-  // Split the document into question blocks based on '\item Q.'
-  const questionBlocks = content.split('\\item Q.').slice(1);
+  // Strip tikzpicture and center environments to clean up the text
+  content = content.replace(/\\begin\{tikzpicture\}[\s\S]*?\\end\{tikzpicture\}/g, '');
+  content = content.replace(/\\begin\{center\}/g, '').replace(/\\end\{center\}/g, '');
 
-  for (let i = 0; i < questionBlocks.length; i++) {
-    const block = questionBlocks[i];
-    
-    // Improved regex to find the correct answer, e.g., \hfill \textbf{((A))} or \textbf{(A)}
-    const answerMatch = block.match(/\\hfill\s*\\textbf{\s*(?:\({2}(.+?)\){2}|\((.+?)\))/);
-    const correctAnswerLetter = answerMatch ? (answerMatch[1] || answerMatch[2]).trim() : null;
+  const splits = content.split(/\\item\s+/);
 
-    // Clean the block by removing the answer part and trimming whitespace
-    const cleanBlock = (answerMatch ? block.replace(answerMatch[0], '') : block).trim();
+  let currentQuestionText = "";
+  let currentOptions: QuestionOption[] = [];
+  let inOptionsPhase = false;
+  let correctLetter = '';
 
-    // Find the start of the options, which is the first occurrence of `(A)` or `(a)`
-    const firstOptionIndex = cleanBlock.search(/\s*\([A-Za-z]\)/);
-    if (firstOptionIndex === -1) {
-      continue;
-    }
+  for (let i = 1; i < splits.length; i++) {
+    let block = splits[i].trim();
 
-    const questionText = cleanBlock.substring(0, firstOptionIndex).trim();
-    const optionsString = cleanBlock.substring(firstOptionIndex).trim();
-    
-    // Regex to capture options like (A) text (B) text
-    const optionRegex = /\(([A-Z])\) (.*?)(?=\s*\([A-Z]\)\s|\\end{enumerate}|$)/gs;
-    let optionMatch;
-    const options: QuestionOption[] = [];
-    let correctAnswerId = '';
-    let optionCounter = 0;
-    
-    while ((optionMatch = optionRegex.exec(optionsString)) !== null) {
-        const optionLetter = optionMatch[1].trim();
-        // Clean up option text from any trailing LaTeX commands or whitespace
-        const optionText = optionMatch[2].replace(/\\hfill/g, '').trim(); 
-        
-        // Using question index `i` and an internal counter `optionCounter` to guarantee uniqueness
-        const id = `q-${i}-opt-${optionCounter++}`;
-        options.push({ id, text: optionText });
-        if (optionLetter === correctAnswerLetter) {
-            correctAnswerId = id;
+    if (inOptionsPhase) {
+      const endEnumIndex = block.indexOf('\\end{enumerate}');
+
+      if (endEnumIndex !== -1) {
+        const optionText = block.substring(0, endEnumIndex).trim();
+        const id = `opt-${Math.random().toString(36).substr(2, 9)}`;
+        if (optionText) currentOptions.push({ id, text: optionText });
+
+        let correctAnswerId = '';
+        if (correctLetter) {
+          const letterIndex = correctLetter.charCodeAt(0) - 65;
+          if (letterIndex >= 0 && letterIndex < currentOptions.length) {
+            correctAnswerId = currentOptions[letterIndex].id;
+          }
         }
+
+        if (currentQuestionText && currentOptions.length > 0) {
+          questions.push({
+            id: `tex-q-${Date.now()}-${i}-${Math.random().toString(36).substring(7)}`,
+            text: currentQuestionText,
+            options: [...currentOptions],
+            correctAnswerId,
+            topic: "Imported (LaTeX)",
+            subject: "Physics"
+          });
+        }
+
+        inOptionsPhase = false;
+        currentOptions = [];
+        correctLetter = '';
+
+      } else {
+        const id = `opt-${Math.random().toString(36).substr(2, 9)}`;
+        if (block) currentOptions.push({ id, text: block });
+      }
     }
-    
-    if (questionText && options.length > 0 && correctAnswerId) {
-        questions.push({
-            id: `tex-q-${i}`,
-            text: questionText,
-            options: options,
-            correctAnswerId: correctAnswerId,
-            topic: "Question Bank",
-            subject: "General",
-        });
+    else {
+      const beginEnumIndex = block.indexOf('\\begin{enumerate}');
+
+      if (beginEnumIndex !== -1) {
+        currentQuestionText = block.substring(0, beginEnumIndex).trim();
+
+        // Try finding inline correct answer hint
+        const answerMatch = currentQuestionText.match(/\\hfill\s*\\textbf{\s*(?:\({1,2}(.+?)\){1,2}|\((.+?)\))/);
+        if (answerMatch) {
+          correctLetter = (answerMatch[1] || answerMatch[2]).trim().toUpperCase();
+          currentQuestionText = currentQuestionText.replace(answerMatch[0], '').trim();
+        }
+
+        currentOptions = [];
+        inOptionsPhase = true;
+      } else {
+        // Fallback: If no \begin{enumerate} found, check if options are inline e.g. (A) Option1, A) Option2
+        const optionRegexFilter = /(?:^|\s)(?:\([A-Ea-e]\)|[A-Ea-e]\))/g;
+        const matchInline = block.match(optionRegexFilter);
+        if (matchInline && matchInline.length >= 2) {
+          const matchResult = block.match(/(?:^|\s)(?:\([A-Ea-e]\)|[A-Ea-e]\))/);
+          const firstOptionIndex = matchResult ? matchResult.index || 0 : -1;
+          
+          if (firstOptionIndex !== -1) {
+              currentQuestionText = block.substring(0, firstOptionIndex).trim();
+
+              // Handle optional answer marking inside question text or at the end
+              const answerMatch = currentQuestionText.match(/\\hfill\s*\\textbf{\s*(?:\({1,2}([A-Ea-e])\){1,2}|\(([A-Ea-e])\))/i);
+              if (answerMatch) {
+                correctLetter = (answerMatch[1] || answerMatch[2]).trim().toUpperCase();
+                currentQuestionText = currentQuestionText.replace(answerMatch[0], '').trim();
+              }
+
+              const optionsString = block.substring(firstOptionIndex).trim();
+              const optRegex = /(?:^|\s)(?:\(([A-Ea-e])\)|([A-Ea-e])\))\s*([\s\S]*?)(?=\s*(?:\([A-Ea-e]\)|[A-Ea-e]\))(?:[^a-zA-Z]|$)|$)/gi;
+              let optExec;
+              let foundCorrectId = '';
+
+              while ((optExec = optRegex.exec(optionsString)) !== null) {
+                const letter = (optExec[1] || optExec[2]).toUpperCase();
+                const id = `opt-${Math.random().toString(36).substr(2, 9)}`;
+                currentOptions.push({ id, text: optExec[3].trim() });
+                if (correctLetter === letter) {
+                  foundCorrectId = id;
+                }
+              }
+
+              if (currentQuestionText && currentOptions.length >= 2) {
+                questions.push({
+                  id: `tex-q-${Date.now()}-${i}-${Math.random().toString(36).substring(7)}`,
+                  text: currentQuestionText,
+                  options: [...currentOptions],
+                  correctAnswerId: foundCorrectId,
+                  topic: "Imported (LaTeX)",
+                  subject: "Physics"
+                });
+              }
+              currentOptions = [];
+              correctLetter = '';
+          }
+        }
+      }
     }
   }
 
   return questions;
 }
 
-export async function getQuestionsFromTex(): Promise<QuestionType[]> {
-  if (typeof window === 'undefined') {
-    // Cannot fetch on server side during build, return empty.
-    // The fetch will happen on the client.
-    return [];
-  }
-  try {
-    const response = await fetch(`${window.location.origin}/question_bank.tex`);
-    if (!response.ok) {
-        throw new Error(`Network response was not ok for question_bank.tex: ${response.statusText}`);
+export function parseText(textContent: string): QuestionType[] {
+  const questions: QuestionType[] = [];
+  const questionBlocks = textContent.split(/(?:^|\n)Q\.\s*/).slice(1);
+
+  for (let i = 0; i < questionBlocks.length; i++) {
+    const block = questionBlocks[i];
+
+    const answerMatch = block.match(/Answer:\s*([A-Za-z])/i);
+    const correctAnswerLetter = answerMatch ? answerMatch[1].toUpperCase() : null;
+
+    const cleanBlock = (answerMatch ? block.replace(answerMatch[0], '') : block).trim();
+
+    const firstOptionIndex = cleanBlock.search(/\s*\([A-Z]\)/);
+    if (firstOptionIndex === -1) continue;
+
+    const questionText = cleanBlock.substring(0, firstOptionIndex).trim();
+    const optionsString = cleanBlock.substring(firstOptionIndex).trim();
+
+    const optionRegex = /\(([A-Z])\)\s*(.*?)(?=\s*\([A-Z]\)\s|$)/gs;
+    let optionMatch;
+    const options: QuestionOption[] = [];
+    let foundCorrectAnswerId = '';
+
+    while ((optionMatch = optionRegex.exec(optionsString)) !== null) {
+      const optionLetter = optionMatch[1].trim().toUpperCase();
+      const optionText = optionMatch[2].trim();
+      const id = `opt-${Math.random().toString(36).substr(2, 9)}`;
+      options.push({ id, text: optionText });
+      if (optionLetter === correctAnswerLetter) {
+        foundCorrectAnswerId = id;
+      }
     }
-    const latexContent = await response.text();
-    return parseLatex(latexContent);
-  } catch (error) {
-    console.error("Failed to fetch or parse question bank:", error);
-    return [];
+
+    if (questionText && options.length > 0) {
+      questions.push({
+        id: `txt-q-${Date.now()}-${i}-${Math.random().toString(36).substring(7)}`,
+        text: questionText,
+        options: options,
+        correctAnswerId: foundCorrectAnswerId,
+        topic: "Imported",
+        subject: "General",
+      });
+    }
   }
+
+  return questions;
 }

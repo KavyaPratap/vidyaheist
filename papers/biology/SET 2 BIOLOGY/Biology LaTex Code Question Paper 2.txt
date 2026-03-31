@@ -1,0 +1,52 @@
+\documentclass{article}
+\begin{document}
+\section*{Biology Set 2 - Paper 2 (Questions)}
+
+\begin{enumerate}
+\item [Diversity] Which phylum includes organisms with a pseudocoelom?  
+(A) Annelida (B) Nematoda (C) Arthropoda (D) Mollusca
+
+\item [Cell Biology] Which organelle is responsible for protein folding quality control?  
+(A) Rough ER (B) Golgi apparatus (C) Lysosome (D) Ribosome
+
+\item [Genetics] Which genetic disorder is caused by a single base substitution in the hemoglobin gene?  
+(A) Thalassemia (B) Sickle cell anemia (C) Hemophilia (D) Down syndrome
+
+\item [Plant Physiology] Which process explains guttation in plants?  
+(A) Root pressure (B) Transpiration (C) Diffusion (D) Osmosis
+
+\item [Human Physiology] Which hormone stimulates uterine contractions during childbirth?  
+(A) Progesterone (B) Oxytocin (C) Estrogen (D) Prolactin
+
+\item [Ecology] Which type of species has a disproportionately large effect on ecosystem structure?  
+(A) Indicator species (B) Keystone species (C) Endemic species (D) Exotic species
+
+\item [Cell Biology] Which enzyme removes RNA primers during DNA replication in prokaryotes?  
+(A) DNA polymerase I (B) DNA polymerase III (C) Ligase (D) Helicase
+
+\item [Genetics] Which law states that alleles segregate during gamete formation?  
+(A) Law of Segregation (B) Law of Independent Assortment (C) Hardy-Weinberg principle (D) Genetic drift
+
+\item [Plant Physiology] Which mineral is essential for synthesis of nucleic acids?  
+(A) Nitrogen (B) Phosphorus (C) Magnesium (D) Potassium
+
+\item [Human Physiology] Which structure in the heart prevents backflow of blood into atria?  
+(A) Semilunar valves (B) AV valves (C) Pulmonary valve (D) Aortic valve
+
+\item [Diversity] Which group of plants produces spores but lacks seeds?  
+(A) Bryophytes (B) Pteridophytes (C) Gymnosperms (D) Angiosperms
+
+\item [Cell Biology] Which structure is responsible for chromosome movement during cell division?  
+(A) Spindle fibers (B) Centrioles (C) Nucleolus (D) Ribosomes
+
+\item [Ecology] Which term describes the feeding position of an organism in a food chain?  
+(A) Niche (B) Trophic level (C) Habitat (D) Succession
+
+\item [Human Physiology] Which hormone regulates basal metabolic rate?  
+(A) Insulin (B) Thyroxine (C) Cortisol (D) Adrenaline
+
+\item [Biotechnology] Which technique is used to determine nucleotide sequence of DNA?  
+(A) PCR (B) DNA sequencing (C) Gel electrophoresis (D) ELISA
+\end{enumerate}
+
+\end{document}

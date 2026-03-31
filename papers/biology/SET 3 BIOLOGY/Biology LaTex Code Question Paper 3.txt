@@ -1,0 +1,97 @@
+\documentclass{article}
+\begin{document}
+\section*{Biology Set 3 - Paper 3 (Questions)}
+
+\begin{enumerate}
+\item [Diversity] Which feature explains why *Urochordata* are considered chordates despite adult forms lacking a notochord?  
+(A) Presence of notochord in larval stage  
+(B) Presence of radial symmetry in adults  
+(C) Segmentation of body muscles  
+(D) Presence of jointed appendages
+
+\item [Cell Biology] In eukaryotic cells, which complex of the electron transport chain pumps protons into the intermembrane space but does not directly reduce oxygen?  
+(A) Complex I  
+(B) Complex II  
+(C) Complex III  
+(D) Complex IV
+
+\item [Genetics] In a dihybrid cross AaBb × AaBb, if genes are linked with 10% recombination frequency, what proportion of offspring will show recombinant phenotypes?  
+(A) 10%  
+(B) 20%  
+(C) 40%  
+(D) 50%
+
+\item [Plant Physiology] Which mechanism explains why C\(_4\) plants outperform C\(_3\) plants under high temperature and light intensity?  
+(A) Rubisco has higher affinity for CO\(_2\)  
+(B) Bundle sheath cells concentrate CO\(_2\) around Rubisco  
+(C) Stomata remain open longer  
+(D) CAM metabolism is used
+
+\item [Human Physiology] Which part of the nephron is responsible for facultative water reabsorption under hormonal control?  
+(A) Proximal tubule  
+(B) Loop of Henle  
+(C) Distal tubule  
+(D) Collecting duct
+
+\item [Ecology] In an ecosystem with 12% trophic efficiency, if producers capture 8000 J of energy, how much energy is available to secondary consumers?  
+(A) 960 J  
+(B) 96 J  
+(C) 1152 J  
+(D) 120 J
+
+\item [Cell Biology] Which enzyme is responsible for proofreading and excision of mismatched nucleotides during DNA replication in prokaryotes?  
+(A) DNA polymerase I  
+(B) DNA polymerase III  
+(C) Ligase  
+(D) Helicase
+
+\item [Genetics] Which principle explains inheritance of traits like human skin pigmentation, where multiple genes and environment interact?  
+(A) Epistasis  
+(B) Polygenic inheritance with environmental influence  
+(C) Codominance  
+(D) Incomplete dominance
+
+\item [Plant Physiology] Which mineral deficiency leads to poor root growth due to its role in energy transfer reactions?  
+(A) Nitrogen  
+(B) Phosphorus  
+(C) Magnesium  
+(D) Potassium
+
+\item [Human Physiology] Which hormone increases blood glucose by stimulating glycogenolysis in the liver?  
+(A) Insulin  
+(B) Glucagon  
+(C) Cortisol  
+(D) Thyroxine
+
+\item [Diversity] Which group of animals shows radial symmetry in adults but bilateral symmetry in larvae?  
+(A) Arthropoda  
+(B) Echinodermata  
+(C) Mollusca  
+(D) Annelida
+
+\item [Cell Biology] Which checkpoint ensures DNA damage is repaired before replication begins?  
+(A) G1 checkpoint  
+(B) G2/M checkpoint  
+(C) Metaphase checkpoint  
+(D) Cytokinesis checkpoint
+
+\item [Ecology] Which principle explains why two species of barnacles can coexist on the same rock surface by occupying different tidal zones?  
+(A) Competitive exclusion  
+(B) Resource partitioning  
+(C) Mutualism  
+(D) Succession
+
+\item [Human Physiology] Which hormone stimulates reabsorption of calcium in kidneys and increases intestinal absorption via vitamin D activation?  
+(A) Calcitonin  
+(B) Parathyroid hormone  
+(C) Cortisol  
+(D) Aldosterone
+
+\item [Biotechnology] Which technique allows simultaneous measurement of expression levels of thousands of genes using hybridization?  
+(A) PCR  
+(B) DNA microarray  
+(C) Gel electrophoresis  
+(D) ELISA
+\end{enumerate}
+
+\end{document}

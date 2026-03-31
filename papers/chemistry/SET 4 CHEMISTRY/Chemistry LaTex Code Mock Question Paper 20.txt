@@ -1,0 +1,74 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Final Mock Test – Paper 20}
+
+\begin{enumerate}
+\item Calculate $\Delta G^\circ$ for reaction: 2H$_2$(g)+O$_2$(g) ? 2H$_2$O(l), $K_p=5.0\times10^{30}$ at 298 K.  
+(A) -80 kJ \quad (B) -100 kJ \quad (C) -120 kJ \quad (D) -140 kJ
+
+\item Assertion–Reason:  
+Assertion (A): The entropy of vaporisation is positive.  
+Reason (R): Liquid molecules become more disordered when converted to vapour.  
+(A) Both A and R true, R correct explanation  
+(B) Both A and R true, R not correct explanation  
+(C) A true, R false  
+(D) A false, R true
+
+\item The emf of cell Cr|Cr$^{3+}$(0.01 M)||Ag$^+$(1 M)|Ag at 25? is?  
+(A) 0.76 V \quad (B) 0.70 V \quad (C) 0.65 V \quad (D) 0.60 V
+
+\item For a first-order reaction, 50% completion takes 500 s. Calculate rate constant.  
+(A) $1.39\times10^{-3}$ s$^{-1}$ \quad (B) $6.93\times10^{-4}$ s$^{-1}$ \quad (C) $2.0\times10^{-4}$ s$^{-1}$ \quad (D) $1.0\times10^{-3}$ s$^{-1}$
+
+\item Calculate solubility of AgCl in water (Ksp=$1.8\times10^{-10}$).  
+(A) $1.34\times10^{-5}$ M \quad (B) $1.0\times10^{-4}$ M \quad (C) $3.2\times10^{-5}$ M \quad (D) $1.0\times10^{-3}$ M
+
+\item Assertion–Reason:  
+Assertion (A): The neutralisation enthalpy of weak acid–strong base is less than strong acid–strong base.  
+Reason (R): Energy is consumed in ionising the weak acid.  
+(A) Both A and R true, R correct explanation  
+(B) Both A and R true, R not correct explanation  
+(C) A true, R false  
+(D) A false, R true
+
+\item The crystal system of NaCl is?  
+(A) Cubic \quad (B) Hexagonal \quad (C) Orthorhombic \quad (D) Tetragonal
+
+\item Calculate $\Delta H$ for neutralisation of HNO$_3$ with KOH.  
+(A) -57.1 kJ/mol \quad (B) -55.8 kJ/mol \quad (C) -60.0 kJ/mol \quad (D) -50.0 kJ/mol
+
+\item The coordination number of Ca$^{2+}$ in CaF$_2$ crystal is?  
+(A) 4 \quad (B) 6 \quad (C) 8 \quad (D) 12
+
+\item The number of atoms per unit cell in FCC lattice?  
+(A) 2 \quad (B) 4 \quad (C) 6 \quad (D) 8
+
+\item Which transition element shows maximum oxidation state of +7 in halides?  
+(A) Mn \quad (B) Tc \quad (C) Re \quad (D) Os
+
+\item Calculate pH of 0.00001 M HCl solution.  
+(A) 5.0 \quad (B) 4.7 \quad (C) 4.3 \quad (D) 4.0
+
+\item Assertion–Reason:  
+Assertion (A): Graphite is softer than diamond.  
+Reason (R): Graphite layers are held together by weak van der Waals forces.  
+(A) Both A and R true, R correct explanation  
+(B) Both A and R true, R not correct explanation  
+(C) A true, R false  
+(D) A false, R true
+
+\item The lattice energy of CaO is best estimated by?  
+(A) Born–Haber cycle \quad (B) Hess’s law \quad (C) Nernst equation \quad (D) None
+
+\item Assertion–Reason:  
+Assertion (A): Ce$^{4+}$ acts as a strong oxidising agent.  
+Reason (R): Ce$^{4+}$ is easily reduced to Ce$^{3+}$.  
+(A) Both A and R true, R correct explanation  
+(B) Both A and R true, R not correct explanation  
+(C) A true, R false  
+(D) A false, R true
+\end{enumerate}
+
+\end{document}

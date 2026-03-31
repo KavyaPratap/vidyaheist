@@ -1,0 +1,52 @@
+\documentclass{article}
+\begin{document}
+\section*{Biology Set 1 - Paper 3 (Questions)}
+
+\begin{enumerate}
+\item [Diversity] Which class of vertebrates is characterized by cartilaginous skeleton?  
+(A) Osteichthyes (B) Chondrichthyes (C) Amphibia (D) Reptilia
+
+\item [Cell Biology] Which organelle is responsible for lipid synthesis?  
+(A) Rough ER (B) Smooth ER (C) Golgi (D) Lysosome
+
+\item [Genetics] Which type of mutation results in a premature stop codon?  
+(A) Missense (B) Nonsense (C) Silent (D) Frameshift
+
+\item [Plant Physiology] Which tissue transports organic nutrients in plants?  
+(A) Xylem (B) Phloem (C) Cambium (D) Epidermis
+
+\item [Human Physiology] Which structure in the nephron is responsible for countercurrent mechanism?  
+(A) Proximal tubule (B) Loop of Henle (C) Distal tubule (D) Collecting duct
+
+\item [Ecology] Which ecological pyramid is always upright?  
+(A) Pyramid of numbers (B) Pyramid of biomass (C) Pyramid of energy (D) Pyramid of productivity
+
+\item [Cell Biology] Which enzyme synthesizes RNA primer during DNA replication?  
+(A) Ligase (B) Primase (C) Polymerase (D) Helicase
+
+\item [Genetics] Which law states that alleles of different genes assort independently?  
+(A) Law of Segregation (B) Law of Independent Assortment (C) Law of Dominance (D) Hardy-Weinberg principle
+
+\item [Plant Physiology] Which hormone promotes fruit ripening?  
+(A) Auxin (B) Gibberellin (C) Ethylene (D) Cytokinin
+
+\item [Human Physiology] Which part of the brain regulates hunger and thirst?  
+(A) Cerebrum (B) Hypothalamus (C) Cerebellum (D) Medulla
+
+\item [Diversity] Which phylum includes organisms with flame cells for excretion?  
+(A) Annelida (B) Platyhelminthes (C) Arthropoda (D) Mollusca
+
+\item [Cell Biology] Which structure is responsible for protein synthesis?  
+(A) Ribosome (B) Lysosome (C) Golgi (D) Nucleolus
+
+\item [Ecology] Which term describes the role and position of a species in its environment?  
+(A) Habitat (B) Niche (C) Biome (D) Ecosystem
+
+\item [Human Physiology] Which blood component is responsible for clotting?  
+(A) RBC (B) WBC (C) Platelets (D) Plasma
+
+\item [Biotechnology] Which enzyme is used to cut DNA at specific sites?  
+(A) Ligase (B) Restriction endonuclease (C) Polymerase (D) Helicase
+\end{enumerate}
+
+\end{document}

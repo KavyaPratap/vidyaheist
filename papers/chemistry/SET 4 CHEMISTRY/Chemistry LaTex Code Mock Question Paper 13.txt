@@ -1,0 +1,74 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Final Mock Test – Paper 13}
+
+\begin{enumerate}
+\item Calculate $\Delta G^\circ$ for reaction: C(graphite)+2H$_2$(g) ? CH$_4$(g), $K_p=1.2\times10^3$ at 298 K.  
+(A) -15.6 kJ \quad (B) -22.4 kJ \quad (C) -33.5 kJ \quad (D) -45.0 kJ
+
+\item Assertion–Reason:  
+Assertion (A): The entropy of dissolution of gases in water is negative.  
+Reason (R): Dissolved gas molecules are more ordered than in gaseous state.  
+(A) Both A and R true, R correct explanation  
+(B) Both A and R true, R not correct explanation  
+(C) A true, R false  
+(D) A false, R true
+
+\item The emf of cell Cr|Cr$^{3+}$(0.001 M)||Fe$^{2+}$(1 M)|Fe at 25? is?  
+(A) 0.77 V \quad (B) 0.70 V \quad (C) 0.65 V \quad (D) 0.60 V
+
+\item For a first-order reaction, 60% completion takes 800 s. Calculate rate constant.  
+(A) $1.0\times10^{-3}$ s$^{-1}$ \quad (B) $5.0\times10^{-4}$ s$^{-1}$ \quad (C) $2.0\times10^{-4}$ s$^{-1}$ \quad (D) $6.93\times10^{-4}$ s$^{-1}$
+
+\item Calculate solubility of Al(OH)$_3$ in water (Ksp=$2.0\times10^{-32}$).  
+(A) $1.0\times10^{-11}$ M \quad (B) $1.0\times10^{-10}$ M \quad (C) $1.0\times10^{-9}$ M \quad (D) $1.0\times10^{-12}$ M
+
+\item Assertion–Reason:  
+Assertion (A): The neutralisation enthalpy of weak acid–weak base is less than strong acid–strong base.  
+Reason (R): Energy is consumed in ionising both weak acid and weak base.  
+(A) Both A and R true, R correct explanation  
+(B) Both A and R true, R not correct explanation  
+(C) A true, R false  
+(D) A false, R true
+
+\item The crystal system of CaF$_2$ (fluorite) is?  
+(A) Cubic \quad (B) Hexagonal \quad (C) Orthorhombic \quad (D) Tetragonal
+
+\item Calculate $\Delta H$ for neutralisation of HCl with NH$_3$.  
+(A) -57.1 kJ/mol \quad (B) -55.8 kJ/mol \quad (C) -50.0 kJ/mol \quad (D) -45.0 kJ/mol
+
+\item The coordination number of Al$^{3+}$ in Al$_2$O$_3$ crystal is?  
+(A) 4 \quad (B) 6 \quad (C) 8 \quad (D) 12
+
+\item The number of atoms per unit cell in FCC lattice?  
+(A) 2 \quad (B) 4 \quad (C) 6 \quad (D) 8
+
+\item Which transition element shows maximum oxidation state of +5 in oxides?  
+(A) V \quad (B) Nb \quad (C) Ta \quad (D) Mo
+
+\item Calculate pH of 0.00009 M HCl solution.  
+(A) 4.1 \quad (B) 4.0 \quad (C) 3.7 \quad (D) 3.0
+
+\item Assertion–Reason:  
+Assertion (A): Graphite is used in arc lamps.  
+Reason (R): It conducts electricity and withstands high temperatures.  
+(A) Both A and R true, R correct explanation  
+(B) Both A and R true, R not correct explanation  
+(C) A true, R false  
+(D) A false, R true
+
+\item The lattice energy of SrO is best estimated by?  
+(A) Born–Haber cycle \quad (B) Hess’s law \quad (C) Nernst equation \quad (D) None
+
+\item Assertion–Reason:  
+Assertion (A): Yb$^{2+}$ is less stable than Eu$^{2+}$.  
+Reason (R): Yb$^{2+}$ does not have half-filled f$^7$ configuration.  
+(A) Both A and R true, R correct explanation  
+(B) Both A and R true, R not correct explanation  
+(C) A true, R false  
+(D) A false, R true
+\end{enumerate}
+
+\end{document}

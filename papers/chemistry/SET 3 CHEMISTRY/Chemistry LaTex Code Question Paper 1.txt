@@ -1,0 +1,64 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Chemistry Mock Test – Phase 3, Paper 1}
+
+\begin{enumerate}
+\item Calculate $\Delta S$ when 2 mol of ideal gas expands isothermally from 5 L to 50 L at 300 K.  
+(A) 38.3 J/K \quad (B) 57.3 J/K \quad (C) 76.5 J/K \quad (D) 95.6 J/K
+
+\item The emf of cell Zn|Zn$^{2+}$(0.01 M)||Cu$^{2+}$(0.1 M)|Cu at 25? is?  
+(A) 1.12 V \quad (B) 1.08 V \quad (C) 1.10 V \quad (D) 1.00 V
+
+\item For a first-order reaction, 99% completion takes 4606 s. Calculate rate constant.  
+(A) $1.0\times10^{-3}$ s$^{-1}$ \quad (B) $5.0\times10^{-4}$ s$^{-1}$ \quad (C) $2.0\times10^{-4}$ s$^{-1}$ \quad (D) $1.5\times10^{-3}$ s$^{-1}$
+
+\item The equilibrium constant for dissociation of N$_2$O$_4$ at 300 K is 0.25. If initial [N$_2$O$_4$]=1 M, degree of dissociation?  
+(A) 0.25 \quad (B) 0.33 \quad (C) 0.40 \quad (D) 0.50
+
+\item Calculate solubility of Ca(OH)$_2$ in water (Ksp=$5.0\times10^{-6}$).  
+(A) $1.0\times10^{-2}$ M \quad (B) $1.0\times10^{-3}$ M \quad (C) $1.0\times10^{-4}$ M \quad (D) $1.0\times10^{-5}$ M
+
+\item Which ion shows maximum magnetic moment?  
+(A) Fe$^{3+}$ \quad (B) Mn$^{2+}$ \quad (C) Co$^{2+}$ \quad (D) Ni$^{2+}$
+
+\item The crystal system of KBr is?  
+(A) Cubic \quad (B) Hexagonal \quad (C) Orthorhombic \quad (D) Tetragonal
+
+\item Calculate $\Delta H$ for neutralisation of HCl with NaOH.  
+(A) -57.1 kJ/mol \quad (B) -55.8 kJ/mol \quad (C) -60.0 kJ/mol \quad (D) -50.0 kJ/mol
+
+\item The coordination number of Cl$^-$ in NaCl crystal is?  
+(A) 4 \quad (B) 6 \quad (C) 8 \quad (D) 12
+
+\item The number of atoms per unit cell in FCC lattice?  
+(A) 2 \quad (B) 4 \quad (C) 6 \quad (D) 8
+
+\item Which transition element shows maximum oxidation state of +7?  
+(A) Mn \quad (B) Cr \quad (C) Fe \quad (D) Co
+
+\item Calculate pH of 0.0001 M HNO$_3$ solution.  
+(A) 4 \quad (B) 3.7 \quad (C) 3 \quad (D) 2
+
+\item The lattice energy of NaF is best estimated by?  
+(A) Born–Haber cycle \quad (B) Hess’s law \quad (C) Nernst equation \quad (D) None
+
+\item Assertion–Reason:  
+Assertion (A): Mn$^{2+}$ is more stable than Fe$^{2+}$ in aqueous solution.  
+Reason (R): Mn$^{2+}$ has half-filled d$^5$ configuration, which is stable.  
+(A) Both A and R true, R correct explanation  
+(B) Both A and R true, R not correct explanation  
+(C) A true, R false  
+(D) A false, R true
+
+\item Assertion–Reason:  
+Assertion (A): NaCl has high melting point.  
+Reason (R): Strong electrostatic forces exist between Na$^+$ and Cl$^-$ ions.  
+(A) Both A and R true, R correct explanation  
+(B) Both A and R true, R not correct explanation  
+(C) A true, R false  
+(D) A false, R true
+\end{enumerate}
+
+\end{document}

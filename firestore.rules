@@ -12,32 +12,45 @@ service cloud.firestore {
     function isOwner(userId) {
       return request.auth.uid == userId;
     }
+
+    function isAdmin() {
+      // Use lowercase for robust comparison
+      return isUserAuthenticated() && request.auth.token.email.lower() == 'vidyaheist@gmail.com';
+    }
  
     match /users/{userId} {
-      // Users can read any profile if authenticated
       allow read: if isUserAuthenticated();
-      // Users can only create or update their own profile
       allow create, update: if isOwner(userId);
     }
 
     match /testSeries/{seriesId} {
-      // Anyone can view the test series in the store
       allow read: if true;
+      allow create, update, delete: if isAdmin();
 
-      // Any authenticated user can create a series, and they become the owner.
-      // Client-side code should restrict this to admins only.
-      allow create: if isUserAuthenticated() && request.resource.data.createdBy == request.auth.uid;
-
-      // Only the original creator (admin) can update or delete it.
-      allow update, delete: if isUserAuthenticated() && get(/databases/$(database)/documents/testSeries/$(seriesId)).data.createdBy == request.auth.uid;
-
-      match /questions/{questionId} {
-        // Anyone can read the questions for a test.
+      match /tests/{testId} {
         allow read: if true;
+        allow create, update, delete: if isAdmin();
 
-        // Only the series owner (admin) can write questions.
-        allow create, update, delete: if isUserAuthenticated() && get(/databases/$(database)/documents/testSeries/$(seriesId)).data.createdBy == request.auth.uid;
+        match /questions/{questionId} {
+          allow read: if true;
+          allow create, update, delete: if isAdmin();
+        }
       }
+    }
+
+    match /purchases/{purchaseId} {
+      // Users can read their own orders, Admin can read all
+      allow read: if isUserAuthenticated() && (resource.data.userId == request.auth.uid || isAdmin());
+      // Only users can create their own orders
+      allow create: if isUserAuthenticated() && request.resource.data.userId == request.auth.uid;
+      // Only admin can update order status (verify/reject)
+      allow update: if isAdmin();
+    }
+
+    match /bookings/{bookingId} {
+      allow read: if isUserAuthenticated() && (resource.data.userId == request.auth.uid || isAdmin());
+      allow create: if isUserAuthenticated();
+      allow update, delete: if isAdmin();
     }
   }
 }

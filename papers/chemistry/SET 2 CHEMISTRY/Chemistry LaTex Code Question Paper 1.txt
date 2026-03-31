@@ -1,0 +1,54 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Chemistry Mock Test – Phase 2, Paper 1}
+
+\begin{enumerate}
+\item Calculate $\Delta G^\circ$ for reaction: N$_2$(g)+3H$_2$(g) ? 2NH$_3$(g), $K_p=6.0\times10^{-2}$ at 500 K.  
+(A) -22.4 kJ \quad (B) -33.5 kJ \quad (C) -11.2 kJ \quad (D) -27.9 kJ
+
+\item For a first-order reaction, half-life = 200 s. Calculate rate constant.  
+(A) $3.47\times10^{-3}$ s$^{-1}$ \quad (B) $2.31\times10^{-3}$ s$^{-1}$ \quad (C) $1.65\times10^{-3}$ s$^{-1}$ \quad (D) $0.693$ s$^{-1}$
+
+\item The emf of cell Zn|Zn$^{2+}$(0.1 M)||Cu$^{2+}$(1 M)|Cu at 25? is?  
+(A) 1.10 V \quad (B) 1.12 V \quad (C) 1.08 V \quad (D) 1.00 V
+
+\item The entropy change when 2 mol of ideal gas expands isothermally from 10 L to 20 L at 300 K?  
+(A) 34.6 J/K \quad (B) 17.3 J/K \quad (C) 69.3 J/K \quad (D) 23.1 J/K
+
+\item The equilibrium constant for A ? B is 10. If initial [A]=1 M, equilibrium [B]?  
+(A) 0.91 M \quad (B) 0.99 M \quad (C) 0.50 M \quad (D) 0.10 M
+
+\item Calculate ionic conductance of NaCl at infinite dilution if $\Lambda_m^\infty$(NaCl)=126.4 S cm$^2$ mol$^{-1}$.  
+(A) 63.2 each ion \quad (B) 50 each ion \quad (C) 126.4 each ion \quad (D) None
+
+\item The activation energy of a reaction doubles when temperature increases from 300 K to 310 K. Calculate ratio of rate constants.  
+(A) 2.0 \quad (B) 1.5 \quad (C) 3.0 \quad (D) 1.0
+
+\item Calculate pH of 0.01 M weak acid HA with Ka=$1\times10^{-6}$.  
+(A) 4 \quad (B) 5 \quad (C) 6 \quad (D) 3
+
+\item The solubility of CaF$_2$ in water (Ksp=$4.0\times10^{-11}$).  
+(A) $2.0\times10^{-4}$ M \quad (B) $1.0\times10^{-4}$ M \quad (C) $4.0\times10^{-4}$ M \quad (D) $3.2\times10^{-4}$ M
+
+\item Which transition element shows maximum oxidation state in its compounds?  
+(A) Mn \quad (B) Cr \quad (C) Fe \quad (D) Co
+
+\item The crystal system of NaCl is?  
+(A) Cubic \quad (B) Hexagonal \quad (C) Tetragonal \quad (D) Orthorhombic
+
+\item Calculate $\Delta H$ for neutralisation of HCl with NaOH.  
+(A) -57.1 kJ/mol \quad (B) -55.8 kJ/mol \quad (C) -60.0 kJ/mol \quad (D) -50.0 kJ/mol
+
+\item The coordination number of Fe in [Fe(CN)$_6$]$^{3-}$ is?  
+(A) 4 \quad (B) 6 \quad (C) 2 \quad (D) 8
+
+\item The number of atoms per unit cell in FCC lattice?  
+(A) 2 \quad (B) 4 \quad (C) 6 \quad (D) 8
+
+\item Which lanthanide shows +4 oxidation state commonly?  
+(A) Ce \quad (B) Eu \quad (C) Yb \quad (D) La
+\end{enumerate}
+
+\end{document}

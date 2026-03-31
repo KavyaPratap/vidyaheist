@@ -1,0 +1,97 @@
+\documentclass{article}
+\begin{document}
+\section*{Biology Set 3 - Paper 2 (Questions)}
+
+\begin{enumerate}
+\item [Diversity] Which feature explains why *Hemichordata* were once grouped with Chordata but later separated?  
+(A) Presence of pharyngeal slits but absence of notochord  
+(B) Presence of dorsal nerve cord throughout life  
+(C) Segmentation of body muscles  
+(D) Radial symmetry in adults
+
+\item [Cell Biology] In eukaryotic cells, which checkpoint ensures spindle fibers are correctly attached before sister chromatids separate?  
+(A) G1 checkpoint  
+(B) G2/M checkpoint  
+(C) Metaphase checkpoint  
+(D) Cytokinesis checkpoint
+
+\item [Genetics] A woman heterozygous for color blindness (X\(^N\)X\(^n\)) marries a man with normal vision (X\(^N\)Y). What is the probability their daughter will be color blind?  
+(A) 0%  
+(B) 25%  
+(C) 50%  
+(D) 100%
+
+\item [Plant Physiology] Which mechanism explains why C\(_4\) plants have higher photosynthetic efficiency in tropical climates compared to C\(_3\) plants?  
+(A) Rubisco has higher affinity for CO\(_2\)  
+(B) Spatial separation of carbon fixation reduces photorespiration  
+(C) Stomata remain open longer  
+(D) CAM metabolism is used
+
+\item [Human Physiology] Which part of the nephron is responsible for obligatory reabsorption of water and nutrients?  
+(A) Proximal tubule  
+(B) Loop of Henle  
+(C) Distal tubule  
+(D) Collecting duct
+
+\item [Ecology] In an ecosystem with 10% trophic efficiency, if producers capture 5000 J of energy, how much energy is available to tertiary consumers?  
+(A) 500 J  
+(B) 50 J  
+(C) 5 J  
+(D) 0.5 J
+
+\item [Cell Biology] Which enzyme is responsible for joining Okazaki fragments during DNA replication?  
+(A) DNA polymerase I  
+(B) DNA ligase  
+(C) Primase  
+(D) Helicase
+
+\item [Genetics] Which principle explains inheritance of traits like human intelligence, influenced by multiple genes and environment?  
+(A) Epistasis  
+(B) Polygenic inheritance  
+(C) Codominance  
+(D) Gene?environment interaction
+
+\item [Plant Physiology] Which mineral deficiency leads to stunted growth due to its role in ATP and nucleic acid synthesis?  
+(A) Nitrogen  
+(B) Phosphorus  
+(C) Magnesium  
+(D) Potassium
+
+\item [Human Physiology] Which hormone increases blood calcium levels by stimulating osteoclast activity?  
+(A) Calcitonin  
+(B) Parathyroid hormone  
+(C) Insulin  
+(D) Thyroxine
+
+\item [Diversity] Which group of animals shows metameric segmentation and closed circulatory system?  
+(A) Arthropoda  
+(B) Annelida  
+(C) Mollusca  
+(D) Platyhelminthes
+
+\item [Cell Biology] Which organelle is involved in photorespiration along with chloroplast and mitochondria?  
+(A) Peroxisome  
+(B) Lysosome  
+(C) Golgi apparatus  
+(D) Vacuole
+
+\item [Ecology] Which principle explains why two species with identical niches cannot coexist indefinitely?  
+(A) Competitive exclusion principle  
+(B) Resource partitioning  
+(C) Mutualism  
+(D) Succession
+
+\item [Human Physiology] Which hormone stimulates reabsorption of sodium ions in kidney tubules?  
+(A) Insulin  
+(B) Aldosterone  
+(C) Cortisol  
+(D) ADH
+
+\item [Biotechnology] Which technique uses fluorescently labeled dideoxynucleotides to terminate DNA synthesis for sequencing?  
+(A) PCR  
+(B) Sanger sequencing  
+(C) Gel electrophoresis  
+(D) ELISA
+\end{enumerate}
+
+\end{document}

@@ -1,0 +1,74 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Final Mock Test – Paper 14}
+
+\begin{enumerate}
+\item Calculate $\Delta G^\circ$ for reaction: 2CO(g)+2H$_2$(g) ? CH$_3$CHO(g), $K_p=5.0\times10^2$ at 298 K.  
+(A) -15.6 kJ \quad (B) -22.4 kJ \quad (C) -33.5 kJ \quad (D) -45.0 kJ
+
+\item Assertion–Reason:  
+Assertion (A): The entropy of polymerisation is negative.  
+Reason (R): Random monomers become ordered in polymer chains.  
+(A) Both A and R true, R correct explanation  
+(B) Both A and R true, R not correct explanation  
+(C) A true, R false  
+(D) A false, R true
+
+\item The emf of cell Zn|Zn$^{2+}$(0.001 M)||Fe$^{2+}$(1 M)|Fe at 25? is?  
+(A) 0.76 V \quad (B) 0.70 V \quad (C) 0.65 V \quad (D) 0.60 V
+
+\item For a first-order reaction, 50% completion takes 1000 s. Calculate rate constant.  
+(A) $6.93\times10^{-4}$ s$^{-1}$ \quad (B) $5.0\times10^{-4}$ s$^{-1}$ \quad (C) $2.0\times10^{-4}$ s$^{-1}$ \quad (D) $1.0\times10^{-3}$ s$^{-1}$
+
+\item Calculate solubility of SrCO$_3$ in water (Ksp=$5.6\times10^{-10}$).  
+(A) $2.4\times10^{-5}$ M \quad (B) $1.0\times10^{-4}$ M \quad (C) $3.2\times10^{-5}$ M \quad (D) $1.0\times10^{-3}$ M
+
+\item Assertion–Reason:  
+Assertion (A): The neutralisation enthalpy of weak acid–strong base is less than strong acid–strong base.  
+Reason (R): Energy is consumed in ionising the weak acid.  
+(A) Both A and R true, R correct explanation  
+(B) Both A and R true, R not correct explanation  
+(C) A true, R false  
+(D) A false, R true
+
+\item The crystal system of TiCl$_4$ (solid) is?  
+(A) Orthorhombic \quad (B) Cubic \quad (C) Hexagonal \quad (D) Tetragonal
+
+\item Calculate $\Delta H$ for neutralisation of H$_2$SO$_4$ with Ca(OH)$_2$.  
+(A) -111.6 kJ/mol \quad (B) -57.1 kJ/mol \quad (C) -55.8 kJ/mol \quad (D) -60.0 kJ/mol
+
+\item The coordination number of Mg$^{2+}$ in MgCl$_2$ crystal is?  
+(A) 4 \quad (B) 6 \quad (C) 8 \quad (D) 12
+
+\item The number of atoms per unit cell in simple cubic lattice?  
+(A) 1 \quad (B) 2 \quad (C) 4 \quad (D) 6
+
+\item Which transition element shows maximum oxidation state of +7 in oxides?  
+(A) Mn \quad (B) Tc \quad (C) Re \quad (D) Os
+
+\item Calculate pH of 0.00007 M HCl solution.  
+(A) 4.2 \quad (B) 4.1 \quad (C) 3.7 \quad (D) 3.3
+
+\item Assertion–Reason:  
+Assertion (A): Diamond is used in cutting tools.  
+Reason (R): Strong covalent bonds make diamond extremely hard.  
+(A) Both A and R true, R correct explanation  
+(B) Both A and R true, R not correct explanation  
+(C) A true, R false  
+(D) A false, R true
+
+\item The lattice energy of CaF$_2$ is best estimated by?  
+(A) Born–Haber cycle \quad (B) Hess’s law \quad (C) Nernst equation \quad (D) None
+
+\item Assertion–Reason:  
+Assertion (A): Pr$^{3+}$ shows paramagnetism.  
+Reason (R): Pr$^{3+}$ has unpaired f-electrons.  
+(A) Both A and R true, R correct explanation  
+(B) Both A and R true, R not correct explanation  
+(C) A true, R false  
+(D) A false, R true
+\end{enumerate}
+
+\end{document}

@@ -1,0 +1,74 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Final Mock Test – Paper 1}
+
+\begin{enumerate}
+\item Calculate $\Delta G^\circ$ for N$_2$(g)+3H$_2$(g) ? 2NH$_3$(g), $K_p=6.0\times10^{-2}$ at 500 K.  
+(A) -22.4 kJ \quad (B) -33.5 kJ \quad (C) -11.2 kJ \quad (D) -27.9 kJ
+
+\item Assertion–Reason:  
+Assertion (A): MnO$_4^-$ is a strong oxidising agent in acidic medium.  
+Reason (R): Mn(+7) is reduced to Mn(+2).  
+(A) Both A and R true, R correct explanation  
+(B) Both A and R true, R not correct explanation  
+(C) A true, R false  
+(D) A false, R true
+
+\item The emf of cell Zn|Zn$^{2+}$(0.01 M)||Cu$^{2+}$(0.1 M)|Cu at 25? is?  
+(A) 1.12 V \quad (B) 1.08 V \quad (C) 1.10 V \quad (D) 1.00 V
+
+\item For a first-order reaction, 75% completion takes 1386 s. Calculate rate constant.  
+(A) $5.0\times10^{-4}$ s$^{-1}$ \quad (B) $1.0\times10^{-3}$ s$^{-1}$ \quad (C) $2.0\times10^{-4}$ s$^{-1}$ \quad (D) $6.93\times10^{-4}$ s$^{-1}$
+
+\item Calculate solubility of BaSO$_4$ in water (Ksp=$1.1\times10^{-10}$).  
+(A) $1.0\times10^{-5}$ M \quad (B) $1.0\times10^{-6}$ M \quad (C) $3.3\times10^{-6}$ M \quad (D) $1.0\times10^{-4}$ M
+
+\item Assertion–Reason:  
+Assertion (A): Diamond is hard.  
+Reason (R): Each carbon atom is tetrahedrally bonded to four others by strong covalent bonds.  
+(A) Both A and R true, R correct explanation  
+(B) Both A and R true, R not correct explanation  
+(C) A true, R false  
+(D) A false, R true
+
+\item The crystal system of ZnS (zinc blende) is?  
+(A) Cubic \quad (B) Hexagonal \quad (C) Orthorhombic \quad (D) Tetragonal
+
+\item Calculate $\Delta H$ for neutralisation of HCl with NaOH.  
+(A) -57.1 kJ/mol \quad (B) -55.8 kJ/mol \quad (C) -60.0 kJ/mol \quad (D) -50.0 kJ/mol
+
+\item The coordination number of Cs$^+$ in CsCl crystal is?  
+(A) 4 \quad (B) 6 \quad (C) 8 \quad (D) 12
+
+\item The number of atoms per unit cell in FCC lattice?  
+(A) 2 \quad (B) 4 \quad (C) 6 \quad (D) 8
+
+\item Which transition element shows maximum oxidation state of +8?  
+(A) Os \quad (B) Mn \quad (C) Fe \quad (D) Co
+
+\item Calculate pH of 0.0005 M HNO$_3$ solution.  
+(A) 3.3 \quad (B) 3.0 \quad (C) 2.7 \quad (D) 2.3
+
+\item Assertion–Reason:  
+Assertion (A): NaCl conducts electricity in molten state but not in solid state.  
+Reason (R): In molten state, ions are free to move, while in solid state they are fixed in lattice.  
+(A) Both A and R true, R correct explanation  
+(B) Both A and R true, R not correct explanation  
+(C) A true, R false  
+(D) A false, R true
+
+\item The lattice energy of MgO is best estimated by?  
+(A) Born–Haber cycle \quad (B) Hess’s law \quad (C) Nernst equation \quad (D) None
+
+\item Assertion–Reason:  
+Assertion (A): Lanthanides show similar chemical properties.  
+Reason (R): They have similar outer electronic configurations (ns$^2$).  
+(A) Both A and R true, R correct explanation  
+(B) Both A and R true, R not correct explanation  
+(C) A true, R false  
+(D) A false, R true
+\end{enumerate}
+
+\end{document}

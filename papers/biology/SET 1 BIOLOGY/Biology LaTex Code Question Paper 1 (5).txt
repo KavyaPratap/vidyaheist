@@ -1,0 +1,52 @@
+\documentclass{article}
+\begin{document}
+\section*{Biology Set 1 - Paper 5 (Questions)}
+
+\begin{enumerate}
+\item [Diversity] Which group of plants requires water for fertilization?  
+(A) Gymnosperms (B) Angiosperms (C) Bryophytes (D) Pteridophytes
+
+\item [Cell Biology] Which organelle contains catalase enzyme to break down hydrogen peroxide?  
+(A) Lysosome (B) Peroxisome (C) Golgi (D) Vacuole
+
+\item [Genetics] Which inheritance pattern shows blending of traits?  
+(A) Codominance (B) Incomplete dominance (C) Epistasis (D) Polygenic inheritance
+
+\item [Plant Physiology] Which process is driven by cohesion-tension theory?  
+(A) Translocation (B) Ascent of sap (C) Photosynthesis (D) Respiration
+
+\item [Human Physiology] Which structure produces cerebrospinal fluid?  
+(A) Cerebellum (B) Choroid plexus (C) Medulla (D) Hypothalamus
+
+\item [Ecology] Which type of succession occurs on bare rock?  
+(A) Primary succession (B) Secondary succession (C) Climax succession (D) Retrogressive succession
+
+\item [Cell Biology] Which organelle modifies and sorts proteins for secretion?  
+(A) Golgi apparatus (B) Ribosome (C) ER (D) Lysosome
+
+\item [Genetics] Which genetic disorder is caused by absence of clotting factor VIII?  
+(A) Hemophilia A (B) Hemophilia B (C) Sickle cell anemia (D) Thalassemia
+
+\item [Plant Physiology] Which mineral is essential for chlorophyll synthesis?  
+(A) Nitrogen (B) Magnesium (C) Phosphorus (D) Potassium
+
+\item [Human Physiology] Which hormone stimulates milk production?  
+(A) Oxytocin (B) Prolactin (C) Estrogen (D) Progesterone
+
+\item [Diversity] Which phylum includes organisms with segmented body and closed circulatory system?  
+(A) Arthropoda (B) Annelida (C) Mollusca (D) Platyhelminthes
+
+\item [Cell Biology] Which structure is responsible for ATP synthesis in chloroplasts?  
+(A) Stroma (B) Thylakoid membrane (C) Outer membrane (D) Ribosome
+
+\item [Ecology] Which term describes species unique to a particular geographic region?  
+(A) Endemic species (B) Exotic species (C) Keystone species (D) Indicator species
+
+\item [Human Physiology] Which part of the digestive system absorbs most nutrients?  
+(A) Stomach (B) Small intestine (C) Large intestine (D) Rectum
+
+\item [Biotechnology] Which technique is used to detect antigen-antibody interactions?  
+(A) PCR (B) ELISA (C) Gel electrophoresis (D) Western blot
+\end{enumerate}
+
+\end{document}

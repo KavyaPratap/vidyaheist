@@ -1,0 +1,74 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Final Mock Test – Paper 15}
+
+\begin{enumerate}
+\item Calculate $\Delta G^\circ$ for reaction: 2NO(g)+O$_2$(g) ? 2NO$_2$(g), $K_p=8.0\times10^6$ at 298 K.  
+(A) -15.6 kJ \quad (B) -22.4 kJ \quad (C) -33.5 kJ \quad (D) -45.0 kJ
+
+\item Assertion–Reason:  
+Assertion (A): The entropy of ionisation of water is positive.  
+Reason (R): Ionisation increases randomness by producing H$^+$ and OH$^-$.  
+(A) Both A and R true, R correct explanation  
+(B) Both A and R true, R not correct explanation  
+(C) A true, R false  
+(D) A false, R true
+
+\item The emf of cell Cd|Cd$^{2+}$(0.01 M)||Cu$^{2+}$(1 M)|Cu at 25? is?  
+(A) 0.34 V \quad (B) 0.40 V \quad (C) 0.45 V \quad (D) 0.50 V
+
+\item For a first-order reaction, 80% completion takes 1600 s. Calculate rate constant.  
+(A) $1.0\times10^{-3}$ s$^{-1}$ \quad (B) $5.0\times10^{-4}$ s$^{-1}$ \quad (C) $2.0\times10^{-4}$ s$^{-1}$ \quad (D) $6.93\times10^{-4}$ s$^{-1}$
+
+\item Calculate solubility of Fe(OH)$_3$ in water (Ksp=$4.0\times10^{-38}$).  
+(A) $1.0\times10^{-13}$ M \quad (B) $1.0\times10^{-12}$ M \quad (C) $1.0\times10^{-11}$ M \quad (D) $1.0\times10^{-14}$ M
+
+\item Assertion–Reason:  
+Assertion (A): The neutralisation enthalpy of weak base–strong acid is less than strong acid–strong base.  
+Reason (R): Energy is consumed in ionising the weak base.  
+(A) Both A and R true, R correct explanation  
+(B) Both A and R true, R not correct explanation  
+(C) A true, R false  
+(D) A false, R true
+
+\item The crystal system of Na$_2$SO$_4$ is?  
+(A) Orthorhombic \quad (B) Cubic \quad (C) Hexagonal \quad (D) Tetragonal
+
+\item Calculate $\Delta H$ for neutralisation of H$_2$SO$_4$ with Sr(OH)$_2$.  
+(A) -111.6 kJ/mol \quad (B) -57.1 kJ/mol \quad (C) -55.8 kJ/mol \quad (D) -60.0 kJ/mol
+
+\item The coordination number of Ca$^{2+}$ in CaO crystal is?  
+(A) 4 \quad (B) 6 \quad (C) 8 \quad (D) 12
+
+\item The number of atoms per unit cell in FCC lattice?  
+(A) 2 \quad (B) 4 \quad (C) 6 \quad (D) 8
+
+\item Which transition element shows maximum oxidation state of +6 in halides?  
+(A) Mo \quad (B) W \quad (C) Cr \quad (D) U
+
+\item Calculate pH of 0.00003 M HCl solution.  
+(A) 4.5 \quad (B) 4.3 \quad (C) 4.0 \quad (D) 3.7
+
+\item Assertion–Reason:  
+Assertion (A): Graphite is used in dry cells.  
+Reason (R): It conducts electricity and acts as inert electrode.  
+(A) Both A and R true, R correct explanation  
+(B) Both A and R true, R not correct explanation  
+(C) A true, R false  
+(D) A false, R true
+
+\item The lattice energy of BaCl$_2$ is best estimated by?  
+(A) Born–Haber cycle \quad (B) Hess’s law \quad (C) Nernst equation \quad (D) None
+
+\item Assertion–Reason:  
+Assertion (A): Dy$^{3+}$ shows paramagnetism.  
+Reason (R): Dy$^{3+}$ has unpaired f-electrons.  
+(A) Both A and R true, R correct explanation  
+(B) Both A and R true, R not correct explanation  
+(C) A true, R false  
+(D) A false, R true
+\end{enumerate}
+
+\end{document}

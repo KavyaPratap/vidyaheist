@@ -1,0 +1,54 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Chemistry Mock Test – Phase 1, Paper 7}
+
+\begin{enumerate}
+\item Molar conductivity of AB$_3$ = 150 S cm$^2$ mol$^{-1}$. If AB$_3 \to$ A$^{3+}$ + 3B$^-$, equivalent conductivity?  
+(A) 150 \quad (B) 75 \quad (C) 50 \quad (D) 80
+
+\item Age of wood sample if $^{14}$C activity drops from 122 dpm to 32 dpm (background = 2 dpm, $t_{1/2}$=5770 y)?  
+(A) 7997 y \quad (B) 57570 y \quad (C) 11540 y \quad (D) 15140 y
+
+\item Freezing point depression of acetic acid in benzene shows dimerisation. Degree of association?  
+(A) 0.527 \quad (B) 0.80 \quad (C) 0.945 \quad (D) None
+
+\item Non-ideal gas changes from (1 atm, 3 L, 200 K) to (4 atm, 5 L, 250 K), $\Delta U=40$ L·atm. $\Delta H$?  
+(A) 43 \quad (B) 57 \quad (C) 42 \quad (D) None
+
+\item pH of solution: 0.01 mol HCl added to 100 mL buffer (0.2 M NH$_3$, 0.3 M NH$_4^+$, pK$_b$=4.74)?  
+(A) 5.34 \quad (B) 8.66 \quad (C) 7.46 \quad (D) None
+
+\item $\Delta H^\circ$ for neutralisation of strong diacidic base A(OH)$_2$ by HNO$_3$?  
+(A) -55.84 kJ \quad (B) -111.68 kJ \quad (C) +55.84 kJ \quad (D) None
+
+\item Radial node distance for 3s orbital?  
+(A) $\frac{(3+\sqrt{13})a_0}{Z}$ \quad (B) $\frac{a_0}{Z}$ \quad (C) $\frac{2a_0}{Z}$ \quad (D) Z
+
+\item Reaction: 2-methyl-2-bromopropane + Mg/ether ? X; X + H$_2$O ? Z. Z?  
+(A) Propane \quad (B) 2-methylpropene \quad (C) 2-methylpropane \quad (D) 2-methylbutane
+
+\item Which hydrolyses fastest by SN1?  
+(A) (C$_6$H$_5$)$_2$C(CH$_3$)Br \quad (B) C$_6$H$_5$CH$_2$Br \quad (C) C$_6$H$_5$CH(CH$_3$)Br \quad (D) (C$_6$H$_5$)$_2$CHBr
+
+\item Addition of HBr to alkene at -80? (1,2-addition). Product?  
+(A) 1-bromoalkene \quad (B) 2-bromoalkene \quad (C) 3-bromoalkene \quad (D) None
+
+\item Ethylbenzene ? KMnO$_4$ ? benzoic acid ? Br$_2$/FeCl$_3$ ? bromobenzoic acid ? esterification. Product?  
+(A) CH$_2$–CH–COOCH$_3$Br \quad (B) Br–CH$_2$COOCH$_3$ \quad (C) OCH$_2$CH$_3$–COOH \quad (D) Br–COOH
+
+\item Major product of acid-catalysed dehydration of alcohol with methyl shift?  
+(A) Primary alcohol \quad (B) Secondary alcohol \quad (C) Tertiary carbocation rearranged product \quad (D) None
+
+\item Conversion: RCH$_2$CH$_2$OH ? RCH$_2$CH$_2$COOH. Reagents?  
+(A) PBr$_3$, KCN, H$_3$O$^+$ \quad (B) PBr$_3$, KCN, H$_2$/Pt \quad (C) KCN, H$_3$O$^+$ \quad (D) HCN, PBr$_3$, H$_3$O$^+$
+
+\item Geometrical and optical isomers of [Pt(NH$_3$)(Br)(Cl)(Py)]?  
+(A) 2,2 \quad (B) 0,3 \quad (C) 2,1 \quad (D) 3,0
+
+\item Incorrect statement about lanthanides?  
+(A) Eu shows +2 oxidation state \quad (B) Basicity decreases with radius \quad (C) All lanthanides more reactive than Al \quad (D) Ce$^{4+}$ used as oxidising agent
+\end{enumerate}
+
+\end{document}

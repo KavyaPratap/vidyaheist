@@ -1,0 +1,128 @@
+\documentclass{article}
+\usepackage{enumitem}
+\begin{document}
+
+\title{IAT Biology Final Mock Test 18 (NCERT Based, Mixed Pattern)}
+\date{}
+\maketitle
+
+\section*{Question Paper}
+
+\subsection*{Section A: Multi-Concept (5 Questions)}
+\begin{enumerate}[label=Q\arabic*.]
+\item A transgenic \textit{Oryza sativa} plant expresses genes for iron and vitamin A enrichment. Which NCERT concept does this illustrate?  
+(A) Biofortification  
+(B) Bt cotton for pest resistance  
+(C) Somatic hybridization  
+(D) Micropropagation
+
+\item A mutation in the gene coding for insulin receptor leads to Type II diabetes. Which combined physiological effect is observed?  
+(A) Hyperglycemia + reduced glucose uptake  
+(B) Hypoglycemia + anemia  
+(C) Enhanced immunity + obesity  
+(D) Excessive sweating + hyperthyroidism
+
+\item In a monohybrid cross Aa × Aa, what fraction of progeny will be homozygous recessive according to Mendel’s law?  
+(A) 1/4  
+(B) 1/2  
+(C) 3/4  
+(D) 1/8
+
+\item A patient with thyroidectomy shows low thyroxine but high TSH. Which NCERT concept explains this?  
+(A) Goitre due to thyroid gland failure  
+(B) Pituitary autonomy  
+(C) Negative feedback suppression  
+(D) Adrenal insufficiency
+
+\item In a population of \textit{Drosophila}, allele frequency of A = 0.3 and a = 0.7. Under Hardy–Weinberg equilibrium, what is expected frequency of heterozygotes?  
+(A) 0.21  
+(B) 0.42  
+(C) 0.49  
+(D) 0.09
+\end{enumerate}
+
+\subsection*{Section B: Data/Experimental + Numerical (5 Questions)}
+\begin{enumerate}[label=Q\arabic*.]
+\setcounter{enumi}{5}
+\item Meselson–Stahl experiment using N$^{15}$ DNA showed intermediate density bands after one generation. Which replication model does this support?  
+(A) Conservative (B) Semi-conservative (C) Dispersive (D) Random
+
+\item An experiment records action potentials in frog neurons. When extracellular Na$^+$ concentration is reduced, the graph shows:  
+(A) Lower depolarization amplitude  
+(B) Increased repolarization rate  
+(C) No change in hyperpolarization  
+(D) Enhanced resting potential
+
+\item A bacterial population grows logistically with carrying capacity 1000 and intrinsic growth rate r = 0.2. Approximate population size at t = 15?  
+(A) ~600  
+(B) ~800  
+(C) ~1000  
+(D) ~200
+
+\item A restriction digestion of plasmid yields fragments of 4 kb and 2 kb. Which NCERT technique confirms fragment sizes?  
+(A) SDS-PAGE  
+(B) Agarose gel electrophoresis  
+(C) ELISA  
+(D) Western blot
+
+\item In a photosynthesis experiment, 18 g glucose is formed. How many liters of O$_2$ are released at STP?  
+(A) ~67 L  
+(B) ~90 L  
+(C) ~134 L  
+(D) ~180 L
+\end{enumerate}
+
+\subsection*{Section C: Assertion-Reason (3 Questions)}
+\begin{enumerate}[label=Q\arabic*.]
+\setcounter{enumi}{10}
+\item Assertion (A): DNA ligase joins Okazaki fragments.  
+Reason (R): It seals nicks in sugar-phosphate backbone.  
+(A) Both A and R true, R correct explanation  
+(B) Both A and R true, R not explanation  
+(C) A true, R false  
+(D) A false, R true
+
+\item Assertion (A): ADH secretion increases during dehydration.  
+Reason (R): ADH promotes water reabsorption in collecting ducts.  
+(A) Both A and R true, R correct explanation  
+(B) Both A and R true, R not explanation  
+(C) A true, R false  
+(D) A false, R true
+
+\item Assertion (A): In lac operon, glucose presence suppresses lactose utilization.  
+Reason (R): Catabolite repression reduces cAMP, preventing CAP binding.  
+(A) Both A and R true, R correct explanation  
+(B) Both A and R true, R not explanation  
+(C) A true, R false  
+(D) A false, R true
+\end{enumerate}
+
+\subsection*{Section D: Matching (2 Questions)}
+\begin{enumerate}[label=Q\arabic*.]
+\setcounter{enumi}{13}
+\item Match the following (NCERT based):  
+1. PCR $\rightarrow$ (a) DNA amplification  
+2. ELISA $\rightarrow$ (b) Antigen-antibody detection  
+3. Western blot $\rightarrow$ (c) Protein identification  
+4. Northern blot $\rightarrow$ (d) RNA detection  
+
+Correct match:  
+(A) 1-a, 2-b, 3-c, 4-d  
+(B) 1-b, 2-a, 3-d, 4-c  
+(C) 1-c, 2-d, 3-a, 4-b  
+(D) 1-a, 2-c, 3-b, 4-d
+
+\item Match the following hormones with functions:  
+1. Insulin $\rightarrow$ (a) Lowers blood glucose  
+2. Glucagon $\rightarrow$ (b) Raises blood glucose  
+3. Thyroxine $\rightarrow$ (c) Increases basal metabolic rate  
+4. ADH $\rightarrow$ (d) Promotes water reabsorption  
+
+Correct match:  
+(A) 1-a, 2-b, 3-c, 4-d  
+(B) 1-b, 2-a, 3-d, 4-c  
+(C) 1-c, 2-d, 3-a, 4-b  
+(D) 1-a, 2-c, 3-b, 4-d
+\end{enumerate}
+
+\end{document}

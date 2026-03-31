@@ -1,0 +1,74 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Final Mock Test – Paper 7}
+
+\begin{enumerate}
+\item Calculate $\Delta G^\circ$ for reaction: 2CO(g)+O$_2$(g) ? 2CO$_2$(g), $K_p=5.0\times10^{15}$ at 298 K.  
+(A) -100 kJ \quad (B) -120 kJ \quad (C) -140 kJ \quad (D) -160 kJ
+
+\item Assertion–Reason:  
+Assertion (A): The entropy of dissolution of NaCl in water is positive.  
+Reason (R): Dissolution increases randomness of ions in solution.  
+(A) Both A and R true, R correct explanation  
+(B) Both A and R true, R not correct explanation  
+(C) A true, R false  
+(D) A false, R true
+
+\item The emf of cell Mg|Mg$^{2+}$(0.001 M)||Cu$^{2+}$(1 M)|Cu at 25? is?  
+(A) 2.70 V \quad (B) 2.50 V \quad (C) 2.40 V \quad (D) 2.20 V
+
+\item For a first-order reaction, 95% completion takes 3000 s. Calculate rate constant.  
+(A) $1.0\times10^{-3}$ s$^{-1}$ \quad (B) $5.0\times10^{-4}$ s$^{-1}$ \quad (C) $2.0\times10^{-4}$ s$^{-1}$ \quad (D) $6.93\times10^{-4}$ s$^{-1}$
+
+\item Calculate solubility of AgBr in water (Ksp=$5.0\times10^{-13}$).  
+(A) $7.1\times10^{-7}$ M \quad (B) $1.0\times10^{-6}$ M \quad (C) $2.2\times10^{-6}$ M \quad (D) $5.0\times10^{-7}$ M
+
+\item Assertion–Reason:  
+Assertion (A): The neutralisation enthalpy of polyprotic acids is higher than monoprotic acids.  
+Reason (R): More moles of water are formed per mole of acid.  
+(A) Both A and R true, R correct explanation  
+(B) Both A and R true, R not correct explanation  
+(C) A true, R false  
+(D) A false, R true
+
+\item The crystal system of BeO is?  
+(A) Hexagonal \quad (B) Cubic \quad (C) Orthorhombic \quad (D) Tetragonal
+
+\item Calculate $\Delta H$ for neutralisation of H$_3$PO$_4$ with NaOH (complete neutralisation).  
+(A) -171.3 kJ/mol \quad (B) -57.1 kJ/mol \quad (C) -111.6 kJ/mol \quad (D) -60.0 kJ/mol
+
+\item The coordination number of K$^+$ in KCl crystal is?  
+(A) 4 \quad (B) 6 \quad (C) 8 \quad (D) 12
+
+\item The number of atoms per unit cell in simple cubic lattice?  
+(A) 1 \quad (B) 2 \quad (C) 4 \quad (D) 6
+
+\item Which transition element shows maximum oxidation state of +3 only?  
+(A) Sc \quad (B) Y \quad (C) La \quad (D) Lu
+
+\item Calculate pH of 0.00002 M HCl solution.  
+(A) 4.7 \quad (B) 4.3 \quad (C) 4.0 \quad (D) 3.7
+
+\item Assertion–Reason:  
+Assertion (A): Diamond has very high thermal conductivity.  
+Reason (R): Strong covalent bonds allow efficient phonon transfer.  
+(A) Both A and R true, R correct explanation  
+(B) Both A and R true, R not correct explanation  
+(C) A true, R false  
+(D) A false, R true
+
+\item The lattice energy of BaF$_2$ is best estimated by?  
+(A) Born–Haber cycle \quad (B) Hess’s law \quad (C) Nernst equation \quad (D) None
+
+\item Assertion–Reason:  
+Assertion (A): Ce$^{4+}$ is used in volumetric analysis as an oxidising agent.  
+Reason (R): Ce$^{4+}$ is easily reduced to Ce$^{3+}$.  
+(A) Both A and R true, R correct explanation  
+(B) Both A and R true, R not correct explanation  
+(C) A true, R false  
+(D) A false, R true
+\end{enumerate}
+
+\end{document}

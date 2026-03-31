@@ -1,0 +1,119 @@
+\documentclass{article}
+\usepackage{enumitem}
+\begin{document}
+
+\title{IAT Biology Final Mock Test 8}
+\date{}
+\maketitle
+
+\section*{Question Paper}
+
+\subsection*{Section A: Multi-Concept (5 Questions)}
+\begin{enumerate}[label=Q\arabic*.]
+\item A transgenic \textit{Oryza sativa} plant expresses a bacterial gene for salt tolerance. Which physiological change confirms success?  
+(A) Increased stomatal opening under salinity stress  
+(B) Enhanced accumulation of compatible solutes like glycine betaine  
+(C) Higher transpiration rate  
+(D) Reduced photosynthetic efficiency
+
+\item A mutation in voltage-gated Ca$^{2+}$ channels affects cardiac muscle function. Which combined physiological effect is observed?  
+(A) Impaired contraction + arrhythmia  
+(B) Enhanced neurotransmitter release + hyperthyroidism  
+(C) Increased bone density + reduced calcium absorption  
+(D) Excessive sweating + anemia
+
+\item In a dihybrid cross AaBb × AaBb, if recombination frequency is 10\%, what fraction of progeny will be recombinant?  
+(A) 10\%  
+(B) 20\%  
+(C) 40\%  
+(D) 50\%
+
+\item A patient with pituitary tumor shows high ACTH but low cortisol. Which endocrine dysfunction explains this?  
+(A) Adrenal insufficiency  
+(B) Pituitary autonomy  
+(C) Negative feedback suppression  
+(D) Thyroid gland failure
+
+\item In a population of \textit{Drosophila}, allele frequency of A = 0.2 and a = 0.8. Under Hardy-Weinberg equilibrium, what is expected frequency of heterozygotes?  
+(A) 0.16  
+(B) 0.32  
+(C) 0.48  
+(D) 0.64
+\end{enumerate}
+
+\subsection*{Section B: Data/Experimental (5 Questions)}
+\begin{enumerate}[label=Q\arabic*.]
+\setcounter{enumi}{5}
+\item A Meselson-Stahl experiment shows DNA bands at intermediate density after one generation. Which replication model does this support?  
+(A) Conservative (B) Semi-conservative (C) Dispersive (D) Random
+
+\item An experiment records action potentials in mammalian neurons. When extracellular K$^+$ concentration is increased, the graph shows:  
+(A) Reduced resting potential magnitude  
+(B) Increased depolarization amplitude  
+(C) No change in repolarization  
+(D) Enhanced hyperpolarization
+
+\item A bacterial population shows logistic growth. At which phase is carrying capacity reached?  
+(A) Lag phase  
+(B) Exponential phase  
+(C) Stationary phase  
+(D) Decline phase
+
+\item A restriction digestion of plasmid yields fragments of 6 kb and 4 kb. Which technique confirms fragment sizes?  
+(A) SDS-PAGE  
+(B) Agarose gel electrophoresis  
+(C) ELISA  
+(D) Western blot
+
+\item Photosynthetic rate in isolated chloroplasts is measured under red light vs. green light. Which observation is correct?  
+(A) Red light supports higher rate than green  
+(B) Green light supports higher rate than red  
+(C) Both equal  
+(D) Neither supports photosynthesis
+\end{enumerate}
+
+\subsection*{Section C: Assertion-Reason / Matching (5 Questions)}
+\begin{enumerate}[label=Q\arabic*.]
+\setcounter{enumi}{10}
+\item Assertion (A): DNA polymerase III synthesizes the leading strand continuously.  
+Reason (R): It has high processivity and proofreading activity.  
+(A) Both A and R true, R correct explanation  
+(B) Both A and R true, R not explanation  
+(C) A true, R false  
+(D) A false, R true
+
+\item Assertion (A): Thyroxine secretion increases basal metabolic rate.  
+Reason (R): Thyroxine stimulates mitochondrial activity.  
+(A) Both A and R true, R correct explanation  
+(B) Both A and R true, R not explanation  
+(C) A true, R false  
+(D) A false, R true
+
+\item Match the following:  
+1. DNA ligase $\rightarrow$ (a) Seals nicks in DNA backbone  
+2. ELISA $\rightarrow$ (b) Antigen-antibody detection  
+3. Western blot $\rightarrow$ (c) Protein identification  
+4. DNA microarray $\rightarrow$ (d) Gene expression profiling  
+
+Correct match:  
+(A) 1-a, 2-b, 3-c, 4-d  
+(B) 1-b, 2-a, 3-d, 4-c  
+(C) 1-c, 2-d, 3-a, 4-b  
+(D) 1-a, 2-c, 3-b, 4-d
+
+\item Assertion (A): Density-independent factors regulate population growth.  
+Reason (R): Natural disasters affect populations regardless of density.  
+(A) Both A and R true, R correct explanation  
+(B) Both A and R true, R not explanation  
+(C) A true, R false  
+(D) A false, R true
+
+\item Assertion (A): In lac operon, lactose acts as inducer.  
+Reason (R): Lactose binds repressor, preventing operator binding.  
+(A) Both A and R true, R correct explanation  
+(B) Both A and R true, R not explanation  
+(C) A true, R false  
+(D) A false, R true
+\end{enumerate}
+
+\end{document}

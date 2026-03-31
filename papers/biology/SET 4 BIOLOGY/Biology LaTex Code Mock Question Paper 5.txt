@@ -1,0 +1,119 @@
+\documentclass{article}
+\usepackage{enumitem}
+\begin{document}
+
+\title{IAT Biology Final Mock Test 5}
+\date{}
+\maketitle
+
+\section*{Question Paper}
+
+\subsection*{Section A: Multi-Concept (5 Questions)}
+\begin{enumerate}[label=Q\arabic*.]
+\item A transgenic \textit{Brassica} plant expresses Bt toxin gene. Which physiological change confirms success?  
+(A) Resistance to lepidopteran larvae feeding  
+(B) Increased photosynthetic rate  
+(C) Enhanced nitrogen fixation  
+(D) Higher seed oil content
+
+\item A mutation in voltage-gated Na$^+$ channels affects neuron function. Which combined physiological effect is observed?  
+(A) Failure of depolarization + impaired impulse conduction  
+(B) Excessive neurotransmitter release + hyperthyroidism  
+(C) Enhanced immune response + anemia  
+(D) Increased bone density + reduced calcium absorption
+
+\item In a trihybrid cross AaBbCc × AaBbCc, what fraction of progeny will be heterozygous for all three traits?  
+(A) 1/64  
+(B) 27/64  
+(C) 9/64  
+(D) 36/64
+
+\item A patient with pituitary adenoma shows high TSH but low thyroxine. Which endocrine dysfunction explains this?  
+(A) Thyroid gland failure  
+(B) Pituitary autonomy  
+(C) Negative feedback suppression  
+(D) Adrenal hyperplasia
+
+\item In a population of \textit{Drosophila}, allele frequency of A = 0.8 and a = 0.2. Under Hardy–Weinberg equilibrium, what is expected frequency of heterozygotes?  
+(A) 0.16  
+(B) 0.32  
+(C) 0.48  
+(D) 0.64
+\end{enumerate}
+
+\subsection*{Section B: Data/Experimental (5 Questions)}
+\begin{enumerate}[label=Q\arabic*.]
+\setcounter{enumi}{5}
+\item A Meselson–Stahl experiment shows DNA bands at intermediate density after one generation. Which replication model does this support?  
+(A) Conservative (B) Semi-conservative (C) Dispersive (D) Random
+
+\item An experiment records action potentials in mammalian neurons. When extracellular K$^+$ concentration is reduced, the graph shows:  
+(A) Hyperpolarization of resting potential  
+(B) Reduced depolarization amplitude  
+(C) Increased repolarization rate  
+(D) No change in impulse conduction
+
+\item A bacterial population shows logistic growth. At which phase is carrying capacity reached?  
+(A) Lag phase  
+(B) Exponential phase  
+(C) Stationary phase  
+(D) Decline phase
+
+\item A restriction digestion of plasmid yields fragments of 4 kb, 3 kb, and 2 kb. Which technique confirms fragment sizes?  
+(A) SDS-PAGE  
+(B) Agarose gel electrophoresis  
+(C) ELISA  
+(D) Western blot
+
+\item Photosynthetic rate in isolated chloroplasts is measured under blue light vs. far-red light. Which observation is correct?  
+(A) Blue light supports higher rate than far-red  
+(B) Far-red supports higher rate than blue  
+(C) Both equal  
+(D) Neither supports photosynthesis
+\end{enumerate}
+
+\subsection*{Section C: Assertion-Reason / Matching (5 Questions)}
+\begin{enumerate}[label=Q\arabic*.]
+\setcounter{enumi}{10}
+\item Assertion (A): DNA polymerase I removes RNA primers.  
+Reason (R): It has 5'?3' exonuclease activity.  
+(A) Both A and R true, R correct explanation  
+(B) Both A and R true, R not explanation  
+(C) A true, R false  
+(D) A false, R true
+
+\item Assertion (A): Cortisol secretion increases during stress.  
+Reason (R): Cortisol stimulates gluconeogenesis and suppresses immune response.  
+(A) Both A and R true, R correct explanation  
+(B) Both A and R true, R not explanation  
+(C) A true, R false  
+(D) A false, R true
+
+\item Match the following:  
+1. PCR $\rightarrow$ (a) DNA amplification  
+2. ELISA $\rightarrow$ (b) Antigen-antibody detection  
+3. Western blot $\rightarrow$ (c) Protein identification  
+4. DNA microarray $\rightarrow$ (d) Gene expression profiling  
+
+Correct match:  
+(A) 1-a, 2-b, 3-c, 4-d  
+(B) 1-b, 2-a, 3-d, 4-c  
+(C) 1-c, 2-d, 3-a, 4-b  
+(D) 1-a, 2-c, 3-b, 4-d
+
+\item Assertion (A): Density-dependent factors regulate population growth.  
+Reason (R): Predation intensity increases with population density.  
+(A) Both A and R true, R correct explanation  
+(B) Both A and R true, R not explanation  
+(C) A true, R false  
+(D) A false, R true
+
+\item Assertion (A): In lac operon, glucose presence suppresses lactose utilization.  
+Reason (R): Catabolite repression reduces cAMP, preventing CAP binding.  
+(A) Both A and R true, R correct explanation  
+(B) Both A and R true, R not explanation  
+(C) A true, R false  
+(D) A false, R true
+\end{enumerate}
+
+\end{document}

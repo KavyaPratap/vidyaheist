@@ -44,7 +44,7 @@
     "genkit": "^1.8.0",
     "katex": "^0.16.10",
     "lucide-react": "^0.475.0",
-    "next": "15.5.12",
+    "next": "^15.5.14",
     "next-themes": "^0.3.0",
     "patch-package": "^8.0.0",
     "react": "^18.3.1",
@@ -63,7 +63,7 @@
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
-    "genkit-cli": "^1.8.0",
+    "genkit-cli": "^0.0.2",
     "postcss": "^8",
     "tailwindcss": "^3.4.1",
     "typescript": "^5"

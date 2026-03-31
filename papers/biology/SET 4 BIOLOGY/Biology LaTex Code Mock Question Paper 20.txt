@@ -1,0 +1,119 @@
+\documentclass{article}
+\usepackage{enumitem}
+\begin{document}
+
+\title{Final IAT Biology Mock Paper (Predicted 2026, NCERT Based)}
+\date{}
+\maketitle
+
+\section*{Question Paper}
+
+\subsection*{Section A: Multiple Choice (6 Questions)}
+\begin{enumerate}[label=Q\arabic*.]
+\item Golden Rice is an example of:  
+(A) Biofortification  
+(B) Bt cotton  
+(C) Somatic hybridization  
+(D) Micropropagation
+
+\item Sickle cell anemia is caused by mutation in:  
+(A) Beta-globin gene  
+(B) Alpha-globin gene  
+(C) CFTR gene  
+(D) Insulin gene
+
+\item Which hormone increases basal metabolic rate?  
+(A) Insulin  
+(B) Thyroxine  
+(C) Cortisol  
+(D) Aldosterone
+
+\item Hardy–Weinberg equilibrium: If p = 0.6, q = 0.4, heterozygotes frequency = ?  
+(A) 0.24  
+(B) 0.36  
+(C) 0.48  
+(D) 0.16
+
+\item Which enzyme joins Okazaki fragments?  
+(A) DNA polymerase I  
+(B) DNA ligase  
+(C) DNA helicase  
+(D) Primase
+
+\item Which light supports maximum photosynthesis?  
+(A) Green  
+(B) Red  
+(C) Blue  
+(D) Far-red
+\end{enumerate}
+
+\subsection*{Section B: Numerical/Data-Based (3 Questions)}
+\begin{enumerate}[label=Q\arabic*.]
+\setcounter{enumi}{6}
+\item Logistic growth: K = 1000, r = 0.2, N$_0$ = 10. Approximate N at t = 10?  
+(A) ~600  
+(B) ~800  
+(C) ~1000  
+(D) ~200
+
+\item Photosynthesis: 18 g glucose formed. O$_2$ released at STP?  
+(A) ~67 L  
+(B) ~90 L  
+(C) ~134 L  
+(D) ~180 L
+
+\item If DNA has 20\% adenine, \% of guanine = ?  
+(A) 20\%  
+(B) 30\%  
+(C) 40\%  
+(D) 60\%
+\end{enumerate}
+
+\subsection*{Section C: Assertion–Reason (3 Questions)}
+\begin{enumerate}[label=Q\arabic*.]
+\setcounter{enumi}{9}
+\item Assertion (A): DNA polymerase requires primer.  
+Reason (R): RNA primer provides 3'-OH end.  
+(A) Both true, R correct explanation  
+(B) Both true, R not explanation  
+(C) A true, R false  
+(D) A false, R true
+
+\item Assertion (A): ADH secretion increases during dehydration.  
+Reason (R): ADH promotes water reabsorption.  
+(A) Both true, R correct explanation  
+(B) Both true, R not explanation  
+(C) A true, R false  
+(D) A false, R true
+
+\item Assertion (A): In lac operon, glucose suppresses lactose utilization.  
+Reason (R): Catabolite repression reduces cAMP.  
+(A) Both true, R correct explanation  
+(B) Both true, R not explanation  
+(C) A true, R false  
+(D) A false, R true
+\end{enumerate}
+
+\subsection*{Section D: Matching (3 Questions)}
+\begin{enumerate}[label=Q\arabic*.]
+\setcounter{enumi}{12}
+\item Match techniques:  
+1. PCR $\rightarrow$ (a) DNA amplification  
+2. ELISA $\rightarrow$ (b) Antigen detection  
+3. Western blot $\rightarrow$ (c) Protein identification  
+4. Northern blot $\rightarrow$ (d) RNA detection
+
+\item Match hormones:  
+1. Insulin $\rightarrow$ (a) Lowers glucose  
+2. Glucagon $\rightarrow$ (b) Raises glucose  
+3. Thyroxine $\rightarrow$ (c) BMR increase  
+4. ADH $\rightarrow$ (d) Water reabsorption
+
+\item Match scientists:  
+1. Mendel $\rightarrow$ (a) Laws of inheritance  
+2. Meselson–Stahl $\rightarrow$ (b) DNA replication  
+3. Watson–Crick $\rightarrow$ (c) DNA double helix  
+4. Darwin $\rightarrow$ (d) Natural selection
+\end{enumerate}
+
+\end{document}

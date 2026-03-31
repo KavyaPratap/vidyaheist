@@ -1,0 +1,52 @@
+\documentclass{article}
+\begin{document}
+\section*{Biology Set 1 - Paper 6 (Questions)}
+
+\begin{enumerate}
+\item [Diversity] Which group of animals is diploblastic?  
+(A) Porifera (B) Cnidaria (C) Annelida (D) Arthropoda
+
+\item [Cell Biology] Which organelle is responsible for protein glycosylation?  
+(A) Ribosome (B) Golgi apparatus (C) Lysosome (D) Mitochondrion
+
+\item [Genetics] Which type of mutation involves insertion or deletion of nucleotides not in multiples of three?  
+(A) Missense (B) Nonsense (C) Frameshift (D) Silent
+
+\item [Plant Physiology] Which process explains movement of water across a semipermeable membrane?  
+(A) Diffusion (B) Osmosis (C) Active transport (D) Facilitated diffusion
+
+\item [Human Physiology] Which hormone regulates circadian rhythm?  
+(A) Cortisol (B) Melatonin (C) Insulin (D) Thyroxine
+
+\item [Ecology] Which term describes the maximum population size an environment can sustain?  
+(A) Biotic potential (B) Carrying capacity (C) Population density (D) Limiting factor
+
+\item [Cell Biology] Which structure is responsible for photosynthesis in cyanobacteria?  
+(A) Chloroplast (B) Thylakoid membranes (C) Ribosome (D) Nucleoid
+
+\item [Genetics] Which principle states that allele frequencies remain constant in absence of evolutionary forces?  
+(A) Law of Segregation (B) Hardy-Weinberg equilibrium (C) Law of Dominance (D) Genetic drift
+
+\item [Plant Physiology] Which mineral is essential for nitrogen fixation in legumes?  
+(A) Iron (B) Molybdenum (C) Magnesium (D) Potassium
+
+\item [Human Physiology] Which structure prevents food from entering the trachea?  
+(A) Epiglottis (B) Larynx (C) Pharynx (D) Glottis
+
+\item [Diversity] Which group of plants is non-vascular?  
+(A) Bryophytes (B) Pteridophytes (C) Gymnosperms (D) Angiosperms
+
+\item [Cell Biology] Which enzyme synthesizes DNA from RNA template?  
+(A) DNA polymerase (B) Reverse transcriptase (C) Ligase (D) Primase
+
+\item [Ecology] Which interaction describes both species being harmed?  
+(A) Mutualism (B) Commensalism (C) Competition (D) Parasitism
+
+\item [Human Physiology] Which part of the eye regulates amount of light entering?  
+(A) Lens (B) Retina (C) Iris (D) Cornea
+
+\item [Biotechnology] Which technique is used to amplify RNA sequences?  
+(A) PCR (B) RT-PCR (C) ELISA (D) Western blot
+\end{enumerate}
+
+\end{document}

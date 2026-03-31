@@ -1,0 +1,52 @@
+\documentclass{article}
+\begin{document}
+\section*{Biology Set 1 - Paper 7 (Questions)}
+
+\begin{enumerate}
+\item [Diversity] Which phylum includes organisms with radial symmetry and stinging cells?  
+(A) Porifera (B) Cnidaria (C) Platyhelminthes (D) Annelida
+
+\item [Cell Biology] Which organelle is responsible for sorting and recycling endocytosed material?  
+(A) Lysosome (B) Endosome (C) Golgi (D) Peroxisome
+
+\item [Genetics] Which inheritance pattern is observed in human blood groups ABO?  
+(A) Codominance (B) Incomplete dominance (C) Polygenic inheritance (D) Epistasis
+
+\item [Plant Physiology] Which process explains loss of water vapor from aerial parts of plants?  
+(A) Transpiration (B) Respiration (C) Photosynthesis (D) Guttation
+
+\item [Human Physiology] Which structure connects the middle ear to the pharynx?  
+(A) Cochlea (B) Eustachian tube (C) Semicircular canal (D) Auditory nerve
+
+\item [Ecology] Which biome is characterized by coniferous forests?  
+(A) Tundra (B) Taiga (C) Desert (D) Grassland
+
+\item [Cell Biology] Which enzyme synthesizes the leading strand during DNA replication?  
+(A) DNA polymerase III (B) DNA polymerase I (C) Ligase (D) Primase
+
+\item [Genetics] Which principle explains separation of alleles during gamete formation?  
+(A) Law of Segregation (B) Law of Independent Assortment (C) Hardy-Weinberg equilibrium (D) Genetic drift
+
+\item [Plant Physiology] Which hormone promotes cell division?  
+(A) Auxin (B) Cytokinin (C) Gibberellin (D) Ethylene
+
+\item [Human Physiology] Which part of the heart pumps blood to the lungs?  
+(A) Left atrium (B) Right atrium (C) Right ventricle (D) Left ventricle
+
+\item [Diversity] Which group of fungi produces motile spores with flagella?  
+(A) Zygomycota (B) Chytridiomycota (C) Ascomycota (D) Basidiomycota
+
+\item [Cell Biology] Which structure is responsible for protein synthesis in prokaryotes?  
+(A) Ribosome (B) Nucleoid (C) Plasmid (D) Cell wall
+
+\item [Ecology] Which term describes the variety of ecosystems in a region?  
+(A) Genetic diversity (B) Species diversity (C) Ecosystem diversity (D) Population diversity
+
+\item [Human Physiology] Which hormone stimulates release of glucose from liver?  
+(A) Insulin (B) Glucagon (C) Cortisol (D) Adrenaline
+
+\item [Biotechnology] Which technique is used to transfer DNA into host cells?  
+(A) PCR (B) Transformation (C) Gel electrophoresis (D) ELISA
+\end{enumerate}
+
+\end{document}

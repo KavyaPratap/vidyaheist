@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useEffect, useState, useCallback } from "react";
@@ -24,9 +23,18 @@ import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
-import { Loader2, ShieldAlert, Trash2, Edit, Check, X, PlusCircle } from "lucide-react";
+import { Loader2, ShieldAlert, Trash2, Edit, Check, X, PlusCircle, ChevronRight, ChevronDown, ListChecks, Wrench, Zap, SquareCheck, Square } from "lucide-react";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
+import { Checkbox } from "@/components/ui/checkbox";
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuLabel,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger,
+  } from "@/components/ui/dropdown-menu";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -36,10 +44,12 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
+  AlertDialogDescription,
 } from "@/components/ui/alert-dialog";
-import type { TestSeriesFullType, AdminQuestionType } from "@/lib/types";
+import type { TestSeriesFullType, AdminQuestionType, TestType } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { ADMIN_EMAIL } from "@/lib/constants";
+import { MathText } from "@/components/shared/MathText";
 
 const testSeriesSchema = z.object({
   name: z.string().min(5, { message: "Course name must be at least 5 characters." }),
@@ -62,8 +72,9 @@ const questionEditSchema = z.object({
   text: z.string().min(10, { message: "Question text must be at least 10 characters." }),
   topic: z.string().optional(),
   subject: z.string().optional(),
+  imageUrl: z.string().url().optional().or(z.literal('')),
   options: z.array(questionOptionEditSchema).min(2, "At least two options are required."),
-  correctOptionId: z.string().min(1, "Please select a correct option."),
+  correctOptionId: z.string().optional(), // relaxed for manual validation
 });
 type QuestionEditFormValues = z.infer<typeof questionEditSchema>;
 
@@ -77,6 +88,7 @@ interface QuestionEditFormProps {
 
 function QuestionEditForm({ questionData, onSave, onCancel, formInstance }: QuestionEditFormProps) {
   const { toast } = useToast();
+  const [uploadingImage, setUploadingImage] = useState(false);
 
   const {
     control,
@@ -91,20 +103,44 @@ function QuestionEditForm({ questionData, onSave, onCancel, formInstance }: Ques
     name: "options",
   });
 
-  const watchedOptions = watch("options");
   const watchedCorrectOptionId = watch("correctOptionId");
 
   const onSubmit = async (data: QuestionEditFormValues) => {
-    if (!data.options.find(opt => opt.id === data.correctOptionId)) {
+    if (!data.correctOptionId || !data.options.find(opt => opt.id === data.correctOptionId)) {
         toast({
             title: "Invalid Correct Option",
-            description: "The selected correct option does not exist among the provided options.",
+            description: "Please select a valid correct answer radio button before saving.",
             variant: "destructive",
         });
         return;
     }
     await onSave(data);
   };
+
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+      const file = e.target.files?.[0];
+      if (!file) return;
+      setUploadingImage(true);
+      try {
+          const { getApps } = await import("firebase/app");
+          const { getStorage, ref, uploadBytes, getDownloadURL } = await import("firebase/storage");
+          const app = getApps()[0];
+          const storage = getStorage(app);
+          const storageRef = ref(storage, `questions/${Date.now()}_${file.name}`);
+          const snapshot = await uploadBytes(storageRef, file);
+          const url = await getDownloadURL(snapshot.ref);
+          setValue("imageUrl", url, { shouldDirty: true, shouldValidate: true });
+          toast({ title: "Success", description: "Image attached successfully!" });
+      } catch (err: any) {
+          toast({ title: "Upload Failed", description: err.message || "Could not upload image.", variant: "destructive" });
+      } finally {
+          setUploadingImage(false);
+          if (e.target) e.target.value = ''; // Reset input
+      }
+  };
+
+  const watchedOptions = watch("options");
+  const watchedImageUrl = watch("imageUrl");
 
   return (
     <Form {...formInstance}>
@@ -147,6 +183,23 @@ function QuestionEditForm({ questionData, onSave, onCancel, formInstance }: Ques
           />
         </div>
 
+        <div className="space-y-4 border p-4 rounded bg-muted/20">
+            <FormLabel>Question Diagram / Companion Image</FormLabel>
+            {watchedImageUrl ? (
+                <div className="relative inline-block border rounded overflow-hidden">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={watchedImageUrl} alt="Attachment" className="max-h-48 object-contain" />
+                    <Button type="button" variant="destructive" size="sm" className="absolute top-1 right-1 h-6 px-2" onClick={() => setValue("imageUrl", "")}><X className="w-3 h-3"/></Button>
+                </div>
+            ) : (
+                <div className="flex items-center gap-4">
+                    <Input type="file" accept="image/*" onChange={handleImageUpload} disabled={uploadingImage} className="w-full max-w-sm" />
+                    {uploadingImage && <Loader2 className="w-5 h-5 animate-spin text-primary" />}
+                </div>
+            )}
+            <FormField control={control} name="imageUrl" render={({ field }) => <input type="hidden" {...field} />} />
+        </div>
+
         <FormItem>
             <FormLabel>Options & Correct Answer</FormLabel>
             <RadioGroup
@@ -154,27 +207,30 @@ function QuestionEditForm({ questionData, onSave, onCancel, formInstance }: Ques
                 onValueChange={(value) => setValue("correctOptionId", value, { shouldValidate: true, shouldDirty: true })}
                 className="space-y-3 mt-2"
             >
-                {fields.map((item, index) => (
-                <Card key={item.id} className={cn("p-3 flex items-center gap-3 transition-all", watchedCorrectOptionId === item.id && "bg-primary/10 ring-2 ring-primary")}>
-                    <FormControl>
-                        <RadioGroupItem value={item.id} id={`edit-option-${item.id}`} />
-                    </FormControl>
-                    <div className="flex-grow">
-                    <FormField
-                        control={control}
-                        name={`options.${index}.text`}
-                        render={({ field: optionTextCtrl }) => (
-                        <FormItem className="w-full">
-                            <FormControl>
-                            <Input {...optionTextCtrl} placeholder={`Option ${index + 1} text`} />
-                            </FormControl>
-                            <FormMessage />
-                        </FormItem>
-                        )}
-                    />
-                    </div>
-                </Card>
-                ))}
+                {fields.map((item, index) => {
+                  const actualOptionId = watchedOptions?.[index]?.id || questionData.options[index]?.id;
+                  return (
+                    <Card key={item.id} className={cn("p-3 flex items-center gap-3 transition-all", watchedCorrectOptionId === actualOptionId && "bg-primary/10 ring-2 ring-primary")}>
+                        <FormControl>
+                            <RadioGroupItem value={actualOptionId} id={`edit-option-${actualOptionId}`} />
+                        </FormControl>
+                        <div className="flex-grow">
+                        <FormField
+                            control={control}
+                            name={`options.${index}.text`}
+                            render={({ field: optionTextCtrl }) => (
+                            <FormItem className="w-full">
+                                <FormControl>
+                                <Input {...optionTextCtrl} placeholder={`Option ${index + 1} text`} />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                            )}
+                        />
+                        </div>
+                    </Card>
+                  )
+                })}
             </RadioGroup>
         </FormItem>
 
@@ -202,8 +258,10 @@ export default function EditQuizPage() {
   const [isDeletingSeries, setIsDeletingSeries] = useState(false);
   
   const [editingQuestionId, setEditingQuestionId] = useState<string | null>(null);
+  const [editingTestId, setEditingTestId] = useState<string | null>(null);
+  const [editingTestMetadata, setEditingTestMetadata] = useState<TestType | null>(null);
   const [currentEditingQuestionData, setCurrentEditingQuestionData] = useState<AdminQuestionType | null>(null);
-
+  const [selectedQuestionIds, setSelectedQuestionIds] = useState<string[]>([]);
 
   const router = useRouter();
   const params = useParams();
@@ -221,8 +279,13 @@ export default function EditQuizPage() {
         topic: "",
         subject: "",
         options: [],
-        correctOptionId: ""
+        correctOptionId: "",
+        imageUrl: ""
     }
+  });
+
+  const testMetaEditForm = useForm<{name: string, duration: number}>({
+    resolver: zodResolver(z.object({ name: z.string().min(3), duration: z.coerce.number().min(1) }))
   });
 
 
@@ -237,11 +300,24 @@ export default function EditQuizPage() {
       
       const seriesData = { id: seriesSnap.id, ...seriesSnap.data() } as TestSeriesFullType;
 
-      const questionsQuery = collection(firestore, "testSeries", id, "questions");
-      const questionsSnap = await getDocs(questionsQuery);
-      const questionsData = questionsSnap.docs.map(doc => ({ id: doc.id, ...doc.data() } as AdminQuestionType));
+      // Fetch Tests
+      const testsSnap = await getDocs(collection(firestore, "testSeries", id, "tests"));
+      const testsData: TestType[] = [];
 
-      seriesData.questions = questionsData;
+      for (const testDoc of testsSnap.docs) {
+          const tData = { id: testDoc.id, ...testDoc.data() } as TestType;
+          tData.id = testDoc.id; // Force priority
+          // Fetch Questions for this test
+          const questionsSnap = await getDocs(collection(firestore, "testSeries", id, "tests", testDoc.id, "questions"));
+          tData.questions = questionsSnap.docs.map(qDoc => {
+              const qData = { id: qDoc.id, ...qDoc.data() } as AdminQuestionType;
+              qData.id = qDoc.id; // Force priority over payload
+              return qData;
+          });
+          testsData.push(tData);
+      }
+
+      seriesData.tests = testsData.sort((a, b) => (a.order || 0) - (b.order || 0));
       
       setTestSeriesData(seriesData);
 
@@ -250,7 +326,7 @@ export default function EditQuizPage() {
         description: seriesData.description || "",
         price: seriesData.price || 0,
         subject: seriesData.subject || "",
-        numberOfTests: seriesData.numberOfTests === null ? undefined : seriesData.numberOfTests,
+        numberOfTests: seriesData.numberOfTests === null ? undefined : (seriesData.numberOfTests || testsData.length),
         durationPerTest: seriesData.durationPerTest === null ? undefined : seriesData.durationPerTest,
         imageUrl: seriesData.imageUrl || "",
         data_ai_hint: seriesData.data_ai_hint || "",
@@ -258,7 +334,7 @@ export default function EditQuizPage() {
 
     } catch (error: any) {
       console.error("Error fetching course details:", error);
-      toast({ title: "Error", description: "Failed to load course data.", variant: "destructive" });
+      toast({ title: "Error", description: "Failed to load course data or insufficient permissions.", variant: "destructive" });
       router.push("/store"); 
     } finally {
         setLoading(false);
@@ -291,10 +367,16 @@ export default function EditQuizPage() {
     }
     try {
       const seriesDocRef = doc(firestore, "testSeries", seriesId);
-      await updateDoc(seriesDocRef, {
-        ...data,
-        updatedAt: serverTimestamp(),
+      
+      const payload: any = { ...data, updatedAt: serverTimestamp() };
+      // Firestore does not allow 'undefined', replace with null
+      Object.keys(payload).forEach(key => {
+          if (payload[key] === undefined) {
+              payload[key] = null;
+          }
       });
+
+      await updateDoc(seriesDocRef, payload);
 
       toast({ title: "Success", description: `Course "${data.name}" updated successfully!` });
     } catch (error: any) {
@@ -310,18 +392,26 @@ export default function EditQuizPage() {
     }
     setIsDeletingSeries(true);
     try {
-        const seriesDocRef = doc(firestore, "testSeries", seriesId);
-        const questionsQuery = collection(firestore, "testSeries", seriesId, "questions");
-        const questionsSnap = await getDocs(questionsQuery);
         const batch = writeBatch(firestore);
-        questionsSnap.docs.forEach(qDoc => {
-            batch.delete(qDoc.ref);
-        });
+
+        // Fetch all tests
+        const testsSnap = await getDocs(collection(firestore, "testSeries", seriesId, "tests"));
+        
+        for (const testDoc of testsSnap.docs) {
+            // Fetch all questions in this test
+            const questionsSnap = await getDocs(collection(firestore, "testSeries", seriesId, "tests", testDoc.id, "questions"));
+            questionsSnap.docs.forEach(qDoc => batch.delete(qDoc.ref));
+            // Delete the test itself
+            batch.delete(testDoc.ref);
+        }
+
+        // Delete the course
+        const seriesDocRef = doc(firestore, "testSeries", seriesId);
+        batch.delete(seriesDocRef);
+
         await batch.commit();
 
-        await deleteDoc(seriesDocRef);
-
-        toast({ title: "Success", description: "Course deleted successfully." });
+        toast({ title: "Success", description: "Course and all nested tests/questions deleted successfully." });
         router.push("/store");
     } catch (error: any) {
         console.error("Error deleting course:", error);
@@ -331,13 +421,122 @@ export default function EditQuizPage() {
     }
   }
 
-  const handleEditQuestionClick = (question: AdminQuestionType) => {
+  const handleEditTestMetadataSubmit = async (data: {name: string, duration: number}) => {
+      if (!editingTestMetadata || !seriesId || !isAdmin || !firestore) return;
+      try {
+          const testDocRef = doc(firestore, "testSeries", seriesId, "tests", editingTestMetadata.id);
+          await updateDoc(testDocRef, {
+              name: data.name,
+              duration: data.duration,
+              updatedAt: serverTimestamp()
+          });
+          toast({ title: "Success", description: "Test settings updated." });
+          setEditingTestMetadata(null);
+          await fetchTestSeriesAndQuestions(seriesId);
+      } catch (err: any) {
+          toast({ title: "Error", description: "Update failed: " + err.message, variant: "destructive" });
+      }
+  };
+
+  const handleDeleteTest = async (testId: string) => {
+    if (!seriesId || !isAdmin || !firestore) return;
+    try {
+        const batch = writeBatch(firestore);
+        const questionsSnap = await getDocs(collection(firestore, "testSeries", seriesId, "tests", testId, "questions"));
+        questionsSnap.docs.forEach(qDoc => batch.delete(qDoc.ref));
+        
+        const testDocRef = doc(firestore, "testSeries", seriesId, "tests", testId);
+        batch.delete(testDocRef);
+
+        await batch.commit();
+        toast({ title: "Success", description: "Test deleted successfully." });
+        await fetchTestSeriesAndQuestions(seriesId);
+    } catch (error: any) {
+        toast({ title: "Error", description: "Delete failed: " + error.message, variant: "destructive" });
+    }
+  };
+
+  const handleBulkUpdateQuestions = async (testId: string | 'selected', updates: Partial<AdminQuestionType>, mode: 'correctAnswer' | 'metadata' | 'delete' | 'optionText', optionIdx?: number) => {
+      if (!seriesId || !isAdmin || !firestore) return;
+      
+      const isSelectedMode = testId === 'selected';
+      const targetQuestions = isSelectedMode 
+          ? (testSeriesData?.tests?.flatMap(t => t.questions || []).filter(q => selectedQuestionIds.includes(q.id)) || [])
+          : (testSeriesData?.tests?.find(t => t.id === testId)?.questions || []);
+          
+      if (!targetQuestions.length) return;
+
+      try {
+          const batch = writeBatch(firestore);
+          let count = 0;
+          
+          for (const q of targetQuestions) {
+              const parentTestId = isSelectedMode 
+                  ? testSeriesData?.tests?.find(t => t.questions?.some(tq => tq.id === q.id))?.id 
+                  : testId;
+                  
+              if (!parentTestId) continue;
+              const qRef = doc(firestore, "testSeries", seriesId, "tests", parentTestId, "questions", q.id);
+              
+              if (mode === 'delete') {
+                  batch.delete(qRef);
+              } else if (mode === 'optionText' && optionIdx !== undefined && updates.options?.[0]) {
+                  const newOptions = [...q.options];
+                  if (newOptions[optionIdx]) {
+                      newOptions[optionIdx] = { ...newOptions[optionIdx], text: updates.options[0].text };
+                      batch.update(qRef, { options: newOptions, updatedAt: serverTimestamp() });
+                  }
+              } else {
+                  const payload: any = { ...updates, updatedAt: serverTimestamp() };
+                  
+                  if (mode === 'correctAnswer' && updates.correctAnswerId && updates.correctAnswerId.length === 1) {
+                      const letterIndex = updates.correctAnswerId.charCodeAt(0) - 65;
+                      if (q.options[letterIndex]) {
+                          payload.correctAnswerId = q.options[letterIndex].id;
+                      } else {
+                          continue; 
+                      }
+                  }
+                  batch.update(qRef, payload);
+              }
+              count++;
+          }
+          
+          await batch.commit();
+          toast({ title: "Bulk Action Success", description: `${mode === 'delete' ? 'Deleted' : 'Updated'} ${count} questions successfully.` });
+          if (isSelectedMode) setSelectedQuestionIds([]);
+          await fetchTestSeriesAndQuestions(seriesId);
+      } catch (err: any) {
+          toast({ title: "Bulk Action Failed", description: err.message, variant: "destructive" });
+      }
+  };
+
+  const toggleQuestionSelection = (qid: string) => {
+    setSelectedQuestionIds(prev => 
+        prev.includes(qid) ? prev.filter(id => id !== qid) : [...prev, qid]
+    );
+  };
+
+  const toggleTestAllSelected = (test: TestType) => {
+      const allQids = test.questions?.map(q => q.id) || [];
+      const someAlreadySelectedInTest = allQids.some(id => selectedQuestionIds.includes(id));
+      
+      if (someAlreadySelectedInTest) {
+          setSelectedQuestionIds(prev => prev.filter(id => !allQids.includes(id)));
+      } else {
+          setSelectedQuestionIds(prev => [...new Set([...prev, ...allQids])]);
+      }
+  };
+
+  const handleEditQuestionClick = (testId: string, question: AdminQuestionType) => {
     setEditingQuestionId(question.id);
+    setEditingTestId(testId);
     setCurrentEditingQuestionData(question);
     questionEditForm.reset({
       text: question.text,
       topic: question.topic || "",
       subject: question.subject || testSeriesData?.subject || "",
+      imageUrl: question.imageUrl || "",
       options: question.options.map(opt => ({ text: opt.text, id: opt.id })),
       correctOptionId: question.correctAnswerId || "",
     });
@@ -345,27 +544,30 @@ export default function EditQuizPage() {
 
   const handleCancelEditQuestion = () => {
     setEditingQuestionId(null);
+    setEditingTestId(null);
     setCurrentEditingQuestionData(null);
     questionEditForm.reset();
   };
 
   const handleSaveEditedQuestion = async (formData: QuestionEditFormValues) => {
-    if (!editingQuestionId || !currentEditingQuestionData || !firestore) return;
+    if (!editingQuestionId || !editingTestId || !currentEditingQuestionData || !firestore) return;
 
     try {
-      const questionDocRef = doc(firestore, "testSeries", seriesId, "questions", editingQuestionId);
+      const questionDocRef = doc(firestore, "testSeries", seriesId, "tests", editingTestId, "questions", editingQuestionId);
       
       await updateDoc(questionDocRef, {
         text: formData.text,
         topic: formData.topic || null,
         subject: formData.subject || null,
+        imageUrl: formData.imageUrl || null,
         options: formData.options,
-        correctOptionId: formData.correctOptionId,
+        correctAnswerId: formData.correctOptionId,
         updatedAt: serverTimestamp(),
       });
 
       toast({ title: "Success", description: "Question updated successfully." });
       setEditingQuestionId(null);
+      setEditingTestId(null);
       setCurrentEditingQuestionData(null);
       await fetchTestSeriesAndQuestions(seriesId);
     } catch (error: any) {
@@ -374,22 +576,21 @@ export default function EditQuizPage() {
     }
   };
   
-  const handleDeleteQuestion = async (questionId: string) => {
-    if (!isAdmin || !firestore) {
-        toast({title: "Error", description: "Unauthorized action.", variant: "destructive"});
-        return;
-    }
+  const handleDeleteQuestion = async (testId: string, questionId: string) => {
+    if (!isAdmin || !firestore) return;
     try {
-        const questionDocRef = doc(firestore, "testSeries", seriesId, "questions", questionId);
+        const questionDocRef = doc(firestore, "testSeries", seriesId, "tests", testId, "questions", questionId);
         await deleteDoc(questionDocRef);
         toast({title: "Success", description: "Question deleted successfully."});
-        setTestSeriesData(prev => prev ? ({
-            ...prev,
-            questions: prev.questions?.filter(q => q.id !== questionId) || []
-        }) : null);
+        const updatedTests = testSeriesData?.tests?.map(t => {
+            if (t.id === testId) {
+                return { ...t, questions: t.questions?.filter(q => q.id !== questionId) || [] };
+            }
+            return t;
+        });
+        setTestSeriesData(prev => prev ? ({ ...prev, tests: updatedTests }) : null);
     } catch (error: any) {
-        console.error("Error deleting question:", error);
-        toast({title: "Error", description: error.message || "Failed to delete question.", variant: "destructive"});
+        toast({title: "Error", description: "Failed to delete question.", variant: "destructive"});
     }
   };
 
@@ -413,9 +614,7 @@ export default function EditQuizPage() {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-muted-foreground mb-6">
-              You do not have permission to access this page.
-            </p>
+            <p className="text-muted-foreground mb-6">Unauthorized access.</p>
             <Button onClick={() => router.push("/")}>Go to Homepage</Button>
           </CardContent>
         </Card>
@@ -423,185 +622,68 @@ export default function EditQuizPage() {
     );
   }
   
-  if (!testSeriesData && !loading) {
-     return (
-      <div className="flex flex-col items-center justify-center h-[calc(100vh-10rem)]">
-        <ShieldAlert className="h-12 w-12 text-destructive mb-4" />
-        <p className="text-xl text-destructive mb-2">Course Not Found</p>
-        <p className="text-muted-foreground mb-6">The requested course could not be loaded or does not exist.</p>
-        <Button onClick={() => router.push("/store")} variant="outline">Back to Courses</Button>
-      </div>
-    );
-  }
-  
   if (!testSeriesData) {
      return (
-      <div className="flex items-center justify-center h-[calc(100vh-10rem)]">
-        <Loader2 className="h-12 w-12 animate-spin text-primary" />
-        <p className="ml-4 text-lg">Loading course details...</p>
+      <div className="flex flex-col items-center justify-center h-[calc(100vh-10rem)] text-center">
+        <ShieldAlert className="h-12 w-12 text-destructive mb-4" />
+        <p className="text-xl text-destructive mb-2">Course Not Found</p>
+        <Button onClick={() => router.push("/store")} variant="outline">Back to Courses</Button>
       </div>
     );
   }
 
   return (
-    <div className="space-y-8">
-      <section className="text-center py-8 bg-primary/5 rounded-lg">
-        <h1 className="text-4xl font-bold tracking-tight text-primary">Edit Course & Questions</h1>
-        <p className="mt-2 text-lg text-muted-foreground">
-          Modifying: {testSeriesData.name}
-        </p>
+    <div className="space-y-8 max-w-6xl mx-auto pb-20">
+      <section className="text-center py-8 bg-primary/5 rounded-lg border">
+        <h1 className="text-4xl font-bold tracking-tight text-primary">Edit Course & Tests</h1>
+        <p className="mt-2 text-lg text-muted-foreground">Modify metadata, add tests, or manage questions for <span className="text-foreground font-semibold">{testSeriesData.name}</span></p>
       </section>
 
       <Card className="shadow-xl">
         <CardHeader>
-          <CardTitle>Course Details</CardTitle>
-          <CardDescription>Update the core information for this exam module.</CardDescription>
+          <CardTitle>Course Information</CardTitle>
+          <CardDescription>Main Course Display Settings</CardDescription>
         </CardHeader>
         <CardContent>
           <Form {...testSeriesEditForm}>
             <form onSubmit={testSeriesEditForm.handleSubmit(onTestSeriesUpdate)} className="space-y-6">
-                <FormField
-                  control={testSeriesEditForm.control}
-                  name="name"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Course Name</FormLabel>
-                      <FormControl><Input placeholder="e.g., IAT Mock Exam Pack" {...field} /></FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={testSeriesEditForm.control}
-                  name="description"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Description (Optional)</FormLabel>
-                      <FormControl><Textarea placeholder="Course description..." {...field} /></FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+                <FormField control={testSeriesEditForm.control} name="name" render={({ field }) => (
+                    <FormItem><FormLabel>Course Name</FormLabel><FormControl><Input {...field} /></FormControl><FormMessage /></FormItem>
+                )} />
+                <FormField control={testSeriesEditForm.control} name="description" render={({ field }) => (
+                    <FormItem><FormLabel>Description</FormLabel><FormControl><Textarea {...field} /></FormControl><FormMessage /></FormItem>
+                )} />
                 <div className="grid md:grid-cols-2 gap-6">
-                  <FormField
-                    control={testSeriesEditForm.control}
-                    name="price"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Price (₹)</FormLabel>
-                        <FormControl><Input type="number" placeholder="e.g., 499" {...field} /></FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={testSeriesEditForm.control}
-                    name="subject"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Exam Category</FormLabel>
-                        <Select onValueChange={field.onChange} value={field.value}>
-                          <FormControl><SelectTrigger><SelectValue placeholder="Select exam" /></SelectTrigger></FormControl>
-                          <SelectContent>
-                            <SelectItem value="IAT">IAT (IISER Aptitude Test)</SelectItem>
-                            <SelectItem value="NEST">NEST (NISER/UM-DAE CEBS)</SelectItem>
-                            <SelectItem value="General Aptitude">General Aptitude</SelectItem>
-                            <SelectItem value="Other">Other (Specify)</SelectItem>
-                          </SelectContent>
-                        </Select>
-                        {testSeriesEditForm.watch("subject") === "Other" && 
-                          <FormField
-                            control={testSeriesEditForm.control}
-                            name="subject" 
-                            render={({ field: otherField }) => (
-                              <Input 
-                                placeholder="Specify other exam" 
-                                className="mt-2" 
-                                {...otherField}
-                                onChange={(e) => otherField.onChange(e.target.value)}
-                              />
-                            )}
-                          />
-                        }
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
+                  <FormField control={testSeriesEditForm.control} name="price" render={({ field }) => (
+                    <FormItem><FormLabel>Price (₹)</FormLabel><FormControl><Input type="number" {...field} /></FormControl><FormMessage /></FormItem>
+                  )} />
+                  <FormField control={testSeriesEditForm.control} name="subject" render={({ field }) => (
+                    <FormItem><FormLabel>Category</FormLabel><FormControl><Input {...field} /></FormControl><FormMessage /></FormItem>
+                  )} />
                 </div>
-                <div className="grid md:grid-cols-2 gap-6">
-                    <FormField
-                    control={testSeriesEditForm.control}
-                    name="numberOfTests"
-                    render={({ field }) => (
-                        <FormItem>
-                        <FormLabel>Number of Tests (Optional)</FormLabel>
-                        <FormControl><Input type="number" placeholder="e.g., 5" {...field} value={field.value ?? ''} onChange={e => field.onChange(e.target.value === '' ? null : Number(e.target.value))} /></FormControl>
-                        <FormMessage />
-                        </FormItem>
-                    )}
-                    />
-                    <FormField
-                    control={testSeriesEditForm.control}
-                    name="durationPerTest"
-                    render={({ field }) => (
-                        <FormItem>
-                        <FormLabel>Duration Per Test (mins, Optional)</FormLabel>
-                        <FormControl><Input type="number" placeholder="e.g., 180" {...field} value={field.value ?? ''}  onChange={e => field.onChange(e.target.value === '' ? null : Number(e.target.value))}/></FormControl>
-                        <FormMessage />
-                        </FormItem>
-                    )}
-                    />
-                </div>
-                 <FormField
-                    control={testSeriesEditForm.control}
-                    name="imageUrl"
-                    render={({ field }) => (
-                        <FormItem>
-                        <FormLabel>Image URL (Optional)</FormLabel>
-                        <FormControl><Input type="url" placeholder="https://example.com/image.png" {...field} /></FormControl>
-                        <FormDescription>Course banner image.</FormDescription>
-                        <FormMessage />
-                        </FormItem>
-                    )}
-                />
-                 <FormField
-                    control={testSeriesEditForm.control}
-                    name="data_ai_hint"
-                    render={({ field }) => (
-                        <FormItem>
-                        <FormLabel>Image Placeholder Hint (Optional)</FormLabel>
-                        <FormControl><Input placeholder="e.g., 'exam prep'" {...field} value={field.value ?? ''} /></FormControl>
-                        <FormDescription>Keywords for AI image generation fallback.</FormDescription>
-                        <FormMessage />
-                        </FormItem>
-                    )}
-                />
-              <div className="flex flex-col sm:flex-row justify-between gap-4">
-                <Button type="submit" className="w-full sm:w-auto" disabled={testSeriesEditForm.formState.isSubmitting}>
+              <div className="flex flex-col sm:flex-row justify-between gap-4 border-t pt-6">
+                <Button type="submit" disabled={testSeriesEditForm.formState.isSubmitting}>
                   {testSeriesEditForm.formState.isSubmitting ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
-                  Update Course Details
+                  Save Course Metadata
                 </Button>
 
                 <AlertDialog>
                     <AlertDialogTrigger asChild>
-                        <Button variant="destructive" className="w-full sm:w-auto" disabled={isDeletingSeries}>
-                            <Trash2 className="mr-2 h-4 w-4" />
-                            {isDeletingSeries ? 'Deleting...' : 'Delete Course'}
+                        <Button variant="destructive" disabled={isDeletingSeries}>
+                            <Trash2 className="mr-2 h-4 w-4" /> Delete Entire Course
                         </Button>
                     </AlertDialogTrigger>
                     <AlertDialogContent>
                         <AlertDialogHeader>
-                        <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                        <AlertDialogTitle>Destructive Action: Delete Course?</AlertDialogTitle>
                         <AlertDialogDescription>
-                            This action cannot be undone. This will permanently delete this course
-                            and all its associated questions.
+                            This will PERMANENTLY delete the course, all contained mock tests, and all questions. 
                         </AlertDialogDescription>
                         </AlertDialogHeader>
                         <AlertDialogFooter>
-                        <AlertDialogCancel disabled={isDeletingSeries}>Cancel</AlertDialogCancel>
-                        <AlertDialogAction onClick={handleDeleteTestSeries} disabled={isDeletingSeries} className="bg-destructive hover:bg-destructive/90">
-                            {isDeletingSeries ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
-                            Yes, delete course
+                        <AlertDialogCancel>Cancel</AlertDialogCancel>
+                        <AlertDialogAction onClick={handleDeleteTestSeries} className="bg-destructive hover:bg-destructive/90">
+                            Delete Everything
                         </AlertDialogAction>
                         </AlertDialogFooter>
                     </AlertDialogContent>
@@ -612,103 +694,221 @@ export default function EditQuizPage() {
         </CardContent>
       </Card>
 
-      <Card className="shadow-xl">
-        <CardHeader>
-          <div className="flex justify-between items-center">
-            <CardTitle>Manage Questions ({testSeriesData.questions?.length || 0})</CardTitle>
-            <Button variant="outline" onClick={() => router.push(`/admin/create-quiz?seriesId=${seriesId}&seriesName=${encodeURIComponent(testSeriesData.name)}&seriesSubject=${encodeURIComponent(testSeriesData.subject || "")}`)}>
-                <PlusCircle className="mr-2 h-4 w-4" /> Add New Question
+      <div className="space-y-6">
+        <div className="flex justify-between items-center">
+            <h2 className="text-2xl font-bold flex items-center gap-2"><ListChecks className="text-primary"/> Mock Tests & Question Bank</h2>
+            <Button onClick={() => router.push(`/admin/create-quiz?seriesId=${seriesId}`)} variant="outline">
+                <PlusCircle className="mr-2 h-4 w-4" /> Add More Tests
             </Button>
-          </div>
-          <CardDescription>Edit or delete questions for this exam.</CardDescription>
-        </CardHeader>
-        <CardContent>
-          {testSeriesData.questions && testSeriesData.questions.length > 0 ? (
-            <div className="mt-2 space-y-6">
-              {testSeriesData.questions.map((q) => {
-                const isCurrentlyEditingThisQuestion = editingQuestionId === q.id;
-                return (
-                <Card key={q.id} className="bg-background overflow-hidden">
-                  <CardHeader className="bg-muted/30 p-4">
-                    <div className="flex justify-between items-start gap-4">
-                      <div className="flex-grow">
-                        <p className="font-semibold text-base text-primary">
-                            {isCurrentlyEditingThisQuestion ? "Editing Question:" : `Q: ${q.text.substring(0,120)}${q.text.length > 120 ? "..." : ""}`}
-                        </p>
-                        {!isCurrentlyEditingThisQuestion && (
-                            <>
-                                {q.topic && <p className="text-xs text-muted-foreground mt-1">Topic: {q.topic}</p>}
-                                {q.subject && <p className="text-xs text-muted-foreground">Subject: {q.subject}</p>}
-                            </>
-                        )}
-                      </div>
-                      <div className="flex-shrink-0 flex items-center space-x-2">
-                        {!isCurrentlyEditingThisQuestion ? (
-                          <>
-                            <Button variant="outline" size="sm" onClick={() => handleEditQuestionClick(q)}>
-                              <Edit className="mr-1.5 h-3.5 w-3.5" /> Edit
-                            </Button>
-                            <AlertDialog>
-                              <AlertDialogTrigger asChild>
-                                <Button variant="destructive" size="sm">
-                                  <Trash2 className="mr-1.5 h-3.5 w-3.5" /> Delete
-                                </Button>
-                              </AlertDialogTrigger>
-                              <AlertDialogContent>
-                                <AlertDialogHeader>
-                                  <AlertDialogTitle>Delete this question?</AlertDialogTitle>
-                                  <AlertDialogDescription>
-                                    This action cannot be undone.
-                                  </AlertDialogDescription>
-                                </AlertDialogHeader>
-                                <AlertDialogFooter>
-                                  <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                  <AlertDialogAction onClick={() => handleDeleteQuestion(q.id)} className="bg-destructive hover:bg-destructive/90">
-                                    Yes, delete
-                                  </AlertDialogAction>
-                                </AlertDialogFooter>
-                              </AlertDialogContent>
+        </div>
+
+        {testSeriesData.tests && testSeriesData.tests.length > 0 ? (
+            testSeriesData.tests.map((test) => (
+                <Card key={test.id} className="border-2 overflow-hidden">
+                    <CardHeader className="bg-muted/40 border-b flex flex-row items-center justify-between">
+                        <div className="flex items-center gap-4">
+                            <Checkbox 
+                                checked={test.questions?.every(q => selectedQuestionIds.includes(q.id)) || false}
+                                onCheckedChange={() => toggleTestAllSelected(test)}
+                                className="h-5 w-5 border-2"
+                            />
+                            <div>
+                                <CardTitle className="text-xl">{test.name}</CardTitle>
+                                <CardDescription>{test.questions?.length || 0} Questions • {test.duration} Minutes</CardDescription>
+                            </div>
+                        </div>
+                        <div className="flex items-center gap-2">
+                             
+                             <Button 
+                                onClick={() => router.push(`/admin/create-quiz?seriesId=${seriesId}&testId=${test.id}`)}
+                                variant="ghost" 
+                                size="sm" 
+                                className="text-primary hover:bg-primary/10"
+                             >
+                                <PlusCircle className="w-4 h-4 mr-1"/> Add Questions
+                             </Button>
+
+                             <AlertDialog open={!!editingTestMetadata && editingTestMetadata.id === test.id} onOpenChange={(open) => {
+                                 if (open) {
+                                     setEditingTestMetadata(test);
+                                     testMetaEditForm.reset({ name: test.name, duration: test.duration });
+                                 } else {
+                                     setEditingTestMetadata(null);
+                                 }
+                             }}>
+                                <AlertDialogTrigger asChild>
+                                    <Button variant="ghost" size="sm" className="hover:bg-primary/10"><Edit className="w-4 h-4 mr-1"/> Edit Setup</Button>
+                                </AlertDialogTrigger>
+                                <AlertDialogContent>
+                                    <AlertDialogHeader><AlertDialogTitle>Edit Test Settings</AlertDialogTitle></AlertDialogHeader>
+                                    <Form {...testMetaEditForm}>
+                                        <form id={`edit-test-${test.id}`} onSubmit={testMetaEditForm.handleSubmit(handleEditTestMetadataSubmit)} className="space-y-4 mt-4">
+                                            <FormField control={testMetaEditForm.control} name="name" render={({ field }) => (
+                                                <FormItem><FormLabel>Test Name</FormLabel><FormControl><Input {...field} /></FormControl></FormItem>
+                                            )} />
+                                            <FormField control={testMetaEditForm.control} name="duration" render={({ field }) => (
+                                                <FormItem><FormLabel>Duration (Minutes)</FormLabel><FormControl><Input type="number" {...field} /></FormControl></FormItem>
+                                            )} />
+                                        </form>
+                                    </Form>
+                                    <AlertDialogFooter className="mt-6">
+                                        <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                        <Button type="submit" form={`edit-test-${test.id}`}>Save Changes</Button>
+                                    </AlertDialogFooter>
+                                </AlertDialogContent>
                             </AlertDialog>
-                          </>
-                        ) : null}
-                      </div>
-                    </div>
-                  </CardHeader>
-                  
-                  {isCurrentlyEditingThisQuestion && currentEditingQuestionData ? (
-                    <CardContent className="p-4">
-                      <QuestionEditForm
-                        questionData={currentEditingQuestionData}
-                        onSave={handleSaveEditedQuestion}
-                        onCancel={handleCancelEditQuestion}
-                        formInstance={questionEditForm}
-                      />
+
+                            <DropdownMenu>
+                                <DropdownMenuTrigger asChild>
+                                    <Button variant="ghost" size="sm" className="hover:bg-primary/10"><Zap className="w-4 h-4 mr-1"/> Bulk Actions</Button>
+                                </DropdownMenuTrigger>
+                                <DropdownMenuContent align="end" className="w-56">
+                                    <DropdownMenuLabel>Batch Set Answers</DropdownMenuLabel>
+                                    <DropdownMenuItem onClick={() => handleBulkUpdateQuestions(test.id, { correctAnswerId: 'A' }, 'correctAnswer')}>Set All to (A)</DropdownMenuItem>
+                                    <DropdownMenuItem onClick={() => handleBulkUpdateQuestions(test.id, { correctAnswerId: 'B' }, 'correctAnswer')}>Set All to (B)</DropdownMenuItem>
+                                    <DropdownMenuItem onClick={() => handleBulkUpdateQuestions(test.id, { correctAnswerId: 'C' }, 'correctAnswer')}>Set All to (C)</DropdownMenuItem>
+                                    <DropdownMenuItem onClick={() => handleBulkUpdateQuestions(test.id, { correctAnswerId: 'D' }, 'correctAnswer')}>Set All to (D)</DropdownMenuItem>
+                                    <DropdownMenuSeparator />
+                                    <DropdownMenuLabel>Batch Metadata</DropdownMenuLabel>
+                                    <DropdownMenuItem onClick={() => {
+                                        const sub = prompt("Enter Subject for all questions:");
+                                        if (sub) handleBulkUpdateQuestions(test.id, { subject: sub }, 'metadata');
+                                    }}>Set Subject...</DropdownMenuItem>
+                                    <DropdownMenuItem onClick={() => {
+                                        const top = prompt("Enter Topic for all questions:");
+                                        if (top) handleBulkUpdateQuestions(test.id, { topic: top }, 'metadata');
+                                    }}>Set Topic...</DropdownMenuItem>
+                                </DropdownMenuContent>
+                            </DropdownMenu>
+
+                             <AlertDialog>
+                                <AlertDialogTrigger asChild>
+                                    <Button variant="ghost" size="sm" className="text-destructive hover:bg-destructive/10"><Trash2 className="w-4 h-4 mr-1"/> Delete Test</Button>
+                                </AlertDialogTrigger>
+                                <AlertDialogContent>
+                                    <AlertDialogHeader><AlertDialogTitle>Delete this Mock Test?</AlertDialogTitle><AlertDialogDescription>This will delete "{test.name}" and all questions inside it.</AlertDialogDescription></AlertDialogHeader>
+                                    <AlertDialogFooter><AlertDialogCancel>Cancel</AlertDialogCancel><AlertDialogAction onClick={() => handleDeleteTest(test.id)} className="bg-destructive hover:bg-destructive/90">Delete Test</AlertDialogAction></AlertDialogFooter>
+                                </AlertDialogContent>
+                            </AlertDialog>
+                        </div>
+                    </CardHeader>
+                    <CardContent className="p-0">
+                        {test.questions && test.questions.length > 0 ? (
+                            <div className="divide-y">
+                                {test.questions.map((q, idx) => {
+                                    const isEditing = editingQuestionId === q.id && editingTestId === test.id;
+                                    return (
+                                        <div key={q.id} className="p-4 bg-background">
+                                            {isEditing ? (
+                                                <QuestionEditForm
+                                                    questionData={currentEditingQuestionData!}
+                                                    onSave={handleSaveEditedQuestion}
+                                                    onCancel={handleCancelEditQuestion}
+                                                    formInstance={questionEditForm}
+                                                />
+                                            ) : (
+                                                <div className="flex justify-between gap-4">
+                                                    <div className="flex items-start gap-4 flex-grow">
+                                                        <Checkbox 
+                                                            checked={selectedQuestionIds.includes(q.id)}
+                                                            onCheckedChange={() => toggleQuestionSelection(q.id)}
+                                                            className="mt-1"
+                                                        />
+                                                        <div className="flex-grow space-y-3">
+                                                            <div className="text-sm font-semibold flex gap-2">
+                                                                <span className="text-muted-foreground">Q{idx+1}.</span>
+                                                                <div className="overflow-hidden"><MathText text={q.text} /></div>
+                                                            </div>
+                                                        {q.imageUrl && (
+                                                            // eslint-disable-next-line @next/next/no-img-element
+                                                            <div className="pl-7"><img src={q.imageUrl} alt="Diagram" className="max-h-64 object-contain rounded border" /></div>
+                                                        )}
+                                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-2 pl-7">
+                                                            {q.options.map((opt, oIdx) => (
+                                                                <div key={opt.id} className={cn(
+                                                                    "text-xs p-2 rounded border flex items-center gap-2",
+                                                                    q.correctAnswerId === opt.id ? "bg-green-100 dark:bg-green-900/40 border-green-500 font-bold" : "bg-muted/30"
+                                                                )}>
+                                                                    <span className="text-[10px] text-muted-foreground">({String.fromCharCode(65+oIdx)})</span>
+                                                                    <MathText text={opt.text}/>
+                                                                </div>
+                                                            ))}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className="flex flex-col gap-2">
+                                                        <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => handleEditQuestionClick(test.id, q)}><Edit className="w-4 h-4"/></Button>
+                                                        <AlertDialog>
+                                                            <AlertDialogTrigger asChild><Button variant="ghost" size="icon" className="h-8 w-8 text-destructive"><Trash2 className="w-4 h-4"/></Button></AlertDialogTrigger>
+                                                            <AlertDialogContent>
+                                                                <AlertDialogHeader><AlertDialogTitle>Remove Question?</AlertDialogTitle></AlertDialogHeader>
+                                                                <AlertDialogFooter><AlertDialogCancel>Cancel</AlertDialogCancel><AlertDialogAction onClick={() => handleDeleteQuestion(test.id, q.id)} className="bg-destructive hover:bg-destructive/90">Delete</AlertDialogAction></AlertDialogFooter>
+                                                            </AlertDialogContent>
+                                                        </AlertDialog>
+                                                    </div>
+                                                </div>
+                                            )}
+                                        </div>
+                                    )
+                                })}
+                            </div>
+                        ) : (
+                            <div className="p-8 text-center text-muted-foreground bg-muted/20">This test has no questions yet.</div>
+                        )}
                     </CardContent>
-                  ) : (
-                    <CardContent className="p-4">
-                      <ul className="space-y-2 text-sm">
-                        {q.options.map((opt) => (
-                          <li key={opt.id} className={cn(
-                            "flex items-center p-2 rounded-md border",
-                            q.correctAnswerId === opt.id ? 'bg-green-100 dark:bg-green-800 border-green-500 font-semibold text-green-700 dark:text-green-200' : 'bg-muted/20 border-border'
-                          )}>
-                            {q.correctAnswerId === opt.id ? <Check className="mr-2 h-4 w-4 text-green-600" /> : <div className="mr-2 h-4 w-4"/> }
-                            {opt.text}
-                          </li>
-                        ))}
-                      </ul>
-                    </CardContent>
-                  )}
                 </Card>
-              )})}
-            </div>
-          ) : (
-            <p className="mt-4 text-muted-foreground text-center py-6">
-              No questions have been added yet.
-            </p>
-          )}
-        </CardContent>
-      </Card>
+            ))
+        ) : (
+            <Card className="p-20 text-center border-dashed border-2">
+                <CardDescription className="text-xl">This series is empty.</CardDescription>
+                <Button className="mt-4" onClick={() => router.push(`/admin/create-quiz?seriesId=${seriesId}`)}>Create Your First Test</Button>
+            </Card>
+        )}
+      </div>
+
+      {selectedQuestionIds.length > 0 && (
+          <div className="fixed bottom-10 left-1/2 -translate-x-1/2 z-50 animate-in fade-in slide-in-from-bottom-5">
+              <Card className="flex items-center gap-6 p-4 shadow-2xl border-2 border-primary bg-background/95 backdrop-blur">
+                  <div className="flex flex-col items-center border-r pr-6">
+                      <span className="text-lg font-bold text-primary">{selectedQuestionIds.length}</span>
+                      <span className="text-[10px] uppercase font-bold tracking-wider text-muted-foreground">Selected</span>
+                  </div>
+                  
+                  <div className="flex items-center gap-2">
+                       <Button variant="outline" size="sm" onClick={() => handleBulkUpdateQuestions('selected', { correctAnswerId: 'A' }, 'correctAnswer')}>A</Button>
+                       <Button variant="outline" size="sm" onClick={() => handleBulkUpdateQuestions('selected', { correctAnswerId: 'B' }, 'correctAnswer')}>B</Button>
+                       <Button variant="outline" size="sm" onClick={() => handleBulkUpdateQuestions('selected', { correctAnswerId: 'C' }, 'correctAnswer')}>C</Button>
+                       <Button variant="outline" size="sm" onClick={() => handleBulkUpdateQuestions('selected', { correctAnswerId: 'D' }, 'correctAnswer')}>D</Button>
+                       <div className="w-px h-8 bg-border mx-2" />
+                       <Button variant="outline" size="sm" onClick={() => {
+                           const sub = prompt("Subject for selected questions:");
+                           if (sub) handleBulkUpdateQuestions('selected', { subject: sub }, 'metadata');
+                       }}><ListChecks className="w-4 h-4 mr-1"/> Metadata</Button>
+                       
+                       <Button variant="outline" size="sm" onClick={() => {
+                           const letter = prompt("Which option to update? (A/B/C/D)");
+                           const text = prompt(`Enter text for Option ${letter}:`);
+                           if (letter && text) {
+                               const letterIndex = letter.trim().toUpperCase().charCodeAt(0) - 65;
+                               handleBulkUpdateQuestions('selected', { options: [{ id: 'placeholder', text }] }, 'optionText', letterIndex);
+                           }
+                       }}><Edit className="w-4 h-4 mr-1"/> Set Text</Button>
+
+                       <AlertDialog>
+                          <AlertDialogTrigger asChild>
+                              <Button variant="destructive" size="sm"><Trash2 className="w-4 h-4 mr-1"/> Delete</Button>
+                          </AlertDialogTrigger>
+                          <AlertDialogContent>
+                              <AlertDialogHeader><AlertDialogTitle>Delete {selectedQuestionIds.length} questions?</AlertDialogTitle><AlertDialogDescription>This action is non-reversible.</AlertDialogDescription></AlertDialogHeader>
+                              <AlertDialogFooter><AlertDialogCancel>Cancel</AlertDialogCancel><AlertDialogAction onClick={() => handleBulkUpdateQuestions('selected', {}, 'delete')} className="bg-destructive hover:bg-destructive/90">Delete All</AlertDialogAction></AlertDialogFooter>
+                          </AlertDialogContent>
+                       </AlertDialog>
+
+                       <Button variant="ghost" size="icon" onClick={() => setSelectedQuestionIds([])}><X className="w-4 h-4"/></Button>
+                  </div>
+              </Card>
+          </div>
+      )}
     </div>
   );
 }

@@ -1,0 +1,110 @@
+\documentclass{article}
+\usepackage{enumitem}
+\begin{document}
+
+\title{IAT Biology Final Mock Test 1}
+\date{}
+\maketitle
+
+\section*{Question Paper}
+
+\subsection*{Section A: Multi-Concept (5 Questions)}
+\begin{enumerate}[label=Q\arabic*.]
+\item A bacterial plasmid carrying a gene for antibiotic resistance is transformed into \textit{Escherichia coli}. If the plasmid also contains a lacZ reporter gene, which of the following observations confirms successful transformation?  
+(A) Growth on antibiotic medium + blue colonies on X-gal plates  
+(B) Growth on antibiotic medium + white colonies on X-gal plates  
+(C) No growth on antibiotic medium + blue colonies  
+(D) Growth on antibiotic medium only, no color change
+
+\item In humans, a mutation in mitochondrial DNA affects ATP synthase. Which physiological system shows earliest symptoms?  
+(A) Nervous system due to high ATP demand  
+(B) Digestive system due to enzyme secretion  
+(C) Skeletal system due to bone remodeling  
+(D) Immune system due to antibody production
+
+\item A cross between two heterozygous plants (AaBb) produces offspring. If gene A controls chlorophyll synthesis and gene B controls resistance to fungal infection, what fraction of progeny will be chlorophyll-deficient and fungus-susceptible?  
+(A) 1/16 (B) 3/16 (C) 4/16 (D) 9/16
+
+\item In a population of \textit{Drosophila}, Hardy–Weinberg equilibrium is disturbed due to migration. Which biotechnological tool can be used to track allele frequency changes across generations?  
+(A) PCR + Gel electrophoresis  
+(B) ELISA  
+(C) Western blot  
+(D) Northern blot
+
+\item A patient with pituitary tumor shows abnormal secretion of ACTH. Which downstream effect is most likely?  
+(A) Hyperthyroidism due to excess TSH  
+(B) Hypercortisolism due to adrenal stimulation  
+(C) Hypoglycemia due to insulin suppression  
+(D) Reduced melatonin secretion
+\end{enumerate}
+
+\subsection*{Section B: Data/Experimental (5 Questions)}
+\begin{enumerate}[label=Q\arabic*.]
+\setcounter{enumi}{5}
+\item A DNA replication experiment uses radioactive thymidine. After one round of replication in \textit{E. coli}, autoradiography shows half the DNA molecules radioactive. Which model of replication does this support?  
+(A) Conservative (B) Semi-conservative (C) Dispersive (D) Random
+
+\item In an experiment, nerve impulses are recorded from frog sciatic nerve. When Na$^+$ channels are blocked by tetrodotoxin, the action potential graph shows:  
+(A) No depolarization phase  
+(B) Reduced repolarization  
+(C) Increased hyperpolarization  
+(D) Normal impulse conduction
+
+\item A population growth curve of \textit{Paramecium} shows logistic growth. At which phase is the carrying capacity reached?  
+(A) Lag phase (B) Exponential phase (C) Stationary phase (D) Decline phase
+
+\item A restriction digestion experiment yields fragments of 4 kb, 2 kb, and 1 kb. Which technique best confirms fragment sizes?  
+(A) SDS-PAGE (B) Agarose gel electrophoresis (C) ELISA (D) Western blot
+
+\item A student measures oxygen evolution in isolated chloroplasts under red light. Rate of photosynthesis is lower compared to white light. Why?  
+(A) Red light excites only Photosystem I  
+(B) Red light excites only Photosystem II  
+(C) White light excites both photosystems  
+(D) Red light inhibits Calvin cycle
+\end{enumerate}
+
+\subsection*{Section C: Assertion-Reason / Matching (5 Questions)}
+\begin{enumerate}[label=Q\arabic*.]
+\setcounter{enumi}{10}
+\item Assertion (A): DNA polymerase cannot initiate synthesis without a primer.  
+Reason (R): RNA primers provide free 3'-OH ends for elongation.  
+(A) Both A and R true, R correct explanation  
+(B) Both A and R true, R not explanation  
+(C) A true, R false  
+(D) A false, R true
+
+\item Assertion (A): In humans, ADH secretion increases during dehydration.  
+Reason (R): ADH promotes water reabsorption in distal convoluted tubule.  
+(A) Both A and R true, R correct explanation  
+(B) Both A and R true, R not explanation  
+(C) A true, R false  
+(D) A false, R true
+
+\item Match the following:  
+1. PCR $\rightarrow$ (a) Amplification of DNA  
+2. ELISA $\rightarrow$ (b) Detection of antigen-antibody interaction  
+3. Western blot $\rightarrow$ (c) Protein identification  
+4. Northern blot $\rightarrow$ (d) RNA detection  
+
+Correct match:  
+(A) 1-a, 2-b, 3-c, 4-d  
+(B) 1-b, 2-a, 3-d, 4-c  
+(C) 1-c, 2-d, 3-a, 4-b  
+(D) 1-a, 2-c, 3-b, 4-d
+
+\item Assertion (A): In population ecology, density-dependent factors regulate growth.  
+Reason (R): Disease spreads faster in dense populations.  
+(A) Both A and R true, R correct explanation  
+(B) Both A and R true, R not explanation  
+(C) A true, R false  
+(D) A false, R true
+
+\item Assertion (A): In lac operon, lactose acts as inducer.  
+Reason (R): Lactose binds repressor, preventing it from attaching to operator.  
+(A) Both A and R true, R correct explanation  
+(B) Both A and R true, R not explanation  
+(C) A true, R false  
+(D) A false, R true
+\end{enumerate}
+
+\end{document}

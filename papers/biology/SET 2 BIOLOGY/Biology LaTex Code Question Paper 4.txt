@@ -1,0 +1,97 @@
+\documentclass{article}
+\begin{document}
+\section*{Biology Set 2 - Paper 4 (Questions)}
+
+\begin{enumerate}
+\item [Diversity] Which feature is unique to *Chordata* but absent in all other phyla?  
+(A) Jointed appendages  
+(B) Notochord at some stage  
+(C) Radial symmetry  
+(D) Segmentation
+
+\item [Cell Biology] Which organelle is the primary site of glycoprotein synthesis and modification?  
+(A) Rough ER  
+(B) Golgi apparatus  
+(C) Lysosome  
+(D) Peroxisome
+
+\item [Genetics] In a population, if allele frequency of A = 0.6 and a = 0.4, what is the expected frequency of heterozygotes under Hardy–Weinberg equilibrium?  
+(A) 0.24  
+(B) 0.36  
+(C) 0.48  
+(D) 0.16
+
+\item [Plant Physiology] Which mechanism explains photoperiodic control of flowering in short?day plants?  
+(A) High phytochrome?far red (Pfr) levels inhibit flowering  
+(B) Low phytochrome?far red (Pfr) levels promote flowering  
+(C) ABA accumulation triggers flowering  
+(D) Gibberellin always induces flowering
+
+\item [Human Physiology] Which structure of the nephron is impermeable to water but actively transports NaCl?  
+(A) Descending loop of Henle  
+(B) Ascending loop of Henle  
+(C) Collecting duct  
+(D) Proximal tubule
+
+\item [Ecology] Which ecological concept explains why two species with identical niches cannot coexist indefinitely?  
+(A) Competitive exclusion principle  
+(B) Resource partitioning  
+(C) Mutualism  
+(D) Succession
+
+\item [Cell Biology] Which enzyme is responsible for removing supercoils ahead of replication fork?  
+(A) Helicase  
+(B) Topoisomerase  
+(C) Ligase  
+(D) Primase
+
+\item [Genetics] Which type of inheritance pattern is seen in mitochondrial DNA transmission?  
+(A) Maternal inheritance  
+(B) Paternal inheritance  
+(C) Codominance  
+(D) Polygenic inheritance
+
+\item [Plant Physiology] Which mineral deficiency leads to necrosis of leaf tips due to its role in cell wall stability?  
+(A) Calcium  
+(B) Magnesium  
+(C) Potassium  
+(D) Nitrogen
+
+\item [Human Physiology] Which hormone increases reabsorption of water in kidney collecting ducts?  
+(A) Aldosterone  
+(B) ADH (Vasopressin)  
+(C) Cortisol  
+(D) Insulin
+
+\item [Diversity] Which group of fungi reproduces by producing sexual spores inside sac?like structures?  
+(A) Basidiomycota  
+(B) Ascomycota  
+(C) Zygomycota  
+(D) Chytridiomycota
+
+\item [Cell Biology] Which checkpoint ensures spindle fibers are correctly attached to kinetochores before anaphase?  
+(A) G1 checkpoint  
+(B) G2/M checkpoint  
+(C) Metaphase checkpoint  
+(D) Cytokinesis checkpoint
+
+\item [Ecology] Which term describes the maximum number of trophic levels sustainable in an ecosystem?  
+(A) Ecological efficiency  
+(B) Trophic limit  
+(C) Energy pyramid  
+(D) Carrying capacity
+
+\item [Human Physiology] Which part of the brain integrates endocrine and nervous system functions by controlling pituitary gland?  
+(A) Cerebrum  
+(B) Hypothalamus  
+(C) Cerebellum  
+(D) Medulla
+
+\item [Biotechnology] Which technique uses short tandem repeats (STRs) for individual identification?  
+(A) DNA fingerprinting  
+(B) PCR  
+(C) ELISA  
+(D) Western blot
+\end{enumerate}
+
+\end{document}

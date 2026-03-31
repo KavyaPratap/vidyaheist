@@ -1,594 +1,591 @@
-
 "use client";
 
 import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useUser, useFirestore } from "@/firebase";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm, useFieldArray } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { ChevronLeft } from "lucide-react";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
-import { ScrollArea } from "@/components/ui/scroll-area";
+import { Textarea } from "@/components/ui/textarea";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
-import { Loader2, ShieldAlert, PlusCircle, Trash2 } from "lucide-react";
-import { cn } from "@/lib/utils";
-import { collection, addDoc, serverTimestamp, doc } from "firebase/firestore";
-import { Suspense } from "react";
+import { Loader2, Plus, FileUp, Dices, CheckCircle2, ArrowLeft, RefreshCw, Folder, FileText, ChevronRight, ChevronDown, CheckSquare, ListChecks } from "lucide-react";
+import { collection, addDoc, doc, getDoc, serverTimestamp } from "firebase/firestore";
 import { ADMIN_EMAIL } from "@/lib/constants";
+import { MathText } from "@/components/shared/MathText";
+import { Checkbox } from "@/components/ui/checkbox";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Zap } from "lucide-react";
 
-const testSeriesSchema = z.object({
-  name: z.string().min(5, { message: "Course name must be at least 5 characters." }),
+const seriesSchema = z.object({
+  name: z.string().min(5),
   description: z.string().optional(),
-  price: z.coerce.number().min(0, { message: "Price must be a positive number or zero." }),
-  subject: z.string().min(3, { message: "Exam category is required." }),
-  numberOfTests: z.coerce.number().optional().nullable(),
-  durationPerTest: z.coerce.number().optional().nullable(),
-  imageUrl: z.string().url({ message: "Please enter a valid URL." }).optional().or(z.literal('')),
-  data_ai_hint: z.string().optional().nullable(),
-});
-type TestSeriesFormValues = z.infer<typeof testSeriesSchema>;
-
-const optionSchema = z.object({
-  text: z.string().min(1, { message: "Option text cannot be empty." }),
+  price: z.coerce.number().min(0),
+  subject: z.string().min(2),
+  imageUrl: z.string().url().optional().or(z.literal('')),
 });
 
-const questionSchema = z.object({
-  topic: z.string().optional(),
-  subject: z.string().optional(),
-  options: z.array(optionSchema)
-    .min(2, { message: "At least two options are required."})
-    .max(5, { message: "Maximum of 5 options allowed."}),
-  correctOptionIndex: z.coerce.number()
-    .min(0, "Please select a correct option.")
-    .max(4, "Invalid option index."),
+const testSchema = z.object({
+  name: z.string().min(3),
+  duration: z.coerce.number().min(1),
 });
-type QuestionFormValues = z.infer<typeof questionSchema>;
 
-function CreateQuizContent() {
-  const { user, loading: userLoading } = useUser();
-  const firestore = useFirestore();
-  const [isAdmin, setIsAdmin] = useState<boolean | null>(null);
-  const [loading, setLoading] = useState(true);
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  const { toast } = useToast();
-  const [isMounted, setIsMounted] = useState(false);
+interface FileNode {
+  name: string;
+  type: "file" | "directory";
+  path: string;
+  children?: FileNode[];
+  questionCount?: number;
+}
 
-  const [createdTestSeriesId, setCreatedTestSeriesId] = useState<string | null>(null);
-  const [createdTestSeriesName, setCreatedTestSeriesName] = useState<string | null>(null);
-  const [questionsForCurrentSeries, setQuestionsForCurrentSeries] = useState<any[]>([]);
-  
-  const [debugQuestionText, setDebugQuestionText] = useState("");
+const TreeViewNode = ({ node, activeFilePath, setActiveFilePath, selectedPaths, onTogglePath }: {
+  node: FileNode;
+  activeFilePath: string | null;
+  setActiveFilePath: (path: string) => void;
+  selectedPaths: string[];
+  onTogglePath: (path: string, isSelected: boolean) => void;
+}) => {
+  const [expanded, setExpanded] = useState(false);
 
-  const qForm = useForm<QuestionFormValues>({
-    resolver: zodResolver(questionSchema),
-    defaultValues: {
-      topic: "",
-      subject: "", 
-      options: [{ text: "" }, { text: "" }],
-      correctOptionIndex: -1,
-    },
-  });
+  const isFile = node.type === "file";
+  const isActive = isFile && activeFilePath === node.path;
+  const isSelected = selectedPaths.includes(node.path);
 
+  const handleClick = (e: React.MouseEvent) => {
+    // If clicking text, activate review
+    if (isFile) setActiveFilePath(node.path);
+    else setExpanded(!expanded);
+  };
 
-  useEffect(() => {
-    if (!userLoading) {
-      if (!user) {
-        router.push("/login");
-      } else {
-        if (user.email === ADMIN_EMAIL) {
-          setIsAdmin(true);
-        } else {
-          setIsAdmin(false);
-        }
-      }
-    }
-  }, [user, userLoading, router]);
-
-  useEffect(() => {
-    if (isMounted) {
-      const seriesIdFromParams = searchParams.get('seriesId');
-      const seriesNameFromParams = searchParams.get('seriesName');
-      const seriesSubjectFromParams = searchParams.get('seriesSubject');
-
-      if (seriesIdFromParams) {
-        setCreatedTestSeriesId(seriesIdFromParams);
-        setCreatedTestSeriesName(seriesNameFromParams);
-        if(seriesSubjectFromParams) {
-          qForm.setValue("subject", seriesSubjectFromParams);
-        }
-      }
-    }
-    if (isAdmin !== null) setLoading(false);
-  }, [isMounted, searchParams, isAdmin, qForm]);
-
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
-
-  const tsForm = useForm<TestSeriesFormValues>({
-    resolver: zodResolver(testSeriesSchema),
-    defaultValues: {
-      name: "",
-      description: "",
-      price: 0,
-      subject: "",
-      numberOfTests: undefined, 
-      durationPerTest: undefined, 
-      imageUrl: "",
-      data_ai_hint: "",
-    },
-  });
-
-  const { fields: optionFields, append: appendOption, remove: removeOption } = useFieldArray({
-    control: qForm.control,
-    name: "options",
-  });
-
-  async function onTestSeriesSubmit(data: TestSeriesFormValues) {
-    if (!user || !isAdmin || !firestore) {
-      toast({ title: "Error", description: "Admin authentication required.", variant: "destructive" });
-      return;
-    }
-    try {
-      const insertData = {
-        name: data.name,
-        description: data.description || null,
-        price: data.price,
-        subject: data.subject,
-        numberOfTests: data.numberOfTests === null || data.numberOfTests === undefined ? null : Number(data.numberOfTests),
-        durationPerTest: data.durationPerTest === null || data.durationPerTest === undefined ? null : Number(data.durationPerTest),
-        imageUrl: data.imageUrl || null,
-        data_ai_hint: data.data_ai_hint || null,
-        createdBy: user.uid,
-        createdAt: serverTimestamp(),
-        updatedAt: serverTimestamp(),
-      };
-
-      const docRef = await addDoc(collection(firestore, "testSeries"), insertData);
-      
-      toast({ title: "Success", description: `Course "${data.name}" created successfully!` });
-      setCreatedTestSeriesId(docRef.id);
-      setCreatedTestSeriesName(data.name);
-      qForm.setValue("subject", data.subject || ""); 
-      tsForm.reset(); 
-      setQuestionsForCurrentSeries([]); 
-    } catch (error: any) {
-      console.error("Error creating course:", error);
-      toast({ title: "Error", description: error.message || "Failed to create course.", variant: "destructive" });
-    }
-  }
-
-  async function onQuestionSubmit(data: QuestionFormValues) {
-     if (!user || !isAdmin || !createdTestSeriesId || !firestore) {
-      toast({ title: "Error", description: "Admin authentication required.", variant: "destructive" });
-      return;
-    }
-
-    const questionTextToSave = debugQuestionText.trim();
-    if (questionTextToSave.length < 10) {
-        toast({ title: "Validation Error", description: "Question text must be at least 10 characters.", variant: "destructive" });
-        return;
-    }
-    if (data.correctOptionIndex === -1 || data.correctOptionIndex === undefined) {
-      qForm.setError("correctOptionIndex", { type: "manual", message: "Please select a correct option." });
-      toast({ title: "Validation Error", description: "Please select a correct option.", variant: "destructive" });
-      return;
-    }
-    for (const opt of data.options) {
-      if (opt.text.trim() === "") {
-        toast({ title: "Validation Error", description: "All option fields must be filled.", variant: "destructive" });
-        return;
-      }
-    }
-
-
-    try {
-      const optionsWithIds = data.options.map(opt => ({ ...opt, id: doc(collection(firestore, '_')).id }));
-      const correctOptionId = optionsWithIds[data.correctOptionIndex].id;
-
-      const newQuestionData = {
-          text: questionTextToSave,
-          topic: data.topic || null,
-          subject: data.subject || qForm.getValues("subject") || createdTestSeriesName || null, 
-          createdBy: user.uid,
-          options: optionsWithIds.map(({id, text}) => ({id, text})),
-          correctAnswerId: correctOptionId,
-          createdAt: serverTimestamp(),
-          updatedAt: serverTimestamp(),
-      };
-      
-      const questionsCollectionRef = collection(firestore, "testSeries", createdTestSeriesId, "questions");
-      const newQuestionRef = await addDoc(questionsCollectionRef, newQuestionData);
-      
-      toast({ title: "Success", description: "Question added successfully!" });
-      setQuestionsForCurrentSeries(prev => [...prev, {id: newQuestionRef.id, text: newQuestionData.text}]);
-      qForm.reset({ 
-         topic: "",
-         subject: qForm.getValues("subject"), 
-         options: [{ text: "" }, { text: "" }],
-         correctOptionIndex: -1,
-      });
-      setDebugQuestionText(""); 
-
-    } catch (error: any) {
-      console.error("Error creating question:", error);
-      toast({ title: "Error", description: error.message || "Failed to create question.", variant: "destructive" });
-    }
-  }
-
-  if (loading || isAdmin === null || userLoading) {
-    return (
-      <div className="flex items-center justify-center h-[calc(100vh-10rem)]">
-        <Loader2 className="h-12 w-12 animate-spin text-primary" />
-        <p className="ml-4 text-lg">Verifying access...</p>
-      </div>
-    );
-  }
-
-  if (!isAdmin) {
-    return (
-      <div className="flex flex-col items-center justify-center h-[calc(100vh-10rem)] text-center">
-        <Card className="max-w-md p-8 shadow-xl">
-          <CardHeader>
-            <CardTitle className="text-2xl text-destructive flex items-center justify-center">
-              <ShieldAlert className="mr-2 h-8 w-8" /> Access Denied
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-muted-foreground mb-6">
-              You do not have permission to access this page. This area is restricted to administrators only.
-            </p>
-            <Button onClick={() => router.push("/")}>Go to Homepage</Button>
-          </CardContent>
-        </Card>
-      </div>
-    );
-  }
+  const handleCheckbox = (checked: boolean) => {
+    onTogglePath(node.path, checked);
+  };
 
   return (
-    <div>
-      {!createdTestSeriesId ? (
-        <Card className="shadow-xl">
-          <CardHeader>
-            <CardTitle>Step 1: Create Course</CardTitle>
-            <CardDescription>
-              Fill in the details below to create a new course/test series.
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <Form {...tsForm}>
-              <form onSubmit={tsForm.handleSubmit(onTestSeriesSubmit)} className="space-y-6">
-                <FormField
-                  control={tsForm.control}
-                  name="name"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Course Name</FormLabel>
-                      <FormControl><Input placeholder="e.g., NEST Full Syllabus Mock 1" {...field} /></FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={tsForm.control}
-                  name="description"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Description (Optional)</FormLabel>
-                      <FormControl><Textarea placeholder="A brief description of the course content" {...field} /></FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <div className="grid md:grid-cols-2 gap-6">
-                  <FormField
-                    control={tsForm.control}
-                    name="price"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Price (₹)</FormLabel>
-                        <FormControl><Input type="number" placeholder="e.g., 499" {...field} /></FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={tsForm.control}
-                    name="subject"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Exam Category</FormLabel>
-                        <Select onValueChange={field.onChange} defaultValue={field.value}>
-                          <FormControl><SelectTrigger><SelectValue placeholder="Select exam (e.g., IAT, NEST)" /></SelectTrigger></FormControl>
-                          <SelectContent>
-                            <SelectItem value="IAT">IAT (IISER Aptitude Test)</SelectItem>
-                            <SelectItem value="NEST">NEST (NISER/UM-DAE CEBS)</SelectItem>
-                            <SelectItem value="General Aptitude">General Aptitude</SelectItem>
-                            <SelectItem value="Other">Other (Specify)</SelectItem>
-                          </SelectContent>
-                        </Select>
-                        {tsForm.watch("subject") === "Other" && 
-                          <FormField
-                            control={tsForm.control}
-                            name="subject" 
-                            render={({ field: otherField }) => (
-                              <Input 
-                                placeholder="Specify other exam" 
-                                className="mt-2" 
-                                {...otherField}
-                                onChange={(e) => otherField.onChange(e.target.value)}
-                              />
-                            )}
-                          />
-                        }
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                </div>
-                <div className="grid md:grid-cols-2 gap-6">
-                    <FormField
-                    control={tsForm.control}
-                    name="numberOfTests"
-                    render={({ field }) => (
-                        <FormItem>
-                        <FormLabel>Number of Tests (Optional)</FormLabel>
-                        <FormControl><Input type="number" placeholder="e.g., 5" {...field} value={field.value ?? ''} onChange={e => field.onChange(e.target.value === '' ? null : Number(e.target.value))}/></FormControl>
-                        <FormMessage />
-                        </FormItem>
-                    )}
-                    />
-                    <FormField
-                    control={tsForm.control}
-                    name="durationPerTest"
-                    render={({ field }) => (
-                        <FormItem>
-                        <FormLabel>Duration Per Test (mins, Optional)</FormLabel>
-                        <FormControl><Input type="number" placeholder="e.g., 180" {...field} value={field.value ?? ''} onChange={e => field.onChange(e.target.value === '' ? null : Number(e.target.value))} /></FormControl>
-                        <FormMessage />
-                        </FormItem>
-                    )}
-                    />
-                </div>
-                 <FormField
-                    control={tsForm.control}
-                    name="imageUrl"
-                    render={({ field }) => (
-                        <FormItem>
-                        <FormLabel>Image URL (Optional)</FormLabel>
-                        <FormControl><Input type="url" placeholder="https://example.com/image.png" {...field} /></FormControl>
-                        <FormDescription>Paste a URL to an image for the course banner.</FormDescription>
-                        <FormMessage />
-                        </FormItem>
-                    )}
-                />
-                 <FormField
-                    control={tsForm.control}
-                    name="data_ai_hint"
-                    render={({ field }) => (
-                        <FormItem>
-                        <FormLabel>Image Placeholder Hint (Optional)</FormLabel>
-                        <FormControl><Input placeholder="e.g., 'exam prep' or 'science student'" {...field} value={field.value ?? ''} /></FormControl>
-                        <FormDescription>Keywords for finding a placeholder image if URL is not provided (max 2 words).</FormDescription>
-                        <FormMessage />
-                        </FormItem>
-                    )}
-                />
-                <Button type="submit" className="w-full" disabled={tsForm.formState.isSubmitting}>
-                  {tsForm.formState.isSubmitting ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
-                  Save Course and Add Questions
-                </Button>
-              </form>
-            </Form>
-          </CardContent>
-        </Card>
-      ) : (
-        <Card className="shadow-xl">
-          <CardHeader>
-            <div className="flex justify-between items-center">
-                <div>
-                    <CardTitle>Step 2: Add Questions to "{createdTestSeriesName}"</CardTitle>
-                    <CardDescription>Fill in the details for each question.</CardDescription>
-                </div>
-            {createdTestSeriesId && (
-                <Button variant="outline" onClick={() => router.push(`/admin/edit-quiz/${createdTestSeriesId}`)}>
-                    <ChevronLeft className="mr-2 h-4 w-4" /> Back to Dashboard
-                </Button>
-            )}
-
-                <Button variant="outline" onClick={() => {
-                    setCreatedTestSeriesId(null);
-                    setCreatedTestSeriesName(null);
-                    tsForm.reset();
-                    qForm.reset({
-                        topic: "", subject: "",
-                        options: [{ text: "" }, { text: "" }], correctOptionIndex: -1,
-                    });
-                    setDebugQuestionText(""); 
-                    setQuestionsForCurrentSeries([]);
-                }}>
-                    Create Another Course
-                </Button>
+    <div className="pl-4 py-0.5">
+      <div
+        className={`flex items-center gap-2 p-1.5 rounded cursor-pointer group transition-colors ${isActive ? 'bg-primary/20 text-primary font-semibold' : 'hover:bg-muted/50'}`}
+      >
+        <Checkbox 
+           checked={isSelected} 
+           onCheckedChange={handleCheckbox}
+           className="h-4 w-4"
+        />
+        <div className="flex items-center gap-2 flex-grow truncate select-none ml-1" onClick={handleClick}>
+          {!isFile ? (
+            <div className="p-0.5 text-muted-foreground shrink-0">
+              {expanded ? <ChevronDown className="w-4 h-4" /> : <ChevronRight className="w-4 h-4" />}
             </div>
-          </CardHeader>
-          <CardContent>
-            <Form {...qForm}>
-              <form onSubmit={qForm.handleSubmit(onQuestionSubmit)} className="space-y-8">
-                <FormItem>
-                  <FormLabel className="text-lg font-semibold">Question Text</FormLabel>
-                  <FormControl>
-                    <Textarea
-                      placeholder="Enter the full question text here..."
-                      value={debugQuestionText}
-                      onChange={(e) => setDebugQuestionText(e.target.value)}
-                      rows={5}
-                      className="text-base"
-                    />
-                  </FormControl>
-                  {debugQuestionText.trim().length > 0 && debugQuestionText.trim().length < 10 && 
-                    <p className="text-sm font-medium text-destructive">Question text must be at least 10 characters.</p>}
-                </FormItem>
-
-                <div className="grid md:grid-cols-2 gap-6">
-                    <FormField
-                    control={qForm.control}
-                    name="topic"
-                    render={({ field }) => (
-                        <FormItem>
-                        <FormLabel>Topic (Optional)</FormLabel>
-                        <FormControl><Input placeholder="e.g., Kinematics, Cell Biology" {...field} /></FormControl>
-                        <FormMessage />
-                        </FormItem>
-                    )}
-                    />
-                    <FormField
-                    control={qForm.control}
-                    name="subject"
-                    render={({ field }) => (
-                        <FormItem>
-                        <FormLabel>Question Subject (Optional)</FormLabel>
-                        <FormControl><Input placeholder="e.g., Physics (Defaults to course subject)" {...field} /></FormControl>
-                        <FormDescription>Defaults to course subject if left blank.</FormDescription>
-                        <FormMessage />
-                        </FormItem>
-                    )}
-                    />
-                </div>
-                
-                <FormField
-                  control={qForm.control}
-                  name="correctOptionIndex"
-                  render={({ field }) => (
-                    <FormItem className="space-y-3">
-                      <FormLabel className="text-lg font-semibold">Options & Correct Answer</FormLabel>
-                      <FormControl>
-                        <RadioGroup
-                          value={field.value !== -1 && field.value !== null && field.value !== undefined ? String(field.value) : ""}
-                          onValueChange={(valueString) => {
-                            const numericValue = parseInt(valueString, 10);
-                            if (!isNaN(numericValue)) {
-                              field.onChange(numericValue);
-                            }
-                          }}
-                          className="space-y-3"
-                        >
-                          {optionFields.map((optionItem, index) => (
-                            <div key={optionItem.id} className="flex items-center space-x-3 p-4 border rounded-lg shadow-sm bg-background hover:bg-muted/30 transition-colors">
-                              <FormControl>
-                                <RadioGroupItem value={String(index)} id={`option-item-${optionItem.id}-${index}`} />
-                              </FormControl>
-                              <Label htmlFor={`option-item-${optionItem.id}-${index}`} className="sr-only">Option {index + 1}</Label>
-                              <div className="flex-grow">
-                                <FormField
-                                  control={qForm.control}
-                                  name={`options.${index}.text`}
-                                  render={({ field: optionTextCtrl }) => (
-                                    <FormItem className="w-full">
-                                      <FormControl>
-                                        <Input 
-                                          {...optionTextCtrl} 
-                                          placeholder={`Option ${index + 1} text`} 
-                                          className={cn("w-full text-base", qForm.formState.errors.options?.[index]?.text && "border-destructive")}
-                                        />
-                                      </FormControl>
-                                      <FormMessage /> 
-                                    </FormItem>
-                                  )}
-                                />
-                              </div>
-                              {optionFields.length > 2 && (
-                                <Button
-                                  type="button"
-                                  variant="ghost"
-                                  size="icon"
-                                  onClick={() => {
-                                    removeOption(index);
-                                    if (field.value === index) {
-                                      field.onChange(-1);
-                                    } else if (field.value !== null && field.value > index) {
-                                      field.onChange(field.value -1);
-                                    }
-                                  }}
-                                  className="text-destructive hover:text-destructive"
-                                >
-                                  <Trash2 className="h-4 w-4" />
-                                </Button>
-                              )}
-                            </div>
-                          ))}
-                        </RadioGroup>
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                
-                {optionFields.length < 5 && (
-                    <Button
-                      type="button"
-                      variant="outline"
-                      size="sm"
-                      onClick={() => appendOption({ text: "" })}
-                      className="mt-4"
-                    >
-                      <PlusCircle className="mr-2 h-4 w-4" /> Add Option
-                    </Button>
-                  )}
-                
-                <Button type="submit" className="w-full mt-8" disabled={qForm.formState.isSubmitting}>
-                  {qForm.formState.isSubmitting ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
-                  Save Question
-                </Button>
-              </form>
-            </Form>
-
-            {questionsForCurrentSeries.length > 0 && (
-                <div className="mt-10 pt-6 border-t">
-                    <h3 className="text-xl font-semibold mb-3 text-primary">Questions Added to "{createdTestSeriesName}" ({questionsForCurrentSeries.length}):</h3>
-                    <ScrollArea className="h-[200px] rounded-md border p-3">
-                        <ul className="space-y-2 text-sm text-muted-foreground">
-                            {questionsForCurrentSeries.map(q => 
-                                <li key={q.id} className="p-2 bg-muted/30 rounded-md">
-                                    {q.text.substring(0,100)}{q.text.length > 100 ? "..." : ""}
-                                </li>
-                            )}
-                        </ul>
-                    </ScrollArea>
-                </div>
-            )}
-          </CardContent>
-        </Card>
+          ) : null}
+          {!isFile ? <Folder className="w-4 h-4 text-primary" /> : <FileText className={`w-4 h-4 ${isActive ? 'text-primary' : 'text-muted-foreground'}`} />}
+          <span className="text-sm truncate">{node.name}</span>
+        </div>
+        {(node.questionCount && node.questionCount > 0) ? (
+          <span className="text-xs text-muted-foreground opacity-50 group-hover:opacity-100 transition-opacity whitespace-nowrap hidden md:inline-block">~{node.questionCount}</span>
+        ) : null}
+      </div>
+      {expanded && node.children && (
+        <div className="border-l border-muted-foreground/20 ml-2 mt-1">
+          {node.children.map(child => <TreeViewNode key={child.path} node={child} activeFilePath={activeFilePath} setActiveFilePath={setActiveFilePath} selectedPaths={selectedPaths} onTogglePath={onTogglePath} />)}
+        </div>
       )}
     </div>
   );
-}
+};
 
 export default function CreateQuizPage() {
+  const { user, loading: userLoading } = useUser();
+  const firestore = useFirestore();
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const { toast } = useToast();
+
+  const seriesForm = useForm<z.infer<typeof seriesSchema>>({
+    resolver: zodResolver(seriesSchema),
+    defaultValues: { name: "", description: "", price: 0, subject: "", imageUrl: "" }
+  });
+
+  const testForm = useForm<z.infer<typeof testSchema>>({
+    resolver: zodResolver(testSchema),
+    defaultValues: { name: "", duration: 180 }
+  });
+
+  const [step, setStep] = useState<"series" | "tests" | "questions">("series");
+  const [activeSeriesId, setActiveSeriesId] = useState<string | null>(null);
+  
+  // Checking for passed ID:
+  useEffect(() => {
+    const urlSeriesId = searchParams?.get("seriesId");
+    const urlTestId = searchParams?.get("testId");
+    
+    if (urlSeriesId) {
+      setActiveSeriesId(urlSeriesId);
+      if (urlTestId) {
+          // Fetch existing test meta
+          const fetchTestMeta = async () => {
+              if (!firestore) return;
+              try {
+                  const tSnap = await getDoc(doc(firestore, "testSeries", urlSeriesId, "tests", urlTestId));
+                  if (tSnap.exists()) {
+                      const data = tSnap.data();
+                      testForm.reset({ name: data.name, duration: data.duration });
+                      setActiveTestId(urlTestId);
+                      setStep("questions");
+                  }
+              } catch (e) { console.error(e) }
+          }
+          fetchTestMeta();
+      } else {
+          setStep("tests");
+      }
+    }
+  }, [searchParams, firestore, testForm]);
+
+  const [activeTestId, setActiveTestId] = useState<string | null>(null);
+
+  const [fileTree, setFileTree] = useState<FileNode[]>([]);
+  const [activeFilePath, setActiveFilePath] = useState<string | null>(null);
+  const [loadingPool, setLoadingPool] = useState(false);
+
+  const [stagedQuestions, setStagedQuestions] = useState<any[]>([]);
+  const [selectedQuestionIds, setSelectedQuestionIds] = useState<string[]>([]);
+  const [selectedPaths, setSelectedPaths] = useState<string[]>([]);
+  const [totalInjectedCount, setTotalInjectedCount] = useState(0);
+  const [isRandomModalOpen, setIsRandomModalOpen] = useState(false);
+  const [randomCount, setRandomCount] = useState(30);
+  const [isProcessingRandom, setIsProcessingRandom] = useState(false);
+
+
+  useEffect(() => {
+    if (!userLoading && (!user || user.email?.toLowerCase() !== ADMIN_EMAIL.toLowerCase())) {
+      router.push("/");
+    }
+  }, [user, userLoading, router]);
+
+  const loadTree = async () => {
+    try {
+      const res = await fetch("/api/questions");
+      const data = await res.json();
+      setFileTree(data.tree || []);
+    } catch (e) {
+      console.error("Failed to load pool tree", e);
+    }
+  };
+
+  const onTogglePath = (path: string, isSelected: boolean) => {
+    if (isSelected) {
+        setSelectedPaths(prev => [...prev.filter(p => !p.startsWith(path)), path]);
+    } else {
+        setSelectedPaths(prev => prev.filter(p => p !== path));
+    }
+  };
+
+  const getAllFilesFromSelectedPaths = () => {
+      const files: string[] = [];
+      const traverse = (nodes: FileNode[]) => {
+          for (const node of nodes) {
+              // If node itself is selected
+              if (selectedPaths.some(p => node.path === p)) {
+                  // Collect all nested files
+                  const collectFiles = (n: FileNode) => {
+                      if (n.type === "file") files.push(n.path);
+                      if (n.children) n.children.forEach(collectFiles);
+                  };
+                  collectFiles(node);
+              } else if (node.children) {
+                  traverse(node.children);
+              }
+          }
+      };
+      traverse(fileTree);
+      return Array.from(new Set(files));
+  };
+
+  useEffect(() => {
+    if (step === "questions") {
+      loadTree();
+    }
+  }, [step]);
+
+  // Auto layout fetch on active file change
+  useEffect(() => {
+    const fetchQuestionsForFile = async () => {
+      if (!activeFilePath) return;
+      setLoadingPool(true);
+      try {
+        const res = await fetch(`/api/questions?filePath=${encodeURIComponent(activeFilePath)}`);
+        if (!res.ok) throw new Error("Failed to load");
+        const data = await res.json();
+        setStagedQuestions(data.questions || []);
+        setSelectedQuestionIds([]); // reset selection
+      } catch (e) {
+        toast({ title: "Read Error", description: "Failed to parse questions from this file.", variant: "destructive" });
+        setStagedQuestions([]);
+      } finally {
+        setLoadingPool(false);
+      }
+    };
+    fetchQuestionsForFile();
+  }, [activeFilePath, toast]);
+
+  const handleRandomSelect = async () => {
+      const filesToScan = getAllFilesFromSelectedPaths();
+      if (filesToScan.length === 0) {
+          toast({ title: "No Selection", description: "Select at least one folder or file on the left.", variant: "destructive" });
+          return;
+      }
+      setIsProcessingRandom(true);
+      try {
+          // 1. Fetch ALL questions from selected files
+          const res = await fetch("/api/questions", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ filePaths: filesToScan })
+          });
+          const data = await res.json();
+          let allQuestions: any[] = data.questions || [];
+
+          if (allQuestions.length === 0) throw new Error("No questions found in selection.");
+
+          // 2. Shuffle
+          allQuestions.sort(() => Math.random() - 0.5);
+
+          // 3. Pick N unique
+          const pool = allQuestions.slice(0, Math.min(randomCount, allQuestions.length));
+
+          // 4. Inject
+          let success = 0;
+          for (const q of pool) {
+              await importQuestion(q);
+              success++;
+          }
+          
+          toast({ title: "Random Injection Complete", description: `Added ${success} random questions to the test.` });
+          setTotalInjectedCount(prev => prev + success);
+          setIsRandomModalOpen(false);
+      } catch (err: any) {
+          toast({ title: "Random Injection Failed", description: err.message, variant: "destructive" });
+      } finally {
+          setIsProcessingRandom(false);
+      }
+  };
+
+
+  async function onSeriesSubmit(data: z.infer<typeof seriesSchema>) {
+    if (!firestore || !user) return;
+    try {
+      const docRef = await addDoc(collection(firestore, "testSeries"), {
+        ...data,
+        createdBy: user.uid,
+        createdAt: serverTimestamp(),
+      });
+      setActiveSeriesId(docRef.id);
+      setStep("tests");
+      toast({ title: "Series Created", description: "Now add tests to this series." });
+    } catch (e: any) {
+      toast({ title: "Permission Denied", description: "You don't have permission to create a series.", variant: "destructive" });
+    }
+  }
+
+  async function onTestSubmit(data: z.infer<typeof testSchema>) {
+    if (!firestore || !activeSeriesId) return;
+    try {
+      const docRef = await addDoc(collection(firestore, "testSeries", activeSeriesId, "tests"), {
+        ...data,
+        createdAt: serverTimestamp(),
+        order: Date.now(),
+      });
+      setActiveTestId(docRef.id);
+      setStep("questions");
+      toast({ title: "Test Created", description: "Now import or add questions." });
+    } catch (e: any) {
+      toast({ title: "Error", description: e.message, variant: "destructive" });
+    }
+  }
+
+  const importQuestion = async (q: any) => {
+    if (!firestore || !activeSeriesId || !activeTestId) return;
+    try {
+      // Destructure out the static string 'id' from parser so it doesn't overwrite Firestore's native random unique id!
+      const { id: _, ...questionData } = q;
+      await addDoc(collection(firestore, "testSeries", activeSeriesId, "tests", activeTestId, "questions"), {
+        ...questionData,
+        createdAt: serverTimestamp(),
+      });
+    } catch (e: any) {
+      console.error(e)
+    }
+  };
+
+  const finalizeSelection = async () => {
+    if (selectedQuestionIds.length === 0) return;
+    const confirmUpload = stagedQuestions.filter(q => selectedQuestionIds.includes(q.id));
+
+    let successCount = 0;
+    for (const q of confirmUpload) {
+      await importQuestion(q);
+      successCount++;
+    }
+    toast({ title: "Injection Successful", description: `Added ${successCount} questions to the mock test!` });
+    setTotalInjectedCount(prev => prev + successCount);
+    setSelectedQuestionIds([]); // clear selection after injecting
+  };
+
+  const toggleModalCheck = (id: string) => {
+    setSelectedQuestionIds(prev =>
+      prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]
+    );
+  };
+
+  const toggleAllModalChecks = () => {
+    if (selectedQuestionIds.length === stagedQuestions.length) setSelectedQuestionIds([]);
+    else setSelectedQuestionIds(stagedQuestions.map(q => q.id));
+  };
+
+
+  if (userLoading) return <div className="flex justify-center py-20"><Loader2 className="animate-spin" /></div>;
+
   return (
-    <Suspense fallback={
-      <div className="flex items-center justify-center h-[calc(100vh-10rem)]">
-        <Loader2 className="h-12 w-12 animate-spin text-primary" />
-        <p className="ml-4 text-lg">Loading Create Quiz Page...</p>
+    <div className="max-w-7xl mx-auto space-y-8 pb-12">
+      <div className="flex items-center justify-between">
+        <h1 className="text-3xl font-bold text-primary">Admin: Curriculum Builder</h1>
+        <Button variant="outline" onClick={() => router.push("/store")}>Exit to Store</Button>
       </div>
-    }>
-      <CreateQuizContent />
-    </Suspense>
-  )
+
+      {step === "series" && (
+        <Card className="max-w-3xl">
+          <CardHeader>
+            <CardTitle>Step 1: Create Test Series (Course Container)</CardTitle>
+            <CardDescription>Define the overall course name, price, and category.</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <Form {...seriesForm}>
+              <form onSubmit={seriesForm.handleSubmit(onSeriesSubmit)} className="space-y-4">
+                <FormField control={seriesForm.control} name="name" render={({ field }) => (
+                  <FormItem><FormLabel>Series Name</FormLabel><FormControl><Input placeholder="e.g. IAT 2024 Full Course" {...field} /></FormControl></FormItem>
+                )} />
+                <FormField control={seriesForm.control} name="subject" render={({ field }) => (
+                  <FormItem><FormLabel>Subject Category</FormLabel><FormControl><Input placeholder="Physics, Chemistry, IAT, etc." {...field} /></FormControl></FormItem>
+                )} />
+                <div className="grid grid-cols-2 gap-4">
+                  <FormField control={seriesForm.control} name="price" render={({ field }) => (
+                    <FormItem><FormLabel>Price (INR)</FormLabel><FormControl><Input type="number" {...field} /></FormControl></FormItem>
+                  )} />
+                  <FormField control={seriesForm.control} name="imageUrl" render={({ field }) => (
+                    <FormItem><FormLabel>Banner Image URL (Optional)</FormLabel><FormControl><Input placeholder="https://..." {...field} /></FormControl></FormItem>
+                  )} />
+                </div>
+                <FormField control={seriesForm.control} name="description" render={({ field }) => (
+                  <FormItem><FormLabel>Description</FormLabel><FormControl><Textarea placeholder="What will students learn?" {...field} /></FormControl></FormItem>
+                )} />
+                <Button type="submit" className="w-full">Create Series & Add First Test</Button>
+              </form>
+            </Form>
+          </CardContent>
+        </Card>
+      )}
+
+      {step === "tests" && (activeSeriesId && (
+        <Card className="max-w-3xl">
+          <CardHeader>
+            <div className="flex items-center gap-4">
+              <Button variant="ghost" size="icon" onClick={() => setStep("series")}><ArrowLeft className="w-4 h-4" /></Button>
+              <div>
+                <CardTitle>Step 2: Add Mock Test to Series</CardTitle>
+                <CardDescription>Create an individual mock exam within this series.</CardDescription>
+              </div>
+            </div>
+          </CardHeader>
+          <CardContent>
+            <Form {...testForm}>
+              <form onSubmit={testForm.handleSubmit(onTestSubmit)} className="space-y-4">
+                <FormField control={testForm.control} name="name" render={({ field }) => (
+                  <FormItem><FormLabel>Test Title</FormLabel><FormControl><Input placeholder="e.g. Full Syllabus Mock 1" {...field} /></FormControl></FormItem>
+                )} />
+                <FormField control={testForm.control} name="duration" render={({ field }) => (
+                  <FormItem><FormLabel>Duration (Minutes)</FormLabel><FormControl><Input type="number" {...field} /></FormControl></FormItem>
+                )} />
+                <Button type="submit" className="w-full">Initialize Test & Add Questions</Button>
+              </form>
+            </Form>
+          </CardContent>
+        </Card>
+      ))}
+
+      {step === "questions" && (
+        <div className="space-y-4">
+          {/* Context Header */}
+          <div className="flex flex-col md:flex-row items-center justify-between bg-primary/5 p-4 rounded-lg border border-primary/20">
+            <div>
+              <h2 className="text-xl font-bold flex items-center gap-2"><ListChecks className="w-5 h-5 text-primary" /> Mock Test: {testForm.getValues("name")}</h2>
+              <p className="text-sm text-muted-foreground">{totalInjectedCount} questions successfully injected so far.</p>
+            </div>
+            <div className="flex gap-2 mt-4 md:mt-0">
+              <Button variant="outline" onClick={() => { 
+                  testForm.reset({ name: "", duration: 180 }); 
+                  setActiveTestId(null);
+                  setStep("tests"); 
+                  setTotalInjectedCount(0); 
+                  // Clear query param of testId if we are starting a fresh new test
+                  router.push(`/admin/create-quiz?seriesId=${activeSeriesId}`);
+              }}>
+                <Plus className="mr-2 w-4 h-4" /> Add Another Test
+              </Button>
+              <Button onClick={() => router.push("/store")}>
+                <CheckCircle2 className="mr-2 w-4 h-4" /> Finish Curriculum
+              </Button>
+            </div>
+          </div>
+
+          {/* Split Pane Interface */}
+          <div className="grid lg:grid-cols-3 gap-6">
+
+            {/* File Tree Left Panel */}
+            <Card className="lg:col-span-1 h-[650px] flex flex-col shadow-md">
+              <CardHeader className="py-4 border-b bg-muted/20 flex flex-row items-center justify-between">
+                <CardTitle className="text-lg flex items-center gap-2"><Folder className="w-4 h-4" /> Question Bank</CardTitle>
+                <Button variant="ghost" size="icon" onClick={loadTree} title="Refresh File Tree" className="h-8 w-8">
+                  <RefreshCw className="w-4 h-4" />
+                </Button>
+              </CardHeader>
+              <CardContent className="flex-grow overflow-y-auto px-2 py-4">
+                {fileTree.length === 0 ? (
+                  <p className="text-sm text-center py-4 text-muted-foreground">No files found in /papers</p>
+                ) : (
+                  fileTree.map(node => (
+                    <TreeViewNode
+                      key={node.path}
+                      node={node}
+                      activeFilePath={activeFilePath}
+                      setActiveFilePath={setActiveFilePath}
+                      selectedPaths={selectedPaths}
+                      onTogglePath={onTogglePath}
+                    />
+                  ))
+                )}
+              </CardContent>
+              <CardFooter className="p-3 border-t bg-muted/20">
+                    <Dialog open={isRandomModalOpen} onOpenChange={setIsRandomModalOpen}>
+                        <DialogTrigger asChild>
+                            <Button className="w-full bg-primary/10 text-primary border-primary hover:bg-primary/20" variant="outline">
+                                <Zap className="w-4 h-4 mr-2" /> Select Random
+                            </Button>
+                        </DialogTrigger>
+                        <DialogContent>
+                            <DialogHeader>
+                                <DialogTitle>Add Random Questions</DialogTitle>
+                                <DialogDescription>
+                                    Inject random unique questions from your checked selection.
+                                </DialogDescription>
+                            </DialogHeader>
+                            <div className="py-4 space-y-4">
+                                <Label>Number of questions to pick:</Label>
+                                <Input type="number" value={randomCount} onChange={(e) => setRandomCount(Number(e.target.value))} min={1} max={500} />
+                                <p className="text-xs text-muted-foreground">Selection identifies {getAllFilesFromSelectedPaths().length} files to scan.</p>
+                            </div>
+                            <DialogFooter>
+                                <Button variant="ghost" onClick={() => setIsRandomModalOpen(false)}>Cancel</Button>
+                                <Button onClick={handleRandomSelect} disabled={isProcessingRandom}>
+                                    {isProcessingRandom ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Dices className="w-4 h-4 mr-2" />}
+                                    Inject Randomly
+                                </Button>
+                            </DialogFooter>
+                        </DialogContent>
+                    </Dialog>
+              </CardFooter>
+            </Card>
+
+            {/* Live Preview Right Panel */}
+            <Card className="lg:col-span-2 h-[650px] flex flex-col shadow-md border-primary/30 relative">
+              <CardHeader className="py-4 border-b bg-primary/5 flex flex-row items-center justify-between">
+                <div>
+                  <CardTitle className="text-lg truncate max-w-sm" title={activeFilePath || ''}>
+                    {activeFilePath ? activeFilePath.split('/').pop() : 'Select a File'}
+                  </CardTitle>
+                  <CardDescription>
+                    {activeFilePath ? `${stagedQuestions.length} valid questions parsed.` : 'Browse the tree on the left.'}
+                  </CardDescription>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Button onClick={toggleAllModalChecks} variant="outline" size="sm" disabled={!activeFilePath || stagedQuestions.length === 0}>
+                    <CheckSquare className="w-4 h-4 mr-2" />
+                    {selectedQuestionIds.length === stagedQuestions.length && stagedQuestions.length > 0 ? "Deselect All" : "Select All"}
+                  </Button>
+                  <Button onClick={finalizeSelection} size="sm" disabled={selectedQuestionIds.length === 0} className="bg-primary hover:bg-primary/90">
+                    <FileUp className="w-4 h-4 mr-2" />
+                    Inject {selectedQuestionIds.length}
+                  </Button>
+                </div>
+              </CardHeader>
+
+              <CardContent className="flex-grow overflow-y-auto p-4 bg-muted/10">
+                {loadingPool ? (
+                  <div className="flex flex-col items-center justify-center h-full text-muted-foreground">
+                    <Loader2 className="animate-spin w-8 h-8 mb-4" />
+                    <p>Extracting and rendering LaTeX...</p>
+                  </div>
+                ) : !activeFilePath ? (
+                  <div className="flex flex-col items-center justify-center h-full text-muted-foreground">
+                    <FileText className="w-12 h-12 mb-4 opacity-20" />
+                    <p>No file selected.</p>
+                  </div>
+                ) : stagedQuestions.length === 0 ? (
+                  <div className="flex flex-col items-center justify-center h-full text-muted-foreground">
+                    <Dices className="w-12 h-12 mb-4 opacity-20" />
+                    <p>We couldn't extract any questions.</p>
+                    <p className="text-xs mt-2">Check the file formatting.</p>
+                  </div>
+                ) : (
+                  <div className="space-y-4">
+                    {stagedQuestions.map((q, idx) => (
+                      <div key={q.id} className={`transition-all p-4 rounded-lg border bg-background flex gap-4 ${selectedQuestionIds.includes(q.id) ? 'ring-2 ring-primary border-primary' : ''}`}>
+                        <Checkbox
+                          className="mt-1 flex-shrink-0"
+                          checked={selectedQuestionIds.includes(q.id)}
+                          onCheckedChange={() => toggleModalCheck(q.id)}
+                        />
+                        <div className="flex-grow space-y-3 overflow-hidden">
+                          <div>
+                            <span className="font-bold mr-2 text-primary">Q{idx + 1}.</span>
+                            <MathText text={q.text} />
+                          </div>
+                          <div className="pl-6 grid grid-cols-1 md:grid-cols-2 gap-2">
+                            {q.options.map((opt: any, optIdx: number) => (
+                              <div key={opt.id} className="flex gap-2">
+                                <span className="font-semibold text-xs mt-0.5 text-muted-foreground">({String.fromCharCode(65 + optIdx)})</span>
+                                <div className="text-sm"><MathText text={opt.text} /></div>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      )}
+    </div>
+  );
 }

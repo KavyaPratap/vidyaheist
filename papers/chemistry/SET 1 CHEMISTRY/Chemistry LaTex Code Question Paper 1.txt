@@ -1,0 +1,56 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Chemistry Mock Test – Phase 1, Paper 1}
+
+\begin{enumerate}
+
+\item If the equilibrium constant for $2AB \rightleftharpoons A_2 + B_2$ is 36, what is the equilibrium constant for $AB \rightleftharpoons \tfrac{1}{2}A_2 + \tfrac{1}{2}B_2$?  
+(A) 49 \quad (B) 24 \quad (C) 6 \quad (D) 2
+
+\item For $PCl_5 \rightleftharpoons PCl_3 + Cl_2$, if the container volume is halved at constant $T$, which statement is correct?  
+(A) Neither $K_p$ nor $\alpha$ changes \quad (B) Both change \quad (C) $K_p$ changes, $\alpha$ does not \quad (D) $K_p$ does not change, $\alpha$ changes
+
+\item For $C_2H_6 \rightleftharpoons C_2H_4 + H_2$, $K_p = 0.05$ atm at 900 K. Calculate $\Delta G^\circ$.  
+(A) 11.19 kJ/mol \quad (B) 22.40 kJ/mol \quad (C) 33.57 kJ/mol \quad (D) 27.98 kJ/mol
+
+\item The first ionisation potential of Al is smaller than that of Mg because:  
+(A) Atomic size of Al is more than Mg \quad (B) Al has one unpaired electron in 3p-orbital \quad (C) Mg has incompletely filled 3s-orbital \quad (D) Atomic size of Al is less than Mg
+
+\item The element $Z=114$ belongs to which family?  
+(A) Halogen \quad (B) Carbon \quad (C) Oxygen \quad (D) Nitrogen
+
+\item KH values for Ar, CO$_2$, HCHO, CH$_4$ are 40.39, 1.67, $1.83 \times 10^{-5}$, 0.413 respectively. Arrange in increasing solubility.  
+(A) HCHO < CH$_4$ < CO$_2$ < Ar \quad (B) HCHO < CO$_2$ < CH$_4$ < Ar \quad (C) Ar < CO$_2$ < CH$_4$ < HCHO \quad (D) Ar < CH$_4$ < CO$_2$ < HCHO
+
+\item Find the emf of the cell at 25?:  
+Pt|H$_2$(1 atm)|HCl(pH 3.32)||HCl(pH 2.21)|H$_2$(1 atm)|Pt  
+(A) 0.0187 V \quad (B) 0.0295 V \quad (C) 0.059 V \quad (D) 0.0655 V
+
+\item A flask contains equal concentrations of A and B. Half-lives: A = 300 s, B = 180 s. Time required for [A] to be 4×[B]?  
+(A) 180 s \quad (B) 900 s \quad (C) 300 s \quad (D) 120 s
+
+\item $E^\circ_{ClO_4/ClO_3} = +0.36$ V, $E^\circ_{ClO_3/ClO_2} = +0.33$ V. Equilibrium [ClO$_4^-$]?  
+(A) 0.19 M \quad (B) 0.024 M \quad (C) 0.24 M \quad (D) 0.019 M
+
+\item Which of the following compounds shows highest dipole moment?  
+(A) I \quad (B) II \quad (C) III \quad (D) IV
+
+\item Compartment A: 0.86 g glucose in 900 mL water. Compartment B: 450 mL water. How much glucose to add in B to prevent osmosis?  
+(A) 0.29 g \quad (B) 0.32 g \quad (C) 0.43 g \quad (D) 0.86 g
+
+\item Which of the following radial distribution graphs corresponds to 3d orbital?  
+(A) Option D \quad (B) Option C \quad (C) Option A \quad (D) Option B
+
+\item The order of stability of tautomeric compounds:  
+(A) I > II > III \quad (B) III > II > I \quad (C) II > I > III \quad (D) II > III > I
+
+\item Arrange labelled hydrogens in decreasing acidity:  
+(A) ii > i > iii > iv \quad (B) iii > ii > iv > i \quad (C) ii > iii > iv > i \quad (D) iii > ii > i > iv
+
+\item Major product of Hoffmann bromamide degradation:  
+(A) COOCH$_3$ \quad (B) NH$_2$ \quad (C) NH \quad (D) OCH$_3$
+
+\end{enumerate}
+\end{document}

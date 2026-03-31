@@ -1,0 +1,52 @@
+\documentclass{article}
+\begin{document}
+\section*{Biology Set 2 - Paper 1 (Questions)}
+
+\begin{enumerate}
+\item [Diversity] Which group of animals shows pentamerous radial symmetry in adults?  
+(A) Mollusca (B) Arthropoda (C) Echinodermata (D) Annelida
+
+\item [Cell Biology] Which organelle is responsible for detoxification of drugs in liver cells?  
+(A) Rough ER (B) Smooth ER (C) Golgi (D) Lysosome
+
+\item [Genetics] Which genetic principle explains the inheritance of traits located on the same chromosome?  
+(A) Independent assortment (B) Linkage (C) Codominance (D) Epistasis
+
+\item [Plant Physiology] Which hormone breaks seed dormancy and promotes germination?  
+(A) Auxin (B) Gibberellin (C) ABA (D) Cytokinin
+
+\item [Human Physiology] Which structure in the nephron is responsible for selective reabsorption of glucose?  
+(A) Proximal tubule (B) Loop of Henle (C) Distal tubule (D) Collecting duct
+
+\item [Ecology] Which type of succession occurs after forest fire?  
+(A) Primary succession (B) Secondary succession (C) Retrogressive succession (D) Climax succession
+
+\item [Cell Biology] Which enzyme seals nicks in DNA backbone during replication?  
+(A) Helicase (B) Ligase (C) Polymerase (D) Primase
+
+\item [Genetics] Which condition is caused by an extra X chromosome in males (XXY)?  
+(A) Turner syndrome (B) Down syndrome (C) Klinefelter syndrome (D) Edwards syndrome
+
+\item [Plant Physiology] Which tissue transports water in plants?  
+(A) Phloem (B) Xylem (C) Cambium (D) Epidermis
+
+\item [Human Physiology] Which hormone increases heart rate and blood pressure during stress?  
+(A) Insulin (B) Adrenaline (C) Cortisol (D) Thyroxine
+
+\item [Diversity] Which kingdom includes prokaryotic organisms?  
+(A) Protista (B) Monera (C) Fungi (D) Plantae
+
+\item [Cell Biology] Which structure is responsible for ATP synthesis in mitochondria?  
+(A) Cristae (B) Matrix (C) Outer membrane (D) Ribosome
+
+\item [Ecology] Which factor is abiotic?  
+(A) Bacteria (B) Temperature (C) Fungi (D) Plants
+
+\item [Human Physiology] Which blood component transports oxygen?  
+(A) Plasma (B) RBC (C) WBC (D) Platelets
+
+\item [Biotechnology] Which technique is used to amplify RNA after conversion to cDNA?  
+(A) PCR (B) RT-PCR (C) ELISA (D) Western blot
+\end{enumerate}
+
+\end{document}

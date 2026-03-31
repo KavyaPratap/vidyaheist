@@ -1,0 +1,119 @@
+\documentclass{article}
+\usepackage{enumitem}
+\begin{document}
+
+\title{IAT Biology Final Mock Test 4}
+\date{}
+\maketitle
+
+\section*{Question Paper}
+
+\subsection*{Section A: Multi-Concept (5 Questions)}
+\begin{enumerate}[label=Q\arabic*.]
+\item A genetically modified \textit{Oryza sativa} plant expresses a bacterial gene for $\beta$-carotene synthesis. Which physiological change confirms success?  
+(A) Increased starch accumulation  
+(B) Golden-colored grains with provitamin A activity  
+(C) Enhanced nitrogen fixation in roots  
+(D) Higher transpiration rate
+
+\item A mutation in voltage-gated calcium channels affects synaptic transmission. Which combined physiological effect is observed?  
+(A) Reduced neurotransmitter release + impaired muscle contraction  
+(B) Increased neurotransmitter release + hyperthyroidism  
+(C) Enhanced immune response + anemia  
+(D) Excessive sweating + bone fragility
+
+\item In a dihybrid cross AaBb × AaBb, if genes are completely linked, what fraction of progeny will be recombinant?  
+(A) 0%  
+(B) 25%  
+(C) 50%  
+(D) 75%
+
+\item A patient with hypothalamic dysfunction shows low CRH but normal ACTH. Which feedback mechanism explains this?  
+(A) Pituitary autonomy  
+(B) Negative feedback failure  
+(C) Adrenal hyperplasia  
+(D) Thyroid hormone suppression
+
+\item In a population of \textit{Drosophila}, allele frequency of A = 0.5 and a = 0.5. Under Hardy–Weinberg equilibrium, what is expected frequency of heterozygotes?  
+(A) 0.25  
+(B) 0.50  
+(C) 0.75  
+(D) 1.00
+\end{enumerate}
+
+\subsection*{Section B: Data/Experimental (5 Questions)}
+\begin{enumerate}[label=Q\arabic*.]
+\setcounter{enumi}{5}
+\item A Meselson–Stahl experiment shows DNA bands at intermediate density after one generation. Which replication model does this support?  
+(A) Conservative (B) Semi-conservative (C) Dispersive (D) Random
+
+\item An experiment records action potentials in frog neurons. When extracellular Ca$^{2+}$ concentration is reduced, the graph shows:  
+(A) Reduced neurotransmitter release  
+(B) Increased depolarization amplitude  
+(C) No change in repolarization  
+(D) Enhanced hyperpolarization
+
+\item A bacterial population shows logistic growth. At which phase is carrying capacity reached?  
+(A) Lag phase  
+(B) Exponential phase  
+(C) Stationary phase  
+(D) Decline phase
+
+\item A restriction digestion of plasmid yields fragments of 7 kb and 3 kb. Which technique confirms fragment sizes?  
+(A) SDS-PAGE  
+(B) Agarose gel electrophoresis  
+(C) ELISA  
+(D) Western blot
+
+\item Photosynthetic rate in isolated chloroplasts is measured under green light vs. red light. Which observation is correct?  
+(A) Red light supports higher rate than green  
+(B) Green light supports higher rate than red  
+(C) Both equal  
+(D) Neither supports photosynthesis
+\end{enumerate}
+
+\subsection*{Section C: Assertion-Reason / Matching (5 Questions)}
+\begin{enumerate}[label=Q\arabic*.]
+\setcounter{enumi}{10}
+\item Assertion (A): DNA helicase unwinds the double helix.  
+Reason (R): It breaks hydrogen bonds between complementary bases.  
+(A) Both A and R true, R correct explanation  
+(B) Both A and R true, R not explanation  
+(C) A true, R false  
+(D) A false, R true
+
+\item Assertion (A): Insulin secretion increases after a carbohydrate-rich meal.  
+Reason (R): Insulin promotes glucose uptake by cells.  
+(A) Both A and R true, R correct explanation  
+(B) Both A and R true, R not explanation  
+(C) A true, R false  
+(D) A false, R true
+
+\item Match the following:  
+1. DNA ligase $\rightarrow$ (a) Seals nicks in DNA backbone  
+2. ELISA $\rightarrow$ (b) Antigen-antibody detection  
+3. Western blot $\rightarrow$ (c) Protein identification  
+4. DNA sequencing $\rightarrow$ (d) Determines nucleotide order  
+
+Correct match:  
+(A) 1-a, 2-b, 3-c, 4-d  
+(B) 1-b, 2-a, 3-d, 4-c  
+(C) 1-c, 2-d, 3-a, 4-b  
+(D) 1-a, 2-c, 3-b, 4-d
+
+\item Assertion (A): Density-independent factors regulate population growth.  
+Reason (R): Floods affect populations regardless of density.  
+(A) Both A and R true, R correct explanation  
+(B) Both A and R true, R not explanation  
+(C) A true, R false  
+(D) A false, R true
+
+\item Assertion (A): In lac operon, lactose acts as inducer.  
+Reason (R): Lactose binds repressor, preventing operator binding.  
+(A) Both A and R true, R correct explanation  
+(B) Both A and R true, R not explanation  
+(C) A true, R false  
+(D) A false, R true
+\end{enumerate}
+
+\end{document}

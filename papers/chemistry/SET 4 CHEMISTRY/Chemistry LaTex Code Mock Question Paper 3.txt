@@ -1,0 +1,74 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Final Mock Test – Paper 3}
+
+\begin{enumerate}
+\item Calculate $\Delta G^\circ$ for reaction: C(graphite)+O$_2$(g) ? CO$_2$(g), $K_p=2.5\times10^{20}$ at 298 K.  
+(A) -100 kJ \quad (B) -120 kJ \quad (C) -150 kJ \quad (D) -180 kJ
+
+\item Assertion–Reason:  
+Assertion (A): The entropy of a crystalline solid at 0 K is zero.  
+Reason (R): This is a statement of the third law of thermodynamics.  
+(A) Both A and R true, R correct explanation  
+(B) Both A and R true, R not correct explanation  
+(C) A true, R false  
+(D) A false, R true
+
+\item The emf of cell Cu|Cu$^{2+}$(0.01 M)||Ag$^+$(0.1 M)|Ag at 25? is?  
+(A) 0.46 V \quad (B) 0.34 V \quad (C) 0.29 V \quad (D) 0.52 V
+
+\item For a first-order reaction, 50% completion takes 693 s. Calculate rate constant.  
+(A) $1.0\times10^{-3}$ s$^{-1}$ \quad (B) $5.0\times10^{-4}$ s$^{-1}$ \quad (C) $1.0\times10^{-4}$ s$^{-1}$ \quad (D) $6.93\times10^{-4}$ s$^{-1}$
+
+\item Calculate solubility of Ag$_2$CrO$_4$ in water (Ksp=$1.1\times10^{-12}$).  
+(A) $1.0\times10^{-4}$ M \quad (B) $1.0\times10^{-5}$ M \quad (C) $1.0\times10^{-6}$ M \quad (D) $1.0\times10^{-3}$ M
+
+\item Assertion–Reason:  
+Assertion (A): Mn$^{2+}$ is more stable than Fe$^{2+}$ in aqueous solution.  
+Reason (R): Mn$^{2+}$ has half-filled d$^5$ configuration.  
+(A) Both A and R true, R correct explanation  
+(B) Both A and R true, R not correct explanation  
+(C) A true, R false  
+(D) A false, R true
+
+\item The crystal system of diamond is?  
+(A) Cubic \quad (B) Hexagonal \quad (C) Orthorhombic \quad (D) Tetragonal
+
+\item Calculate $\Delta H$ for neutralisation of HNO$_3$ with KOH.  
+(A) -57.1 kJ/mol \quad (B) -55.8 kJ/mol \quad (C) -60.0 kJ/mol \quad (D) -50.0 kJ/mol
+
+\item The coordination number of Na$^+$ in NaCl crystal is?  
+(A) 4 \quad (B) 6 \quad (C) 8 \quad (D) 12
+
+\item The number of atoms per unit cell in FCC lattice?  
+(A) 2 \quad (B) 4 \quad (C) 6 \quad (D) 8
+
+\item Which transition element shows maximum oxidation state of +6?  
+(A) Cr \quad (B) Mo \quad (C) W \quad (D) U
+
+\item Calculate pH of 0.0002 M HCl solution.  
+(A) 3.7 \quad (B) 3.0 \quad (C) 2.7 \quad (D) 2.3
+
+\item Assertion–Reason:  
+Assertion (A): Graphite conducts electricity.  
+Reason (R): Each carbon atom is bonded to three others, leaving one electron delocalised.  
+(A) Both A and R true, R correct explanation  
+(B) Both A and R true, R not correct explanation  
+(C) A true, R false  
+(D) A false, R true
+
+\item The lattice energy of LiF is best estimated by?  
+(A) Born–Haber cycle \quad (B) Hess’s law \quad (C) Nernst equation \quad (D) None
+
+\item Assertion–Reason:  
+Assertion (A): Lanthanides show similar chemical properties.  
+Reason (R): They have similar outer electronic configurations (ns$^2$).  
+(A) Both A and R true, R correct explanation  
+(B) Both A and R true, R not correct explanation  
+(C) A true, R false  
+(D) A false, R true
+\end{enumerate}
+
+\end{document}

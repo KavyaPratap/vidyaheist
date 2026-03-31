@@ -1,0 +1,74 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Final Mock Test – Paper 11}
+
+\begin{enumerate}
+\item Calculate $\Delta G^\circ$ for reaction: 2NH$_3$(g) ? N$_2$(g)+3H$_2$(g), $K_p=1.0\times10^{-5}$ at 298 K.  
+(A) +25.0 kJ \quad (B) +33.5 kJ \quad (C) +45.0 kJ \quad (D) +55.0 kJ
+
+\item Assertion–Reason:  
+Assertion (A): The entropy of evaporation is positive.  
+Reason (R): Liquid molecules become more disordered when converted to vapour.  
+(A) Both A and R true, R correct explanation  
+(B) Both A and R true, R not correct explanation  
+(C) A true, R false  
+(D) A false, R true
+
+\item The emf of cell Sn|Sn$^{2+}$(0.01 M)||Cu$^{2+}$(1 M)|Cu at 25? is?  
+(A) 0.50 V \quad (B) 0.45 V \quad (C) 0.40 V \quad (D) 0.35 V
+
+\item For a first-order reaction, 30% completion takes 400 s. Calculate rate constant.  
+(A) $1.0\times10^{-3}$ s$^{-1}$ \quad (B) $5.0\times10^{-4}$ s$^{-1}$ \quad (C) $2.0\times10^{-4}$ s$^{-1}$ \quad (D) $6.93\times10^{-4}$ s$^{-1}$
+
+\item Calculate solubility of Ag$_2$S in water (Ksp=$6.0\times10^{-51}$).  
+(A) $1.0\times10^{-17}$ M \quad (B) $1.0\times10^{-16}$ M \quad (C) $1.0\times10^{-18}$ M \quad (D) $1.0\times10^{-15}$ M
+
+\item Assertion–Reason:  
+Assertion (A): The neutralisation enthalpy of weak acid–strong base is less than strong acid–strong base.  
+Reason (R): Energy is consumed in ionising the weak acid.  
+(A) Both A and R true, R correct explanation  
+(B) Both A and R true, R not correct explanation  
+(C) A true, R false  
+(D) A false, R true
+
+\item The crystal system of SiO$_2$ (quartz) is?  
+(A) Hexagonal \quad (B) Cubic \quad (C) Orthorhombic \quad (D) Trigonal
+
+\item Calculate $\Delta H$ for neutralisation of H$_2$SO$_4$ with NaOH.  
+(A) -111.6 kJ/mol \quad (B) -57.1 kJ/mol \quad (C) -55.8 kJ/mol \quad (D) -60.0 kJ/mol
+
+\item The coordination number of Na$^+$ in NaCl crystal is?  
+(A) 4 \quad (B) 6 \quad (C) 8 \quad (D) 12
+
+\item The number of atoms per unit cell in simple cubic lattice?  
+(A) 1 \quad (B) 2 \quad (C) 4 \quad (D) 6
+
+\item Which transition element shows maximum oxidation state of +4 in oxides?  
+(A) Ti \quad (B) Zr \quad (C) Hf \quad (D) Ce
+
+\item Calculate pH of 0.00004 M HCl solution.  
+(A) 4.4 \quad (B) 4.3 \quad (C) 4.0 \quad (D) 3.7
+
+\item Assertion–Reason:  
+Assertion (A): Diamond is transparent.  
+Reason (R): Strong covalent bonds prevent absorption of visible light.  
+(A) Both A and R true, R correct explanation  
+(B) Both A and R true, R not correct explanation  
+(C) A true, R false  
+(D) A false, R true
+
+\item The lattice energy of Na$_2$O is best estimated by?  
+(A) Born–Haber cycle \quad (B) Hess’s law \quad (C) Nernst equation \quad (D) None
+
+\item Assertion–Reason:  
+Assertion (A): Tb$^{3+}$ shows paramagnetism.  
+Reason (R): Tb$^{3+}$ has unpaired f-electrons.  
+(A) Both A and R true, R correct explanation  
+(B) Both A and R true, R not correct explanation  
+(C) A true, R false  
+(D) A false, R true
+\end{enumerate}
+
+\end{document}

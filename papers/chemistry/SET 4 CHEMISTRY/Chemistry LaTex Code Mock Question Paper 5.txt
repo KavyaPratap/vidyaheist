@@ -1,0 +1,74 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Final Mock Test – Paper 5}
+
+\begin{enumerate}
+\item Calculate $\Delta G^\circ$ for reaction: 2H$_2$(g)+O$_2$(g) ? 2H$_2$O(g), $K_p=1.0\times10^{40}$ at 298 K.  
+(A) -200 kJ \quad (B) -230 kJ \quad (C) -250 kJ \quad (D) -270 kJ
+
+\item Assertion–Reason:  
+Assertion (A): The entropy of fusion is positive.  
+Reason (R): Solid ? liquid increases molecular disorder.  
+(A) Both A and R true, R correct explanation  
+(B) Both A and R true, R not correct explanation  
+(C) A true, R false  
+(D) A false, R true
+
+\item The emf of cell Ni|Ni$^{2+}$(0.01 M)||Cu$^{2+}$(1 M)|Cu at 25? is?  
+(A) 0.34 V \quad (B) 0.29 V \quad (C) 0.25 V \quad (D) 0.40 V
+
+\item For a first-order reaction, 70% completion takes 1200 s. Calculate rate constant.  
+(A) $1.0\times10^{-3}$ s$^{-1}$ \quad (B) $5.0\times10^{-4}$ s$^{-1}$ \quad (C) $2.0\times10^{-4}$ s$^{-1}$ \quad (D) $6.93\times10^{-4}$ s$^{-1}$
+
+\item Calculate solubility of PbCl$_2$ in water (Ksp=$1.7\times10^{-5}$).  
+(A) $1.0\times10^{-2}$ M \quad (B) $1.0\times10^{-3}$ M \quad (C) $1.0\times10^{-4}$ M \quad (D) $1.0\times10^{-5}$ M
+
+\item Assertion–Reason:  
+Assertion (A): The neutralisation enthalpy of weak base–strong acid is less than that of strong acid–strong base.  
+Reason (R): Part of the enthalpy is used to ionise the weak base.  
+(A) Both A and R true, R correct explanation  
+(B) Both A and R true, R not correct explanation  
+(C) A true, R false  
+(D) A false, R true
+
+\item The crystal system of Al$_2$O$_3$ (corundum) is?  
+(A) Hexagonal \quad (B) Cubic \quad (C) Orthorhombic \quad (D) Trigonal
+
+\item Calculate $\Delta H$ for neutralisation of H$_2$SO$_4$ with NH$_4$OH.  
+(A) -111.6 kJ/mol \quad (B) -57.1 kJ/mol \quad (C) -55.8 kJ/mol \quad (D) -60.0 kJ/mol
+
+\item The coordination number of Cl$^-$ in CsCl crystal is?  
+(A) 4 \quad (B) 6 \quad (C) 8 \quad (D) 12
+
+\item The number of atoms per unit cell in BCC lattice?  
+(A) 2 \quad (B) 4 \quad (C) 6 \quad (D) 8
+
+\item Which transition element shows maximum oxidation state of +4?  
+(A) Ti \quad (B) Zr \quad (C) Hf \quad (D) Ce
+
+\item Calculate pH of 0.00008 M HCl solution.  
+(A) 4.1 \quad (B) 4.0 \quad (C) 3.7 \quad (D) 3.1
+
+\item Assertion–Reason:  
+Assertion (A): Diamond is an electrical insulator.  
+Reason (R): All valence electrons are localised in covalent bonds.  
+(A) Both A and R true, R correct explanation  
+(B) Both A and R true, R not correct explanation  
+(C) A true, R false  
+(D) A false, R true
+
+\item The lattice energy of KF is best estimated by?  
+(A) Born–Haber cycle \quad (B) Hess’s law \quad (C) Nernst equation \quad (D) None
+
+\item Assertion–Reason:  
+Assertion (A): Eu$^{2+}$ is stable due to half-filled f$^7$ configuration.  
+Reason (R): Half-filled orbitals provide extra stability.  
+(A) Both A and R true, R correct explanation  
+(B) Both A and R true, R not correct explanation  
+(C) A true, R false  
+(D) A false, R true
+\end{enumerate}
+
+\end{document}

@@ -1,0 +1,52 @@
+\documentclass{article}
+\begin{document}
+\section*{Biology Set 1 - Paper 1 (Questions)}
+
+\begin{enumerate}
+\item [Diversity] Which kingdom includes organisms with chitinous cell walls?  
+(A) Plantae (B) Fungi (C) Protista (D) Monera
+
+\item [Cell Biology] Which organelle is the site of oxidative phosphorylation?  
+(A) Ribosome (B) Mitochondrion (C) Golgi (D) Chloroplast
+
+\item [Genetics] In a dihybrid cross AaBb × AaBb, what is the expected phenotypic ratio?  
+(A) 9:3:3:1 (B) 3:1 (C) 1:2:1 (D) 1:1
+
+\item [Plant Physiology] Which hormone promotes seed dormancy?  
+(A) Auxin (B) ABA (C) Gibberellin (D) Cytokinin
+
+\item [Human Physiology] Which part of the nephron is responsible for maximum water reabsorption?  
+(A) Collecting duct (B) Loop of Henle (C) Proximal tubule (D) Distal tubule
+
+\item [Ecology] Which biome has permafrost?  
+(A) Desert (B) Tundra (C) Grassland (D) Rainforest
+
+\item [Cell Biology] Which phase of mitosis involves chromosome alignment at the equator?  
+(A) Prophase (B) Metaphase (C) Anaphase (D) Telophase
+
+\item [Genetics] Which phenomenon explains non-Mendelian inheritance of mitochondrial genes?  
+(A) Epistasis (B) Cytoplasmic inheritance (C) Codominance (D) Linkage
+
+\item [Plant Physiology] Which pigment detects red and far-red light?  
+(A) Chlorophyll (B) Phytochrome (C) Carotene (D) Xanthophyll
+
+\item [Human Physiology] Which blood vessel carries oxygenated blood from lungs to heart?  
+(A) Pulmonary artery (B) Pulmonary vein (C) Aorta (D) Vena cava
+
+\item [Diversity] Which phylum has jointed appendages?  
+(A) Mollusca (B) Arthropoda (C) Annelida (D) Echinodermata
+
+\item [Cell Biology] Which enzyme unwinds DNA during replication?  
+(A) Ligase (B) Helicase (C) Polymerase (D) Topoisomerase
+
+\item [Ecology] What is the term for species first colonizing bare rock?  
+(A) Keystone species (B) Pioneer species (C) Endemic species (D) Indicator species
+
+\item [Human Physiology] Which part of the brain regulates thermoregulation?  
+(A) Cerebrum (B) Cerebellum (C) Hypothalamus (D) Medulla
+
+\item [Biotechnology] Which technique is used to amplify DNA?  
+(A) PCR (B) ELISA (C) Gel electrophoresis (D) Western blot
+\end{enumerate}
+
+\end{document}

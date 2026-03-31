@@ -1,0 +1,53 @@
+\documentclass{article}
+\begin{document}
+\section*{Biology Set 1 - Paper 4 (Questions)}
+
+\begin{enumerate}
+\item [Diversity] Which phylum includes organisms with a notochord at some stage?  
+(A) Arthropoda (B) Mollusca (C) Chordata (D) Annelida
+
+\item [Cell Biology] Which organelle is responsible for autophagy?  
+(A) Lysosome (B) Golgi (C) Ribosome (D) Peroxisome
+
+\item [Genetics] Which type of cross is used to study two traits simultaneously?  
+(A) Monohybrid (B) Dihybrid (C) Test cross (D) Back cross
+
+\item [Plant Physiology] Which process occurs in guard cells to open stomata?  
+(A) Loss of water (B) Gain of K\(^+\) ions (C) Photosynthesis (D) Respiration
+
+\item [Human Physiology] Which part of the nephron is impermeable to water?  
+(A) Descending loop of Henle (B) Ascending loop of Henle (C) Collecting duct (D) Proximal tubule
+
+\item [Ecology] Which interaction describes one species benefiting while the other is unaffected?  
+(A) Mutualism (B) Commensalism (C) Parasitism (D) Competition
+
+\item [Cell Biology] Which structure organizes spindle fibers during mitosis in animal cells?  
+(A) Centriole (B) Nucleolus (C) Ribosome (D) Golgi
+
+\item [Genetics] Which condition is caused by trisomy of chromosome 21?  
+(A) Turner syndrome (B) Down syndrome (C) Klinefelter syndrome (D) Edwards syndrome
+
+\item [Plant Physiology] Which pigment is essential for photosystem II?  
+(A) Chlorophyll a (B) Chlorophyll b (C) Carotene (D) Xanthophyll
+
+\item [Human Physiology] Which hormone increases blood calcium levels?  
+(A) Calcitonin (B) Parathyroid hormone (C) Insulin (D) Thyroxine
+
+\item [Diversity] Which group of plants produces naked seeds?  
+(A) Angiosperms (B) Gymnosperms (C) Bryophytes (D) Pteridophytes
+
+\item [Cell Biology] Which enzyme relieves supercoiling during DNA replication?  
+(A) Ligase (B) Helicase (C) Topoisomerase (D) Polymerase
+
+\item [Ecology] Which term describes the gradual change in species composition over time?  
+(A) Succession (B) Evolution (C) Speciation (D) Migration
+
+\item [Human Physiology] Which part of the brain regulates voluntary movement?  
+(A) Cerebrum (B) Cerebellum (C) Medulla (D) Hypothalamus
+
+\item [Biotechnology] Which technique is used to detect specific proteins?  
+(A) PCR (B) ELISA (C) Western blot (D) Gel electrophoresis
+\end{enumerate}
+
+\end{document}
+

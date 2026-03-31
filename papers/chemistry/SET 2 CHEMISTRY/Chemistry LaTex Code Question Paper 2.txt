@@ -1,0 +1,54 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Chemistry Mock Test – Phase 2, Paper 2}
+
+\begin{enumerate}
+\item Calculate the entropy change when 1 mol of ideal gas expands isothermally from 5 L to 50 L at 300 K.  
+(A) 19.1 J/K \quad (B) 57.3 J/K \quad (C) 76.5 J/K \quad (D) 83.0 J/K
+
+\item The emf of cell Ag|Ag$^+$ (0.01 M)||Cu$^{2+}$ (1 M)|Cu at 25? is?  
+(A) 0.46 V \quad (B) 0.34 V \quad (C) 0.29 V \quad (D) 0.52 V
+
+\item For a second-order reaction, half-life is inversely proportional to?  
+(A) Initial concentration \quad (B) Square of concentration \quad (C) Rate constant \quad (D) None
+
+\item The equilibrium constant for dissociation of PCl$_5$ at 250? is 0.04. If initial [PCl$_5$]=1 M, degree of dissociation?  
+(A) 0.17 \quad (B) 0.20 \quad (C) 0.25 \quad (D) 0.30
+
+\item Calculate solubility of Ag$_2$CrO$_4$ in water (Ksp=$1.1\times10^{-12}$).  
+(A) $1.0\times10^{-4}$ M \quad (B) $1.0\times10^{-5}$ M \quad (C) $1.0\times10^{-6}$ M \quad (D) $1.0\times10^{-3}$ M
+
+\item Which element shows maximum paramagnetism?  
+(A) Mn$^{2+}$ \quad (B) Fe$^{2+}$ \quad (C) Co$^{2+}$ \quad (D) Ni$^{2+}$
+
+\item The crystal system of graphite is?  
+(A) Hexagonal \quad (B) Cubic \quad (C) Tetragonal \quad (D) Orthorhombic
+
+\item Calculate $\Delta H$ for neutralisation of H$_2$SO$_4$ with NaOH.  
+(A) -57.1 kJ/mol \quad (B) -111.6 kJ/mol \quad (C) -55.8 kJ/mol \quad (D) -60.0 kJ/mol
+
+\item The coordination number of Na$^+$ in NaCl crystal is?  
+(A) 4 \quad (B) 6 \quad (C) 8 \quad (D) 12
+
+\item The number of atoms per unit cell in BCC lattice?  
+(A) 2 \quad (B) 4 \quad (C) 6 \quad (D) 8
+
+\item Which transition element shows maximum tendency for complex formation?  
+(A) Cu \quad (B) Zn \quad (C) Sc \quad (D) Ti
+
+\item Calculate pH of 0.001 M HCl solution.  
+(A) 3 \quad (B) 2 \quad (C) 4 \quad (D) 1
+
+\item The lattice energy of NaCl is best estimated by?  
+(A) Born–Haber cycle \quad (B) Hess’s law \quad (C) Nernst equation \quad (D) None
+
+\item Which lanthanide shows +2 oxidation state commonly?  
+(A) Eu \quad (B) Ce \quad (C) La \quad (D) Nd
+
+\item The hybridisation of Fe in [Fe(CN)$_6$]$^{4-}$ is?  
+(A) sp$^3$ \quad (B) d$^2$sp$^3$ \quad (C) sp$^3$d$^2$ \quad (D) None
+\end{enumerate}
+
+\end{document}

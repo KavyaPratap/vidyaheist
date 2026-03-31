@@ -1,0 +1,97 @@
+\documentclass{article}
+\begin{document}
+\section*{Biology Set 2 - Paper 3 (Questions)}
+
+\begin{enumerate}
+\item [Diversity] Which feature distinguishes *Echinodermata* larvae from adults?  
+(A) Bilateral symmetry in larvae, radial in adults  
+(B) Radial symmetry in both stages  
+(C) Segmentation in larvae, none in adults  
+(D) Presence of notochord in larvae
+
+\item [Cell Biology] In eukaryotic cells, which checkpoint ensures DNA is fully replicated before mitosis?  
+(A) G1 checkpoint  
+(B) G2/M checkpoint  
+(C) Metaphase checkpoint  
+(D) Cytokinesis checkpoint
+
+\item [Genetics] A heterozygous individual for two linked genes (AaBb) produces gametes in which ratio if recombination frequency is 20%?  
+(A) 40% AB, 40% ab, 10% Ab, 10% aB  
+(B) 25% each gamete type  
+(C) 50% parental, 50% recombinant  
+(D) 80% parental, 20% recombinant
+
+\item [Plant Physiology] Which mechanism explains opening of stomata at dawn?  
+(A) Active transport of K\(^+\) into guard cells  
+(B) Passive diffusion of CO\(_2\)  
+(C) ABA accumulation  
+(D) Loss of turgor in guard cells
+
+\item [Human Physiology] Which part of the nephron establishes the osmotic gradient essential for water reabsorption?  
+(A) Proximal tubule  
+(B) Loop of Henle  
+(C) Distal tubule  
+(D) Collecting duct
+
+\item [Ecology] In a food chain, if 1000 J of energy is available at producer level, how much energy typically reaches tertiary consumers?  
+(A) 100 J  
+(B) 10 J  
+(C) 1 J  
+(D) 0.1 J
+
+\item [Cell Biology] Which enzyme is responsible for proofreading during DNA replication in prokaryotes?  
+(A) DNA polymerase I  
+(B) DNA polymerase III  
+(C) Ligase  
+(D) Helicase
+
+\item [Genetics] Which phenomenon explains inheritance of traits like human skin color?  
+(A) Codominance  
+(B) Incomplete dominance  
+(C) Polygenic inheritance  
+(D) Epistasis
+
+\item [Plant Physiology] Which mineral deficiency leads to chlorosis in young leaves due to its immobility?  
+(A) Calcium  
+(B) Iron  
+(C) Magnesium  
+(D) Nitrogen
+
+\item [Human Physiology] Which structure of the brain integrates autonomic functions like respiration and heart rate?  
+(A) Cerebrum  
+(B) Cerebellum  
+(C) Medulla oblongata  
+(D) Hypothalamus
+
+\item [Diversity] Which group of plants shows alternation of generations with dominant sporophyte?  
+(A) Bryophytes  
+(B) Pteridophytes  
+(C) Gymnosperms  
+(D) Angiosperms
+
+\item [Cell Biology] Which organelle is involved in photorespiration in plants along with mitochondria and chloroplasts?  
+(A) Peroxisome  
+(B) Lysosome  
+(C) Golgi  
+(D) Vacuole
+
+\item [Ecology] Which term describes the gradual replacement of one community by another in an ecosystem?  
+(A) Succession  
+(B) Speciation  
+(C) Evolution  
+(D) Migration
+
+\item [Human Physiology] Which hormone stimulates reabsorption of sodium ions in kidney tubules?  
+(A) Insulin  
+(B) Aldosterone  
+(C) Cortisol  
+(D) ADH
+
+\item [Biotechnology] Which technique uses fluorescently labeled dideoxynucleotides to terminate DNA synthesis?  
+(A) PCR  
+(B) Sanger sequencing  
+(C) Gel electrophoresis  
+(D) ELISA
+\end{enumerate}
+
+\end{document}

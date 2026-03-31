@@ -1,0 +1,97 @@
+\documentclass{article}
+\begin{document}
+\section*{Biology Set 2 - Paper 5 (Questions)}
+
+\begin{enumerate}
+\item [Diversity] Which feature distinguishes *Amphibia* from *Reptilia*?  
+(A) Presence of scales  
+(B) External fertilization in most species  
+(C) Amniotic egg  
+(D) Three?chambered heart
+
+\item [Cell Biology] Which organelle is involved in synthesis of steroid hormones?  
+(A) Rough ER  
+(B) Smooth ER  
+(C) Golgi apparatus  
+(D) Lysosome
+
+\item [Genetics] In a trihybrid cross (AaBbCc × AaBbCc), what is the probability of obtaining an offspring homozygous recessive for all three traits?  
+(A) 1/64  
+(B) 1/32  
+(C) 1/16  
+(D) 1/8
+
+\item [Plant Physiology] Which process explains the upward movement of water in tall trees?  
+(A) Root pressure  
+(B) Cohesion?tension mechanism  
+(C) Capillary action  
+(D) Diffusion
+
+\item [Human Physiology] Which structure of the nephron is primarily responsible for fine?tuning Na\(^+\) and K\(^+\) balance under hormonal control?  
+(A) Proximal tubule  
+(B) Loop of Henle  
+(C) Distal tubule  
+(D) Collecting duct
+
+\item [Ecology] Which ecological principle explains partitioning of resources among sympatric species to reduce competition?  
+(A) Competitive exclusion  
+(B) Resource partitioning  
+(C) Succession  
+(D) Mutualism
+
+\item [Cell Biology] Which enzyme catalyzes the addition of nucleotides during lagging strand synthesis in prokaryotes?  
+(A) DNA polymerase I  
+(B) DNA polymerase III  
+(C) Ligase  
+(D) Primase
+
+\item [Genetics] Which condition results from nondisjunction of sex chromosomes producing XO genotype?  
+(A) Down syndrome  
+(B) Turner syndrome  
+(C) Klinefelter syndrome  
+(D) Edwards syndrome
+
+\item [Plant Physiology] Which pigment is directly involved in photochemical reactions of photosynthesis?  
+(A) Chlorophyll a  
+(B) Chlorophyll b  
+(C) Carotene  
+(D) Xanthophyll
+
+\item [Human Physiology] Which hormone increases blood glucose by stimulating gluconeogenesis?  
+(A) Insulin  
+(B) Glucagon  
+(C) Cortisol  
+(D) Thyroxine
+
+\item [Diversity] Which group of animals has a water vascular system and tube feet for locomotion?  
+(A) Mollusca  
+(B) Arthropoda  
+(C) Echinodermata  
+(D) Annelida
+
+\item [Cell Biology] Which checkpoint ensures damaged DNA is repaired before replication proceeds?  
+(A) G1 checkpoint  
+(B) G2/M checkpoint  
+(C) Metaphase checkpoint  
+(D) Cytokinesis checkpoint
+
+\item [Ecology] Which term describes the gradual change in species composition following glacier retreat?  
+(A) Primary succession  
+(B) Secondary succession  
+(C) Climax community  
+(D) Retrogressive succession
+
+\item [Human Physiology] Which part of the brain regulates circadian rhythm by secreting melatonin?  
+(A) Hypothalamus  
+(B) Pineal gland  
+(C) Cerebellum  
+(D) Medulla
+
+\item [Biotechnology] Which technique separates DNA fragments based on size using an electric field?  
+(A) PCR  
+(B) Gel electrophoresis  
+(C) DNA sequencing  
+(D) ELISA
+\end{enumerate}
+
+\end{document}

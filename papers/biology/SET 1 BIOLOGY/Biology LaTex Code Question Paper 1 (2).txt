@@ -1,0 +1,52 @@
+\documentclass{article}
+\begin{document}
+\section*{Biology Set 1 - Paper 2 (Questions)}
+
+\begin{enumerate}
+\item [Diversity] Which phylum includes organisms with water vascular system?  
+(A) Mollusca (B) Arthropoda (C) Echinodermata (D) Annelida
+
+\item [Cell Biology] Which organelle is responsible for packaging proteins?  
+(A) Golgi apparatus (B) Ribosome (C) Lysosome (D) Nucleolus
+
+\item [Genetics] A test cross is performed to determine:  
+(A) Chromosome number (B) Genotype of dominant phenotype (C) Mutation rate (D) Allele frequency
+
+\item [Plant Physiology] Which hormone promotes stem elongation?  
+(A) Auxin (B) Gibberellin (C) Cytokinin (D) Ethylene
+
+\item [Human Physiology] Which part of the brain controls balance and posture?  
+(A) Cerebrum (B) Cerebellum (C) Medulla (D) Pons
+
+\item [Ecology] Which factor is density-dependent?  
+(A) Flood (B) Earthquake (C) Disease (D) Temperature
+
+\item [Cell Biology] Which phase of cell cycle is characterized by DNA synthesis?  
+(A) G1 (B) S (C) G2 (D) M
+
+\item [Genetics] Which phenomenon explains inheritance of linked genes?  
+(A) Independent assortment (B) Genetic linkage (C) Crossing over (D) Mutation
+
+\item [Plant Physiology] Which structure regulates opening and closing of stomata?  
+(A) Xylem (B) Guard cells (C) Phloem (D) Cuticle
+
+\item [Human Physiology] Which blood vessel carries deoxygenated blood from heart to lungs?  
+(A) Pulmonary artery (B) Pulmonary vein (C) Aorta (D) Vena cava
+
+\item [Diversity] Which kingdom includes unicellular eukaryotes?  
+(A) Monera (B) Protista (C) Fungi (D) Plantae
+
+\item [Cell Biology] Which enzyme joins Okazaki fragments?  
+(A) Helicase (B) Ligase (C) Polymerase (D) Primase
+
+\item [Ecology] Which biome has highest biodiversity?  
+(A) Desert (B) Tundra (C) Tropical rainforest (D) Grassland
+
+\item [Human Physiology] Which hormone regulates blood sugar by increasing glucose uptake?  
+(A) Glucagon (B) Insulin (C) Adrenaline (D) Thyroxine
+
+\item [Biotechnology] Which technique separates DNA fragments by size?  
+(A) PCR (B) Gel electrophoresis (C) ELISA (D) Western blot
+\end{enumerate}
+
+\end{document}

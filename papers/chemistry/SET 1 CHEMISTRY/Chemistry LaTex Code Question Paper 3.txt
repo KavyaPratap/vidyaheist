@@ -1,0 +1,55 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Chemistry Mock Test – Phase 1, Paper 3}
+
+\begin{enumerate}
+
+\item The solubility of AgCl in 0.1 M NaCl (Ksp = $1.2 \times 10^{-10}$) is:  
+(A) $0.05$ M \quad (B) $1.2 \times 10^{-6}$ M \quad (C) $2 \times 10^{-5}$ M \quad (D) $1.2 \times 10^{-9}$ M
+
+\item If solubility product of MOH = $1 \times 10^{-10}$, pH of solution is:  
+(A) 11 \quad (B) 9 \quad (C) 13 \quad (D) 5
+
+\item Minimum [SO$_4^{2-}$] required to precipitate BaSO$_4$ from $[Ba^{2+}] = 1 \times 10^{-4}$ M (Ksp = $4 \times 10^{-10}$):  
+(A) $2 \times 10^{-3}$ M \quad (B) $2 \times 10^{-5}$ M \quad (C) $4 \times 10^{-10}$ M \quad (D) $4 \times 10^{-6}$ M
+
+\item Buffer capacity when 0.1 mol acid added to 2 L buffer, pH decreases by 0.5:  
+(A) 0.6 \quad (B) 0.4 \quad (C) 0.2 \quad (D) 0.1
+
+\item Mixing 50 mL 0.1 M sodium acetate + 50 mL 0.01 M acetic acid. pKa = 4.76. pH?  
+(A) 3.76 \quad (B) 4.76 \quad (C) 5.76 \quad (D) 9.24
+
+\item Hydrolysis constant of MX (Ka = $5 \times 10^{-7}$, Kb = $2 \times 10^{-6}$):  
+(A) $10^2$ \quad (B) $10^{-2}$ \quad (C) $10^{-3}$ \quad (D) $10^3$
+
+\item pH of solution after mixing 75 mL 0.2 M HCl + 25 mL 1 M HCl + 300 mL water:  
+(A) 1 \quad (B) 2 \quad (C) 4 \quad (D) 0.2
+
+\item Equal volumes of solutions with pH = 3 and pH = 11 mixed. Resulting pH?  
+(A) 8 \quad (B) 7 \quad (C) 6 \quad (D) 0
+
+\item Ionisation constant of monobasic acid = $5 \times 10^{-2}$. pH of 0.01 M solution?  
+(A) 1.3 \quad (B) 3.3 \quad (C) 5.0 \quad (D) 1.65
+
+\item Degree of ionisation of water (1 L contains $10^{-7}$ mol H$^+$):  
+(A) $1.8 \times 10^{-7}$ % \quad (B) $1.8 \times 10^{-9}$ % \quad (C) $3.6 \times 10^{-7}$ % \quad (D) $3.6 \times 10^{-9}$ %
+
+\item pH of NaOH solution with conc. $10^{-8}$ M:  
+(A) 7.04 \quad (B) 8 \quad (C) 6 \quad (D) 6.96
+
+\item Volume of 5 M KCN required to add to 10 mL 2 M HCN to maintain pH = 9 (Ka = $5 \times 10^{-10}$):  
+(A) 5 mL \quad (B) 2 mL \quad (C) 6.95 mL \quad (D) 10.2 mL
+
+\item Which molecule does not exist according to MO theory?  
+(A) H$_2$ \quad (B) He$_2$ \quad (C) Li$_2$ \quad (D) C$_2$
+
+\item $E^\circ$ of Sn$^{4+}$/Sn$^{2+}$ from given data: Sn$^{2+}$/Sn = -0.140 V, Sn$^{4+}$/Sn = 0.010 V.  
+(A) 0.16 V \quad (B) 0.32 V \quad (C) -0.13 V \quad (D) -0.15 V
+
+\item KMnO$_4$ reacts with oxalic acid. Volume of 0.1 M H$_2$C$_2$O$_4$ to oxidise 50 mL 0.2 M KMnO$_4$?  
+(A) 100 mL \quad (B) 250 mL \quad (C) 50 mL \quad (D) 150 mL
+
+\end{enumerate}
+\end{document}

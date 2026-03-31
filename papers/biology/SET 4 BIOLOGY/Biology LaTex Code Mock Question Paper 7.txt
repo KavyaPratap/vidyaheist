@@ -1,0 +1,119 @@
+\documentclass{article}
+\usepackage{enumitem}
+\begin{document}
+
+\title{IAT Biology Final Mock Test 7}
+\date{}
+\maketitle
+
+\section*{Question Paper}
+
+\subsection*{Section A: Multi-Concept (5 Questions)}
+\begin{enumerate}[label=Q\arabic*.]
+\item A transgenic \textit{Zea mays} plant expresses a gene for drought tolerance and insect resistance simultaneously. Which physiological changes confirm success?  
+(A) Increased stomatal opening + higher transpiration  
+(B) Enhanced proline accumulation + resistance to lepidopteran larvae  
+(C) Reduced photosynthetic efficiency + higher seed oil content  
+(D) Increased nitrate uptake + thicker cuticle
+
+\item A mutation in voltage-gated K$^+$ channels affects neuron function. Which combined physiological effect is observed?  
+(A) Impaired repolarization + prolonged action potential  
+(B) Enhanced neurotransmitter release + hyperthyroidism  
+(C) Increased bone density + reduced calcium absorption  
+(D) Excessive sweating + anemia
+
+\item In a trihybrid cross AaBbCc × AaBbCc, what fraction of progeny will be homozygous dominant for all three traits?  
+(A) 1/64  
+(B) 27/64  
+(C) 9/64  
+(D) 1/8
+
+\item A patient with hypothyroidism shows high TSH but low thyroxine. Which endocrine dysfunction explains this?  
+(A) Thyroid gland failure  
+(B) Pituitary autonomy  
+(C) Negative feedback suppression  
+(D) Adrenal hyperplasia
+
+\item In a population of \textit{Drosophila}, allele frequency of A = 0.3 and a = 0.7. Under Hardy–Weinberg equilibrium, what is expected frequency of heterozygotes?  
+(A) 0.21  
+(B) 0.42  
+(C) 0.49  
+(D) 0.09
+\end{enumerate}
+
+\subsection*{Section B: Data/Experimental (5 Questions)}
+\begin{enumerate}[label=Q\arabic*.]
+\setcounter{enumi}{5}
+\item A Meselson–Stahl experiment shows DNA bands at intermediate density after one generation. Which replication model does this support?  
+(A) Conservative (B) Semi-conservative (C) Dispersive (D) Random
+
+\item An experiment records action potentials in mammalian neurons. When extracellular Cl$^-$ concentration is increased, the graph shows:  
+(A) Hyperpolarization of resting potential  
+(B) Reduced depolarization amplitude  
+(C) Increased repolarization rate  
+(D) No change in impulse conduction
+
+\item A bacterial population shows logistic growth. At which phase is carrying capacity reached?  
+(A) Lag phase  
+(B) Exponential phase  
+(C) Stationary phase  
+(D) Decline phase
+
+\item A restriction digestion of plasmid yields fragments of 5 kb, 2 kb, and 1 kb. Which technique confirms fragment sizes?  
+(A) SDS-PAGE  
+(B) Agarose gel electrophoresis  
+(C) ELISA  
+(D) Western blot
+
+\item Photosynthetic rate in isolated chloroplasts is measured under green light vs. blue light. Which observation is correct?  
+(A) Blue light supports higher rate than green  
+(B) Green light supports higher rate than blue  
+(C) Both equal  
+(D) Neither supports photosynthesis
+\end{enumerate}
+
+\subsection*{Section C: Assertion-Reason / Matching (5 Questions)}
+\begin{enumerate}[label=Q\arabic*.]
+\setcounter{enumi}{10}
+\item Assertion (A): DNA primase synthesizes RNA primers.  
+Reason (R): Primers provide free 3'-OH ends for elongation.  
+(A) Both A and R true, R correct explanation  
+(B) Both A and R true, R not explanation  
+(C) A true, R false  
+(D) A false, R true
+
+\item Assertion (A): Insulin secretion increases after carbohydrate intake.  
+Reason (R): Insulin promotes glucose uptake by cells.  
+(A) Both A and R true, R correct explanation  
+(B) Both A and R true, R not explanation  
+(C) A true, R false  
+(D) A false, R true
+
+\item Match the following:  
+1. DNA ligase $\rightarrow$ (a) Seals nicks in DNA backbone  
+2. ELISA $\rightarrow$ (b) Antigen-antibody detection  
+3. Western blot $\rightarrow$ (c) Protein identification  
+4. FISH $\rightarrow$ (d) Chromosomal DNA localization  
+
+Correct match:  
+(A) 1-a, 2-b, 3-c, 4-d  
+(B) 1-b, 2-a, 3-d, 4-c  
+(C) 1-c, 2-d, 3-a, 4-b  
+(D) 1-a, 2-c, 3-b, 4-d
+
+\item Assertion (A): Density-dependent factors regulate population growth.  
+Reason (R): Disease spreads faster in dense populations.  
+(A) Both A and R true, R correct explanation  
+(B) Both A and R true, R not explanation  
+(C) A true, R false  
+(D) A false, R true
+
+\item Assertion (A): In lac operon, glucose presence suppresses lactose utilization.  
+Reason (R): Catabolite repression reduces cAMP, preventing CAP binding.  
+(A) Both A and R true, R correct explanation  
+(B) Both A and R true, R not explanation  
+(C) A true, R false  
+(D) A false, R true
+\end{enumerate}
+
+\end{document}

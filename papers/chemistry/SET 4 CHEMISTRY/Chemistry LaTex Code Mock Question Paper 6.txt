@@ -1,0 +1,74 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Final Mock Test – Paper 6}
+
+\begin{enumerate}
+\item Calculate $\Delta G^\circ$ for reaction: N$_2$O$_4$(g) ? 2NO$_2$(g), $K_p=4.0\times10^{-3}$ at 298 K.  
+(A) +15.6 kJ \quad (B) +22.4 kJ \quad (C) +33.5 kJ \quad (D) +45.0 kJ
+
+\item Assertion–Reason:  
+Assertion (A): The entropy of sublimation is positive.  
+Reason (R): Solid ? gas transition increases randomness.  
+(A) Both A and R true, R correct explanation  
+(B) Both A and R true, R not correct explanation  
+(C) A true, R false  
+(D) A false, R true
+
+\item The emf of cell Zn|Zn$^{2+}$(0.1 M)||Ag$^+$(0.001 M)|Ag at 25? is?  
+(A) 1.20 V \quad (B) 1.10 V \quad (C) 1.00 V \quad (D) 0.95 V
+
+\item For a first-order reaction, 85% completion takes 2000 s. Calculate rate constant.  
+(A) $1.0\times10^{-3}$ s$^{-1}$ \quad (B) $5.0\times10^{-4}$ s$^{-1}$ \quad (C) $2.0\times10^{-4}$ s$^{-1}$ \quad (D) $6.93\times10^{-4}$ s$^{-1}$
+
+\item Calculate solubility of Ca(OH)$_2$ in water (Ksp=$5.0\times10^{-6}$).  
+(A) $1.0\times10^{-2}$ M \quad (B) $1.0\times10^{-3}$ M \quad (C) $1.0\times10^{-4}$ M \quad (D) $1.0\times10^{-5}$ M
+
+\item Assertion–Reason:  
+Assertion (A): The neutralisation enthalpy of weak acid–weak base is less than that of strong acid–strong base.  
+Reason (R): Energy is consumed in ionising both weak acid and weak base.  
+(A) Both A and R true, R correct explanation  
+(B) Both A and R true, R not correct explanation  
+(C) A true, R false  
+(D) A false, R true
+
+\item The crystal system of NaNO$_3$ is?  
+(A) Hexagonal \quad (B) Cubic \quad (C) Orthorhombic \quad (D) Trigonal
+
+\item Calculate $\Delta H$ for neutralisation of H$_2$SO$_4$ with Ba(OH)$_2$.  
+(A) -111.6 kJ/mol \quad (B) -57.1 kJ/mol \quad (C) -55.8 kJ/mol \quad (D) -60.0 kJ/mol
+
+\item The coordination number of O$^{2-}$ in CaO crystal is?  
+(A) 4 \quad (B) 6 \quad (C) 8 \quad (D) 12
+
+\item The number of atoms per unit cell in FCC lattice?  
+(A) 2 \quad (B) 4 \quad (C) 6 \quad (D) 8
+
+\item Which transition element shows maximum oxidation state of +2 only?  
+(A) Zn \quad (B) Cd \quad (C) Hg \quad (D) Cu
+
+\item Calculate pH of 0.00001 M HCl solution.  
+(A) 5 \quad (B) 4.7 \quad (C) 4.3 \quad (D) 4.0
+
+\item Assertion–Reason:  
+Assertion (A): Graphite is used as a lubricant.  
+Reason (R): Weak van der Waals forces allow layers to slide over each other.  
+(A) Both A and R true, R correct explanation  
+(B) Both A and R true, R not correct explanation  
+(C) A true, R false  
+(D) A false, R true
+
+\item The lattice energy of SrCl$_2$ is best estimated by?  
+(A) Born–Haber cycle \quad (B) Hess’s law \quad (C) Nernst equation \quad (D) None
+
+\item Assertion–Reason:  
+Assertion (A): La$^{3+}$ shows only +3 oxidation state.  
+Reason (R): It has stable empty 4f configuration.  
+(A) Both A and R true, R correct explanation  
+(B) Both A and R true, R not correct explanation  
+(C) A true, R false  
+(D) A false, R true
+\end{enumerate}
+
+\end{document}

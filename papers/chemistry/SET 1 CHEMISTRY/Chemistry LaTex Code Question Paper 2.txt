@@ -1,0 +1,71 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Chemistry Mock Test – Phase 1, Paper 2}
+
+\begin{enumerate}
+
+\item Two components A and B form an ideal solution. The slope and intercept of the plot $\frac{1}{Y_A}$ vs. $\frac{1}{X_A}$ are?  
+(A) $\frac{P_A - P_B}{P_B}, \frac{P_B}{P_B}$  
+(B) $\frac{P_B}{P_A - P_B}, P_B$  
+(C) $\frac{P_B}{P_A}, P_B - P_A$  
+(D) $P_A - P_B, P_B$
+
+\item A graph was plotted between molar conductivity of NaCl, HCl, NH$_4$OH vs. $\sqrt{C}$. Identify curves.  
+(A) I(NaCl), II(HCl), III(NH$_4$OH)  
+(B) I(HCl), II(NaCl), III(NH$_4$OH)  
+(C) I(NH$_4$OH), II(NaCl), III(HCl)  
+(D) I(NH$_4$OH), II(HCl), III(NaCl)
+
+\item For a complex reaction $A \to$ products, $E_{a1}=180$, $E_{a2}=80$, $E_{a3}=50$ kJ/mol. Overall activation energy?  
+(A) 100 \quad (B) 43.44 \quad (C) 150 \quad (D) 140
+
+\item Equilibrium $A(g) \to 2C(g)+B(g)$ gave concentrations: [A]=8M, [B]=2M, [C]=4M at $t=5s$. % dissociation of A?  
+(A) 20% \quad (B) 30% \quad (C) 40% \quad (D) None
+
+\item Enthalpy of neutralization of HF vs. strong base?  
+(A) -17 kJ/mol \quad (B) -38 kJ/mol \quad (C) -47 kJ/mol \quad (D) -43 kJ/mol
+
+\item Photoelectrons: $\lambda_1$ ? KE=1 eV, $\lambda_2$ ? KE=4 eV. Work function?  
+(A) 1 eV \quad (B) 2 eV \quad (C) 0.5 eV \quad (D) None
+
+\item 0.80 g impure (NH$_4$)$_2$SO$_4$ boiled with NaOH. % purity?  
+(A) 82.5 \quad (B) 72.5 \quad (C) 62.5 \quad (D) 17.5
+
+\item Increasing order of $\pi$ bond tendency: Si–O, P–O, S–O, Cl–O.  
+(A) Si–O > P–O > S–O > Cl–O  
+(B) Si–O < P–O < S–O < Cl–O  
+(C) Cl–O < Si–O < P–O < S–O  
+(D) Si–O < Cl–O < P–O < S–O
+
+\item Which statements are true?  
+S1: Carbon bonded directly to metals in organometallics.  
+S2: d$^0$/d$^{10}$ complexes are diamagnetic.  
+S3: Stability of carbonyls due to synergic bonding.  
+S4: Fe–C bond in Fe(CO)$_5$ has $\sigma$ and $\pi$ character.  
+(A) TTTT \quad (B) TTFF \quad (C) FTFT \quad (D) FTTT
+
+\item Transition elements: which statement is incorrect?  
+(A) In highest oxidation states, show basic character.  
+(B) Sc–Mn use all 3d+4s electrons in bonding.  
+(C) Zero oxidation state possible.  
+(D) Beyond d$^5$, tendency to use all 3d decreases.
+
+\item Reaction: CH$_3$MgBr (excess) + ester ? hydrolysis. Product?  
+(A) Alcohol \quad (B) Tertiary alcohol \quad (C) Carboxylic acid \quad (D) Ketone
+
+\item Reaction: Br$_2$/OH$^-$ with phenol. Major product?  
+(A) Tribromophenol \quad (B) Dibromophenol \quad (C) Monobromophenol \quad (D) None
+
+\item Elimination of Br from alcohol in weak base. Major product?  
+(A) Alkene A \quad (B) Alkene B \quad (C) Alkene C \quad (D) Alkene D
+
+\item Reaction rate maximum when Y=F, Cl, Br, I. Which substituent?  
+(A) I \quad (B) Br \quad (C) Cl \quad (D) F
+
+\item Major product of reaction: Ar–F + KOH (alc).  
+(A) Ar–OH \quad (B) Ar–F unchanged \quad (C) Ar–Cl \quad (D) None
+
+\end{enumerate}
+\end{document}

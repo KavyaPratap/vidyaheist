@@ -1,0 +1,74 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Final Mock Test – Paper 12}
+
+\begin{enumerate}
+\item Calculate $\Delta G^\circ$ for reaction: 2H$_2$(g)+CO(g) ? CH$_3$OH(g), $K_p=3.0\times10^4$ at 298 K.  
+(A) -25.0 kJ \quad (B) -33.5 kJ \quad (C) -45.0 kJ \quad (D) -55.0 kJ
+
+\item Assertion–Reason:  
+Assertion (A): The entropy of freezing is negative.  
+Reason (R): Liquid molecules become ordered when converted to solid.  
+(A) Both A and R true, R correct explanation  
+(B) Both A and R true, R not correct explanation  
+(C) A true, R false  
+(D) A false, R true
+
+\item The emf of cell Co|Co$^{2+}$(0.01 M)||Cu$^{2+}$(1 M)|Cu at 25? is?  
+(A) 0.46 V \quad (B) 0.40 V \quad (C) 0.35 V \quad (D) 0.30 V
+
+\item For a first-order reaction, 75% completion takes 1400 s. Calculate rate constant.  
+(A) $1.0\times10^{-3}$ s$^{-1}$ \quad (B) $5.0\times10^{-4}$ s$^{-1}$ \quad (C) $2.0\times10^{-4}$ s$^{-1}$ \quad (D) $6.93\times10^{-4}$ s$^{-1}$
+
+\item Calculate solubility of CaCO$_3$ in water (Ksp=$3.3\times10^{-9}$).  
+(A) $1.8\times10^{-5}$ M \quad (B) $1.0\times10^{-4}$ M \quad (C) $3.2\times10^{-5}$ M \quad (D) $1.0\times10^{-3}$ M
+
+\item Assertion–Reason:  
+Assertion (A): The neutralisation enthalpy of strong acid–weak base is less than strong acid–strong base.  
+Reason (R): Energy is consumed in ionising the weak base.  
+(A) Both A and R true, R correct explanation  
+(B) Both A and R true, R not correct explanation  
+(C) A true, R false  
+(D) A false, R true
+
+\item The crystal system of ZnO (zincite) is?  
+(A) Hexagonal \quad (B) Cubic \quad (C) Orthorhombic \quad (D) Tetragonal
+
+\item Calculate $\Delta H$ for neutralisation of H$_3$PO$_4$ with NaOH (complete neutralisation).  
+(A) -171.3 kJ/mol \quad (B) -57.1 kJ/mol \quad (C) -111.6 kJ/mol \quad (D) -60.0 kJ/mol
+
+\item The coordination number of Cs$^+$ in CsCl crystal is?  
+(A) 4 \quad (B) 6 \quad (C) 8 \quad (D) 12
+
+\item The number of atoms per unit cell in BCC lattice?  
+(A) 2 \quad (B) 4 \quad (C) 6 \quad (D) 8
+
+\item Which transition element shows maximum oxidation state of +8 in oxides?  
+(A) Os \quad (B) Ru \quad (C) Mn \quad (D) Re
+
+\item Calculate pH of 0.00006 M HCl solution.  
+(A) 4.2 \quad (B) 4.0 \quad (C) 3.7 \quad (D) 3.3
+
+\item Assertion–Reason:  
+Assertion (A): Graphite is used in pencils.  
+Reason (R): Weak van der Waals forces allow layers to slide easily.  
+(A) Both A and R true, R correct explanation  
+(B) Both A and R true, R not correct explanation  
+(C) A true, R false  
+(D) A false, R true
+
+\item The lattice energy of KBr is best estimated by?  
+(A) Born–Haber cycle \quad (B) Hess’s law \quad (C) Nernst equation \quad (D) None
+
+\item Assertion–Reason:  
+Assertion (A): Sm$^{2+}$ is less stable than Eu$^{2+}$.  
+Reason (R): Sm$^{2+}$ does not have half-filled f$^7$ configuration.  
+(A) Both A and R true, R correct explanation  
+(B) Both A and R true, R not correct explanation  
+(C) A true, R false  
+(D) A false, R true
+\end{enumerate}
+
+\end{document}

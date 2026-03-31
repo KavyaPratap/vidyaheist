@@ -1,0 +1,55 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Chemistry Mock Test – Phase 1, Paper 4}
+
+\begin{enumerate}
+\item Among Ni(CO)$_4$, [Ni(CN)$_4$]$^{2-}$, [NiCl$_4$]$^{2-}$, which are diamagnetic?  
+(A) Ni(CO)$_4$ only \quad (B) Ni(CO)$_4$ and [Ni(CN)$_4$]$^{2-}$ \quad (C) Ni(CO)$_4$ and [NiCl$_4$]$^{2-}$ \quad (D) All three
+
+\item Reagent(s) for conversion Br–CH$_2$–CH$_2$–Br ? CH?CH?  
+(A) aq. KOH then NaNH$_2$ \quad (B) Zn/CH$_3$OH \quad (C) alc. KOH then NaNH$_2$ \quad (D) alc. KOH only
+
+\item Number of stereoisomers from bromination of trans-2-butene?  
+(A) 2 \quad (B) 1 \quad (C) 4 \quad (D) 3
+
+\item Major product when chlorobenzene reacts with chloral + H$_2$SO$_4$?  
+(A) DDT \quad (B) Benzyl chloride \quad (C) Chlorobenzyl alcohol \quad (D) None
+
+\item Major product of CH$_3$–CH$_2$–CO–CH$_3$ + CN$^-$ / H$_2$SO$_4$ (heat)?  
+(A) CH$_3$–CH=CH–COOH \quad (B) CH$_3$–CH=CH–CN \quad (C) CH$_3$–CH$_2$–COOH \quad (D) None
+
+\item Major product of diketone hydrolysis sequence (KOH/H$_2$O then H$^+$, heat)?  
+(A) Carboxylic acid \quad (B) Hydroxyketone \quad (C) Diketone \quad (D) None
+
+\item Slowest step in Cannizzaro reaction?  
+(A) Proton abstraction \quad (B) OH$^-$ attack on carbonyl \quad (C) Hydride transfer \quad (D) Deprotonation of alcohol
+
+\item Correct order of basicities:  
+(i) CH$_3$–C?N \quad (ii) CH$_3$–CH$_2$–NH$_2$ \quad (iii) (CH$_3$)$_2$NH \quad (iv) CH$_3$–CONH$_2$  
+(A) i > ii > iii > iv \quad (B) ii > i > iii > iv \quad (C) i > iii > ii > iv \quad (D) iii > i > ii > iv
+
+\item Major product of diazotisation of p-aminophenol followed by coupling?  
+(A) p-hydroxyazobenzene \quad (B) o-hydroxyazobenzene \quad (C) Phenol \quad (D) None
+
+\item Reduction of nitrobenzene with Fe/HCl gives?  
+(A) Aniline \quad (B) Benzylamine \quad (C) Nitrobenzyl alcohol \quad (D) None
+
+\item Major product of benzoic acid + PCl$_5$ then NH$_3$ then P$_4$O$_{10}$/heat then H$_2$/Ni?  
+(A) Benzamide \quad (B) Benzylamine \quad (C) Aniline \quad (D) None
+
+\item Major product of Friedel–Crafts acylation of benzene with acetyl chloride?  
+(A) Acetophenone \quad (B) Benzaldehyde \quad (C) Cumene \quad (D) None
+
+\item Major product of ketone + Grignard reagent (excess) then hydrolysis?  
+(A) Alcohol \quad (B) Tertiary alcohol \quad (C) Carboxylic acid \quad (D) None
+
+\item Major product of bromination of phenol in aqueous medium?  
+(A) 2,4,6-tribromophenol \quad (B) 4-bromophenol \quad (C) 2-bromophenol \quad (D) None
+
+\item Hybridisation of carbon atoms in C$_3$O$_2$ (carbon suboxide)?  
+(A) sp \quad (B) sp$^2$ \quad (C) sp$^3$ \quad (D) sp$^3$d
+\end{enumerate}
+
+\end{document}

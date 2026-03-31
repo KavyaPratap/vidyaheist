@@ -1,0 +1,97 @@
+\documentclass{article}
+\begin{document}
+\section*{Biology Set 3 - Paper 1 (Questions)}
+
+\begin{enumerate}
+\item [Diversity] Which feature explains why *Cephalochordata* are considered closer to vertebrates than *Urochordata*?  
+(A) Presence of notochord throughout life  
+(B) Presence of pharyngeal slits only in larval stage  
+(C) Segmentation of body muscles  
+(D) Radial symmetry in adults
+
+\item [Cell Biology] In oxidative phosphorylation, which complex of the electron transport chain directly reduces oxygen to water?  
+(A) Complex I  
+(B) Complex II  
+(C) Complex III  
+(D) Complex IV
+
+\item [Genetics] A woman heterozygous for hemophilia (X\(^H\)X\(^h\)) marries a normal man (X\(^H\)Y). What is the probability their son will have hemophilia?  
+(A) 0%  
+(B) 25%  
+(C) 50%  
+(D) 100%
+
+\item [Plant Physiology] Which mechanism explains why CAM plants are more water?efficient than C\(_3\) plants?  
+(A) Stomata open during day  
+(B) Stomata open at night  
+(C) Use of Rubisco at night  
+(D) Direct fixation of CO\(_2\) into pyruvate
+
+\item [Human Physiology] Which part of the nephron is crucial for generating hyperosmotic medullary interstitium?  
+(A) Proximal tubule  
+(B) Loop of Henle  
+(C) Distal tubule  
+(D) Collecting duct
+
+\item [Ecology] In an ecosystem, if trophic efficiency is 15%, how much energy from 2000 J at producer level reaches secondary consumers?  
+(A) 300 J  
+(B) 225 J  
+(C) 30 J  
+(D) 450 J
+
+\item [Cell Biology] Which enzyme is responsible for removing RNA primers and replacing them with DNA in prokaryotes?  
+(A) DNA polymerase I  
+(B) DNA polymerase III  
+(C) Ligase  
+(D) Primase
+
+\item [Genetics] Which phenomenon explains inheritance of traits like human height, where multiple genes contribute additively?  
+(A) Epistasis  
+(B) Polygenic inheritance  
+(C) Codominance  
+(D) Incomplete dominance
+
+\item [Plant Physiology] Which mineral deficiency leads to interveinal chlorosis in older leaves due to mobility?  
+(A) Nitrogen  
+(B) Magnesium  
+(C) Iron  
+(D) Calcium
+
+\item [Human Physiology] Which hormone increases reabsorption of water by inserting aquaporins in collecting duct membranes?  
+(A) Aldosterone  
+(B) ADH  
+(C) Cortisol  
+(D) Insulin
+
+\item [Diversity] Which group of fungi produces dikaryotic mycelium before karyogamy?  
+(A) Zygomycota  
+(B) Basidiomycota  
+(C) Ascomycota  
+(D) Chytridiomycota
+
+\item [Cell Biology] Which checkpoint prevents anaphase until all kinetochores are properly attached?  
+(A) G1 checkpoint  
+(B) G2/M checkpoint  
+(C) Metaphase checkpoint  
+(D) Cytokinesis checkpoint
+
+\item [Ecology] Which principle explains coexistence of warblers in the same tree by feeding at different heights?  
+(A) Competitive exclusion  
+(B) Resource partitioning  
+(C) Mutualism  
+(D) Succession
+
+\item [Human Physiology] Which hormone stimulates gluconeogenesis and suppresses immune response?  
+(A) Insulin  
+(B) Cortisol  
+(C) Glucagon  
+(D) Thyroxine
+
+\item [Biotechnology] Which technique uses fluorescent probes to detect specific DNA sequences in intact chromosomes?  
+(A) PCR  
+(B) FISH (Fluorescence in situ hybridization)  
+(C) Gel electrophoresis  
+(D) ELISA
+\end{enumerate}
+
+\end{document}

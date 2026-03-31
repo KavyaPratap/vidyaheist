@@ -1,0 +1,74 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Final Mock Test – Paper 19}
+
+\begin{enumerate}
+\item Calculate $\Delta G^\circ$ for reaction: 2CO(g)+O$_2$(g) ? 2CO$_2$(g), $K_p=1.0\times10^{12}$ at 298 K.  
+(A) -80 kJ \quad (B) -100 kJ \quad (C) -120 kJ \quad (D) -140 kJ
+
+\item Assertion–Reason:  
+Assertion (A): The entropy of sublimation is positive.  
+Reason (R): Solid ? gas transition increases randomness.  
+(A) Both A and R true, R correct explanation  
+(B) Both A and R true, R not correct explanation  
+(C) A true, R false  
+(D) A false, R true
+
+\item The emf of cell Zn|Zn$^{2+}$(0.001 M)||Cu$^{2+}$(1 M)|Cu at 25? is?  
+(A) 1.10 V \quad (B) 1.00 V \quad (C) 0.95 V \quad (D) 0.90 V
+
+\item For a first-order reaction, 85% completion takes 2500 s. Calculate rate constant.  
+(A) $1.0\times10^{-3}$ s$^{-1}$ \quad (B) $5.0\times10^{-4}$ s$^{-1}$ \quad (C) $2.0\times10^{-4}$ s$^{-1}$ \quad (D) $6.93\times10^{-4}$ s$^{-1}$
+
+\item Calculate solubility of Ca(OH)$_2$ in water (Ksp=$6.5\times10^{-6}$).  
+(A) $1.0\times10^{-2}$ M \quad (B) $1.0\times10^{-3}$ M \quad (C) $1.0\times10^{-4}$ M \quad (D) $1.0\times10^{-5}$ M
+
+\item Assertion–Reason:  
+Assertion (A): The neutralisation enthalpy of strong acid–strong base is nearly constant.  
+Reason (R): It corresponds to formation of one mole of water.  
+(A) Both A and R true, R correct explanation  
+(B) Both A and R true, R not correct explanation  
+(C) A true, R false  
+(D) A false, R true
+
+\item The crystal system of BeO is?  
+(A) Hexagonal \quad (B) Cubic \quad (C) Orthorhombic \quad (D) Tetragonal
+
+\item Calculate $\Delta H$ for neutralisation of H$_3$PO$_4$ with NaOH (complete neutralisation).  
+(A) -171.3 kJ/mol \quad (B) -57.1 kJ/mol \quad (C) -111.6 kJ/mol \quad (D) -60.0 kJ/mol
+
+\item The coordination number of Na$^+$ in NaCl crystal is?  
+(A) 4 \quad (B) 6 \quad (C) 8 \quad (D) 12
+
+\item The number of atoms per unit cell in BCC lattice?  
+(A) 2 \quad (B) 4 \quad (C) 6 \quad (D) 8
+
+\item Which transition element shows maximum oxidation state of +6 in oxides?  
+(A) Cr \quad (B) Mo \quad (C) W \quad (D) U
+
+\item Calculate pH of 0.00002 M HCl solution.  
+(A) 4.7 \quad (B) 4.3 \quad (C) 4.0 \quad (D) 3.7
+
+\item Assertion–Reason:  
+Assertion (A): Graphite conducts electricity.  
+Reason (R): Each carbon atom is bonded to three others, leaving one electron delocalised.  
+(A) Both A and R true, R correct explanation  
+(B) Both A and R true, R not correct explanation  
+(C) A true, R false  
+(D) A false, R true
+
+\item The lattice energy of KF is best estimated by?  
+(A) Born–Haber cycle \quad (B) Hess’s law \quad (C) Nernst equation \quad (D) None
+
+\item Assertion–Reason:  
+Assertion (A): Nd$^{3+}$ shows paramagnetism.  
+Reason (R): Nd$^{3+}$ has unpaired f-electrons.  
+(A) Both A and R true, R correct explanation  
+(B) Both A and R true, R not correct explanation  
+(C) A true, R false  
+(D) A false, R true
+\end{enumerate}
+
+\end{document}

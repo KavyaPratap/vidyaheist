@@ -1,0 +1,119 @@
+\documentclass{article}
+\usepackage{enumitem}
+\begin{document}
+
+\title{IAT Biology Final Mock Test 3}
+\date{}
+\maketitle
+
+\section*{Question Paper}
+
+\subsection*{Section A: Multi-Concept (5 Questions)}
+\begin{enumerate}[label=Q\arabic*.]
+\item A genetically engineered \textit{Arabidopsis} plant expresses a bacterial nitrogenase gene. Which physiological change would confirm functional integration?  
+(A) Increased nitrate uptake from soil  
+(B) Ability to fix atmospheric N$_2$ in root nodules  
+(C) Enhanced photosynthetic rate under red light  
+(D) Increased transpiration rate
+
+\item A mutation in the CFTR gene affects chloride ion transport. Which combined physiological effect is observed?  
+(A) Thick mucus secretion + impaired gas exchange  
+(B) Excessive sweating + hyperthyroidism  
+(C) Increased bone density + reduced calcium absorption  
+(D) Enhanced immune response + anemia
+
+\item In a trihybrid cross AaBbCc × AaBbCc, what fraction of progeny will be homozygous recessive for all three traits?  
+(A) 1/64  
+(B) 1/32  
+(C) 1/16  
+(D) 1/8
+
+\item A patient with adrenal cortex dysfunction shows low cortisol but high ACTH. Which feedback mechanism explains this?  
+(A) Negative feedback failure due to adrenal insufficiency  
+(B) Positive feedback on pituitary  
+(C) Hypersecretion of thyroxine  
+(D) Lack of hypothalamic regulation
+
+\item In a population of \textit{Drosophila}, allele frequency of A = 0.6 and a = 0.4. Under Hardy–Weinberg equilibrium, what is expected frequency of heterozygotes?  
+(A) 0.24  
+(B) 0.36  
+(C) 0.48  
+(D) 0.16
+\end{enumerate}
+
+\subsection*{Section B: Data/Experimental (5 Questions)}
+\begin{enumerate}[label=Q\arabic*.]
+\setcounter{enumi}{5}
+\item A Meselson–Stahl experiment shows DNA bands at intermediate density after one generation. Which replication model does this support?  
+(A) Conservative (B) Semi-conservative (C) Dispersive (D) Random
+
+\item An experiment records action potentials in mammalian neurons. When extracellular Na$^+$ concentration is reduced, the graph shows:  
+(A) Lower depolarization amplitude  
+(B) Increased repolarization rate  
+(C) No change in hyperpolarization  
+(D) Enhanced resting potential
+
+\item A population of yeast shows logistic growth. At which phase is carrying capacity reached?  
+(A) Lag phase  
+(B) Exponential phase  
+(C) Stationary phase  
+(D) Decline phase
+
+\item A restriction digestion of plasmid yields fragments of 6 kb and 2 kb. Which technique confirms fragment sizes?  
+(A) SDS-PAGE  
+(B) Agarose gel electrophoresis  
+(C) ELISA  
+(D) Western blot
+
+\item Photosynthetic rate in isolated chloroplasts is measured under far-red light vs. white light. Which observation is correct?  
+(A) Far-red excites only PSI, reducing rate  
+(B) Far-red excites only PSII, increasing rate  
+(C) White light excites both PSI and PSII  
+(D) Far-red inhibits Calvin cycle
+\end{enumerate}
+
+\subsection*{Section C: Assertion-Reason / Matching (5 Questions)}
+\begin{enumerate}[label=Q\arabic*.]
+\setcounter{enumi}{10}
+\item Assertion (A): DNA polymerase III has proofreading activity.  
+Reason (R): It removes mismatched nucleotides via 3'?5' exonuclease.  
+(A) Both A and R true, R correct explanation  
+(B) Both A and R true, R not explanation  
+(C) A true, R false  
+(D) A false, R true
+
+\item Assertion (A): Aldosterone secretion increases during low blood sodium.  
+Reason (R): Aldosterone promotes Na$^+$ reabsorption in distal tubule.  
+(A) Both A and R true, R correct explanation  
+(B) Both A and R true, R not explanation  
+(C) A true, R false  
+(D) A false, R true
+
+\item Match the following:  
+1. RT-PCR $\rightarrow$ (a) RNA amplification via cDNA  
+2. ELISA $\rightarrow$ (b) Antigen-antibody detection  
+3. Western blot $\rightarrow$ (c) Protein identification  
+4. FISH $\rightarrow$ (d) Chromosomal DNA localization  
+
+Correct match:  
+(A) 1-a, 2-b, 3-c, 4-d  
+(B) 1-b, 2-a, 3-d, 4-c  
+(C) 1-c, 2-d, 3-a, 4-b  
+(D) 1-a, 2-c, 3-b, 4-d
+
+\item Assertion (A): Density-dependent factors regulate population growth.  
+Reason (R): Competition for resources intensifies with density.  
+(A) Both A and R true, R correct explanation  
+(B) Both A and R true, R not explanation  
+(C) A true, R false  
+(D) A false, R true
+
+\item Assertion (A): In lac operon, glucose presence suppresses lactose utilization.  
+Reason (R): Catabolite repression reduces cAMP, preventing CAP binding.  
+(A) Both A and R true, R correct explanation  
+(B) Both A and R true, R not explanation  
+(C) A true, R false  
+(D) A false, R true
+\end{enumerate}
+
+\end{document}

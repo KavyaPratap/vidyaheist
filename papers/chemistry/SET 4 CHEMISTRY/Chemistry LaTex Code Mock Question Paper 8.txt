@@ -1,0 +1,74 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Final Mock Test – Paper 8}
+
+\begin{enumerate}
+\item Calculate $\Delta G^\circ$ for reaction: 2H$_2$S(g)+O$_2$(g) ? 2S(s)+2H$_2$O(g), $K_p=2.0\times10^{10}$ at 298 K.  
+(A) -80 kJ \quad (B) -100 kJ \quad (C) -120 kJ \quad (D) -140 kJ
+
+\item Assertion–Reason:  
+Assertion (A): The entropy of adsorption of gases on solids is negative.  
+Reason (R): Adsorption decreases randomness as molecules are fixed on the surface.  
+(A) Both A and R true, R correct explanation  
+(B) Both A and R true, R not correct explanation  
+(C) A true, R false  
+(D) A false, R true
+
+\item The emf of cell Al|Al$^{3+}$(0.001 M)||Cu$^{2+}$(1 M)|Cu at 25? is?  
+(A) 2.00 V \quad (B) 1.90 V \quad (C) 1.80 V \quad (D) 1.70 V
+
+\item For a first-order reaction, 99% completion takes 4600 s. Calculate rate constant.  
+(A) $1.0\times10^{-3}$ s$^{-1}$ \quad (B) $5.0\times10^{-4}$ s$^{-1}$ \quad (C) $2.0\times10^{-4}$ s$^{-1}$ \quad (D) $6.93\times10^{-4}$ s$^{-1}$
+
+\item Calculate solubility of CaSO$_4$ in water (Ksp=$2.4\times10^{-5}$).  
+(A) $4.9\times10^{-3}$ M \quad (B) $1.0\times10^{-3}$ M \quad (C) $2.0\times10^{-3}$ M \quad (D) $3.2\times10^{-3}$ M
+
+\item Assertion–Reason:  
+Assertion (A): The neutralisation enthalpy of diprotic acids is approximately double that of monoprotic acids.  
+Reason (R): Two moles of water are formed per mole of diprotic acid.  
+(A) Both A and R true, R correct explanation  
+(B) Both A and R true, R not correct explanation  
+(C) A true, R false  
+(D) A false, R true
+
+\item The crystal system of ZnO (wurtzite) is?  
+(A) Hexagonal \quad (B) Cubic \quad (C) Orthorhombic \quad (D) Tetragonal
+
+\item Calculate $\Delta H$ for neutralisation of H$_2$SO$_4$ with Mg(OH)$_2$.  
+(A) -111.6 kJ/mol \quad (B) -57.1 kJ/mol \quad (C) -55.8 kJ/mol \quad (D) -60.0 kJ/mol
+
+\item The coordination number of Na$^+$ in Na$_2$O crystal is?  
+(A) 4 \quad (B) 6 \quad (C) 8 \quad (D) 12
+
+\item The number of atoms per unit cell in FCC lattice?  
+(A) 2 \quad (B) 4 \quad (C) 6 \quad (D) 8
+
+\item Which transition element shows maximum oxidation state of +5?  
+(A) Nb \quad (B) Ta \quad (C) V \quad (D) Mo
+
+\item Calculate pH of 0.00001 M HNO$_3$ solution.  
+(A) 5 \quad (B) 4.7 \quad (C) 4.3 \quad (D) 4.0
+
+\item Assertion–Reason:  
+Assertion (A): Graphite is anisotropic in electrical conductivity.  
+Reason (R): Conductivity is high along layers but low perpendicular to them.  
+(A) Both A and R true, R correct explanation  
+(B) Both A and R true, R not correct explanation  
+(C) A true, R false  
+(D) A false, R true
+
+\item The lattice energy of LiCl is best estimated by?  
+(A) Born–Haber cycle \quad (B) Hess’s law \quad (C) Nernst equation \quad (D) None
+
+\item Assertion–Reason:  
+Assertion (A): Gd$^{3+}$ shows strong paramagnetism.  
+Reason (R): Gd$^{3+}$ has seven unpaired f-electrons.  
+(A) Both A and R true, R correct explanation  
+(B) Both A and R true, R not correct explanation  
+(C) A true, R false  
+(D) A false, R true
+\end{enumerate}
+
+\end{document}

@@ -1,0 +1,119 @@
+\documentclass{article}
+\usepackage{enumitem}
+\begin{document}
+
+\title{IAT Biology Final Mock Test 2}
+\date{}
+\maketitle
+
+\section*{Question Paper}
+
+\subsection*{Section A: Multi-Concept (5 Questions)}
+\begin{enumerate}[label=Q\arabic*.]
+\item A recombinant DNA experiment inserts a human insulin gene into \textit{Saccharomyces cerevisiae}. Which observation confirms successful expression?  
+(A) Yeast grows faster on glucose medium  
+(B) Yeast secretes functional insulin detected by ELISA  
+(C) Yeast colonies turn blue on X-gal plates  
+(D) Yeast shows antibiotic resistance
+
+\item A mutation in the sodium-potassium pump gene affects neuron function. Which physiological effect is most likely?  
+(A) Failure of resting membrane potential maintenance  
+(B) Excessive neurotransmitter release  
+(C) Increased muscle contraction strength  
+(D) Enhanced synaptic plasticity
+
+\item In a dihybrid cross AaBb × AaBb, if genes are linked with 30\% recombination frequency, what fraction of progeny will be recombinant?  
+(A) 15\%  
+(B) 30\%  
+(C) 50\%  
+(D) 70\%
+
+\item A patient with thyroid dysfunction shows low TSH but high thyroxine levels. Which endocrine feedback mechanism explains this?  
+(A) Positive feedback on pituitary  
+(B) Negative feedback on pituitary  
+(C) Lack of feedback regulation  
+(D) Hypersecretion of ACTH
+
+\item In a population of \textit{Drosophila}, allele frequency of A = 0.7 and a = 0.3. Under Hardy–Weinberg equilibrium, what is expected frequency of heterozygotes?  
+(A) 0.21  
+(B) 0.42  
+(C) 0.49  
+(D) 0.09
+\end{enumerate}
+
+\subsection*{Section B: Data/Experimental (5 Questions)}
+\begin{enumerate}[label=Q\arabic*.]
+\setcounter{enumi}{5}
+\item A DNA replication experiment with heavy nitrogen (N$^{15}$) shows intermediate density bands after one generation. Which model does this support?  
+(A) Conservative (B) Semi-conservative (C) Dispersive (D) Random
+
+\item An experiment measures action potential in squid giant axon. When extracellular K$^+$ concentration is increased, the graph shows:  
+(A) Reduced resting potential magnitude  
+(B) Increased depolarization amplitude  
+(C) No change in repolarization  
+(D) Enhanced hyperpolarization
+
+\item A population of yeast shows exponential growth until glucose is depleted, then growth slows. Which phase is reached?  
+(A) Lag phase  
+(B) Log phase  
+(C) Stationary phase  
+(D) Decline phase
+
+\item A restriction digestion of plasmid yields fragments of 5 kb and 3 kb. Which technique confirms fragment sizes?  
+(A) SDS-PAGE  
+(B) Agarose gel electrophoresis  
+(C) ELISA  
+(D) Western blot
+
+\item Photosynthetic rate in isolated chloroplasts is measured under blue light vs. green light. Which observation is correct?  
+(A) Blue light supports higher rate than green  
+(B) Green light supports higher rate than blue  
+(C) Both equal  
+(D) Neither supports photosynthesis
+\end{enumerate}
+
+\subsection*{Section C: Assertion-Reason / Matching (5 Questions)}
+\begin{enumerate}[label=Q\arabic*.]
+\setcounter{enumi}{10}
+\item Assertion (A): DNA ligase joins Okazaki fragments.  
+Reason (R): It seals nicks in sugar-phosphate backbone.  
+(A) Both A and R true, R correct explanation  
+(B) Both A and R true, R not explanation  
+(C) A true, R false  
+(D) A false, R true
+
+\item Assertion (A): ADH secretion decreases during overhydration.  
+Reason (R): ADH promotes water reabsorption in collecting ducts.  
+(A) Both A and R true, R correct explanation  
+(B) Both A and R true, R not explanation  
+(C) A true, R false  
+(D) A false, R true
+
+\item Match the following:  
+1. Gel electrophoresis $\rightarrow$ (a) DNA fragment separation  
+2. ELISA $\rightarrow$ (b) Antigen-antibody detection  
+3. Western blot $\rightarrow$ (c) Protein identification  
+4. DNA microarray $\rightarrow$ (d) Gene expression profiling  
+
+Correct match:  
+(A) 1-a, 2-b, 3-c, 4-d  
+(B) 1-b, 2-a, 3-d, 4-c  
+(C) 1-c, 2-d, 3-a, 4-b  
+(D) 1-a, 2-c, 3-b, 4-d
+
+\item Assertion (A): Density-independent factors regulate population growth.  
+Reason (R): Earthquakes affect populations regardless of density.  
+(A) Both A and R true, R correct explanation  
+(B) Both A and R true, R not explanation  
+(C) A true, R false  
+(D) A false, R true
+
+\item Assertion (A): In lac operon, glucose presence suppresses lactose utilization.  
+Reason (R): Catabolite repression reduces cAMP levels, preventing CAP binding.  
+(A) Both A and R true, R correct explanation  
+(B) Both A and R true, R not explanation  
+(C) A true, R false  
+(D) A false, R true
+\end{enumerate}
+
+\end{document}

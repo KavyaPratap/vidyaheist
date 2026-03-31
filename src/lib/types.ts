@@ -11,9 +11,20 @@ export type QuestionType = {
   correctAnswerId: string;
   topic: string | null;
   subject?: string | null;
+  imageUrl?: string | null;
   createdBy?: string;
-  createdAt?: string;
-  updatedAt?: string;
+  createdAt?: any;
+  updatedAt?: any;
+};
+
+export type TestType = {
+  id: string;
+  name: string;
+  duration: number;
+  order: number;
+  createdAt?: any;
+  updatedAt?: any;
+  questions?: QuestionType[];
 };
 
 export type TestSeriesType = {
@@ -25,11 +36,11 @@ export type TestSeriesType = {
   subject: string | null;
   numberOfTests?: number | null;
   durationPerTest?: number | null;
-  questions?: QuestionType[];
   data_ai_hint?: string | null;
   createdBy?: string | null;
-  createdAt?: any; 
-  updatedAt?: any; 
+  createdAt?: any;
+  updatedAt?: any;
+  tests?: TestType[];
 };
 
 export type UserAnswer = {
@@ -47,20 +58,11 @@ export type AdminOptionType = {
   text: string;
 };
 
-export type AdminQuestionType = {
-  id: string;
-  text: string;
-  topic: string | null;
-  subject: string | null;
-  options: AdminOptionType[];
-  correctAnswerId: string;
-  createdBy?: string;
-  createdAt?: string;
-  updatedAt?: string;
-};
+export type AdminQuestionType = QuestionType;
 
 export type TestSeriesFullType = TestSeriesType & {
-  questions?: AdminQuestionType[];
+  tests?: TestType[];
+  questions?: QuestionType[]; // Fallback for flattened legacy checks
 };
 
 export type PurchaseType = {
