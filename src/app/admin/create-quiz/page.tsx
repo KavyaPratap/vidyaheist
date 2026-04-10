@@ -34,7 +34,8 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Zap } from "lucide-react";
+import { Zap, Image as ImageIcon } from "lucide-react";
+import { BannerUpload } from "@/components/admin/BannerUpload";
 
 const seriesSchema = z.object({
   name: z.string().min(5),
@@ -391,7 +392,16 @@ function CreateQuizContent() {
                     <FormItem><FormLabel>Price (INR)</FormLabel><FormControl><Input type="number" {...field} /></FormControl></FormItem>
                   )} />
                   <FormField control={seriesForm.control} name="imageUrl" render={({ field }) => (
-                    <FormItem><FormLabel>Banner Image URL (Optional)</FormLabel><FormControl><Input placeholder="https://..." {...field} /></FormControl></FormItem>
+                    <FormItem>
+                      <FormLabel>Course Banner Image</FormLabel>
+                      <FormControl>
+                        <BannerUpload 
+                          value={field.value || ""} 
+                          onChange={field.onChange} 
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
                   )} />
                 </div>
                 <FormField control={seriesForm.control} name="description" render={({ field }) => (

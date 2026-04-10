@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState, useEffect } from "react";
@@ -6,13 +5,12 @@ import { useParams, useRouter } from "next/navigation";
 import { useUser, useFirestore, useDoc } from "@/firebase";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Loader2, ShieldCheck, QrCode, ArrowLeft, Send, CheckCircle } from "lucide-react";
+import { Loader2, ShieldCheck, CreditCard, ArrowLeft, Send, CheckCircle } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import Image from "next/image";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import type { TestSeriesType } from "@/lib/types";
+import Script from "next/script";
 
 export default function CheckoutPage() {
   const params = useParams();
@@ -24,7 +22,6 @@ export default function CheckoutPage() {
   const seriesId = params.id as string;
   const { data: dbSeries, loading: seriesLoading } = useDoc<TestSeriesType>({ path: `testSeries/${seriesId}` });
 
-  const [utr, setUtr] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
@@ -44,43 +41,106 @@ export default function CheckoutPage() {
     }
   }, [user, userLoading, router]);
 
-  const handleSubmitPayment = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleRazorpayPayment = async () => {
     if (!user || !series || !firestore) return;
-
-    if (utr.trim().length < 6) {
-      toast({
-        title: "Invalid UTR",
-        description: "Please enter a valid Transaction ID / UTR number.",
-        variant: "destructive",
-      });
-      return;
-    }
 
     setIsSubmitting(true);
     try {
-      await addDoc(collection(firestore, "purchases"), {
+      // 1. Create order on our backend
+      const orderRes = await fetch("/api/razorpay/order", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ amount: series.price, receipt: `rcpt_${user.uid}` })
+      });
+      
+      const orderData = await orderRes.json();
+      if (!orderRes.ok) throw new Error(orderData.error || "Failed to create order");
+      
+      const orderId = orderData.order.id;
+
+      // 2. Draft the purchase document in pending state
+      const purchaseRef = await addDoc(collection(firestore, "purchases"), {
         userId: user.uid,
         userName: user.displayName || user.email?.split('@')[0] || "Student",
         userEmail: user.email,
         seriesId: series.id,
         seriesName: series.name,
         amount: series.price,
-        utr: utr.trim(),
         status: "pending",
+        razorpay_order_id: orderId,
         createdAt: serverTimestamp(),
       });
 
-      setSubmitted(true);
-      toast({
-        title: "Payment Submitted",
-        description: "Our team will verify your payment within 2-4 hours.",
+      // 3. Initialize Razorpay Checkout
+      const options = {
+        key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID, // Enter the Key ID generated from the Dashboard
+        amount: series.price * 100, // Amount is in currency subunits. Default currency is INR.
+        currency: "INR",
+        name: "VidyaHeist",
+        description: `Purchase for ${series.name}`,
+        image: "https://your-logo-url.com/logo.png",
+        order_id: orderId,
+        handler: async function (response: any) {
+          // 4. Verify payment via server
+          try {
+            const verifyRes = await fetch("/api/razorpay/verify", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                razorpay_payment_id: response.razorpay_payment_id,
+                razorpay_order_id: response.razorpay_order_id,
+                razorpay_signature: response.razorpay_signature,
+                purchaseId: purchaseRef.id,
+              })
+            });
+
+            const verifyData = await verifyRes.json();
+            
+            if (verifyRes.ok && verifyData.success) {
+               setSubmitted(true);
+               toast({
+                 title: "Payment Successful",
+                 description: "Your course has been unlocked!",
+               });
+            } else {
+               toast({
+                 title: "Verification Failed",
+                 description: "Please contact support if amount was deducted.",
+                 variant: "destructive",
+               });
+            }
+          } catch (err) {
+             console.error(err);
+             toast({ title: "Error", description: "Verification endpoint failed.", variant: "destructive" });
+          }
+        },
+        prefill: {
+          name: user.displayName || "",
+          email: user.email || "",
+          contact: ""
+        },
+        theme: {
+          color: "#3399cc"
+        }
+      };
+
+      const paymentObject = new (window as any).Razorpay(options);
+      
+      paymentObject.on("payment.failed", function (response: any) {
+        toast({
+          title: "Payment Failed",
+          description: response.error.description,
+          variant: "destructive"
+        });
       });
+
+      paymentObject.open();
+
     } catch (error: any) {
-      console.error("Payment submission error:", error);
+      console.error("Payment setup error:", error);
       toast({
-        title: "Error",
-        description: "Failed to submit payment. Please try again or contact support.",
+        title: "Order Error",
+        description: error.details || error.message || "Failed to initialize payment.",
         variant: "destructive",
       });
     } finally {
@@ -113,14 +173,14 @@ export default function CheckoutPage() {
             <div className="mx-auto bg-green-100 p-4 rounded-full w-fit mb-4">
               <CheckCircle className="w-12 h-12 text-green-600" />
             </div>
-            <CardTitle className="text-3xl font-bold">Payment Logged!</CardTitle>
+            <CardTitle className="text-3xl font-bold">Payment Successful!</CardTitle>
             <CardDescription className="text-lg pt-2">
-              We have received your UTR: <span className="font-mono font-bold text-foreground">{utr}</span>
+              Your purchase for <span className="font-bold text-foreground">{series.name}</span> is approved.
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <p className="text-muted-foreground">
-              Your course <strong>"{series.name}"</strong> will be unlocked once we verify the transaction. This usually takes less than 4 hours.
+              You now have full access to this course. Let the heist begin!
             </p>
           </CardContent>
           <CardFooter className="flex flex-col gap-4">
@@ -134,6 +194,8 @@ export default function CheckoutPage() {
 
   return (
     <div className="max-w-4xl mx-auto py-8 px-4">
+      <Script src="https://checkout.razorpay.com/v1/checkout.js" strategy="lazyOnload" />
+      
       <Button variant="ghost" className="mb-6" onClick={() => router.back()}>
         <ArrowLeft className="mr-2 h-4 w-4" /> Back
       </Button>
@@ -165,7 +227,7 @@ export default function CheckoutPage() {
             <div className="bg-secondary/30 p-4 rounded-lg flex items-start gap-3">
               <ShieldCheck className="w-5 h-5 text-primary mt-0.5" />
               <p className="text-xs text-muted-foreground">
-                Your payment is secure. We use manual UTR verification to ensure zero hidden fees and direct access.
+                Your payment is secure and processed by Razorpay. Military-grade encryption protects your card and UPI details.
               </p>
             </div>
           </CardContent>
@@ -175,48 +237,25 @@ export default function CheckoutPage() {
         <Card className="shadow-xl border-primary/10">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
-              <QrCode className="w-6 h-6 text-primary" /> Step 1: Scan & Pay
+              <CreditCard className="w-6 h-6 text-primary" /> Checkout
             </CardTitle>
-            <CardDescription>Scan the QR below to pay via any UPI app.</CardDescription>
+            <CardDescription>Pay instantly using UPI, Cards, Netbanking, or Wallets.</CardDescription>
           </CardHeader>
-          <CardContent className="space-y-8 flex flex-col items-center">
-            {/* Demo QR Placeholder */}
-            <div className="p-4 bg-white rounded-2xl border-2 border-dashed border-primary/20 shadow-inner">
-               <Image 
-                  src={`https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=upi://pay?pa=your-upi-id@bank%26pn=VidyaHeist%26am=${series.price}%26cu=INR`}
-                  alt="Payment QR Code"
-                  width={200}
-                  height={200}
-                  className="mx-auto"
-               />
-               <p className="text-center mt-2 font-mono text-xs font-bold text-primary">UPI ID: your-upi-id@bank</p>
+          <CardContent className="space-y-8 flex flex-col items-center py-8">
+            <div className="p-4 bg-muted/30 rounded-2xl border-2 border-dashed border-primary/20 shadow-inner w-full text-center">
+               <ShieldCheck className="w-12 h-12 text-primary mx-auto mb-2 opacity-50" />
+               <p className="font-semibold">Secured by Razorpay</p>
             </div>
 
-            <form onSubmit={handleSubmitPayment} className="w-full space-y-6">
-              <div className="space-y-3">
-                <Label htmlFor="utr" className="text-lg font-bold">Step 2: Enter Transaction ID / UTR</Label>
-                <Input 
-                  id="utr"
-                  placeholder="e.g. 123456789012"
-                  className="h-14 text-lg font-mono text-center tracking-widest border-2 focus-visible:ring-primary"
-                  value={utr}
-                  onChange={(e) => setUtr(e.target.value)}
-                  required
-                />
-                <p className="text-xs text-center text-muted-foreground">
-                  Find the 12-digit UTR/Ref number in your UPI app's history.
-                </p>
-              </div>
-
-              <Button 
-                type="submit" 
-                className="w-full h-14 rounded-full text-lg font-bold shadow-lg transition-all hover:scale-[1.02]"
-                disabled={isSubmitting}
-              >
-                {isSubmitting ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : <Send className="mr-2 h-5 w-5" />}
-                Confirm Payment
-              </Button>
-            </form>
+            <Button 
+              onClick={handleRazorpayPayment}
+              className="w-full h-14 rounded-full text-lg font-bold shadow-lg transition-all hover:scale-[1.02]"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : <Send className="mr-2 h-5 w-5" />}
+              Pay ₹{series.price}
+            </Button>
+            
           </CardContent>
         </Card>
       </div>

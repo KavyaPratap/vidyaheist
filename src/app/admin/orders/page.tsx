@@ -77,9 +77,10 @@ export default function AdminOrdersPage() {
   }
 
   const filteredPurchases = allPurchases?.filter(p => 
-    p.utr.toLowerCase().includes(searchTerm.toLowerCase()) || 
-    p.userEmail.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    p.seriesName.toLowerCase().includes(searchTerm.toLowerCase())
+    (p.utr?.toLowerCase() || "").includes(searchTerm.toLowerCase()) || 
+    (p.razorpay_payment_id?.toLowerCase() || "").includes(searchTerm.toLowerCase()) || 
+    (p.userEmail?.toLowerCase() || "").includes(searchTerm.toLowerCase()) || 
+    (p.seriesName?.toLowerCase() || "").includes(searchTerm.toLowerCase())
   ).sort((a, b) => {
     const timeA = a.createdAt?.seconds || 0;
     const timeB = b.createdAt?.seconds || 0;
@@ -90,8 +91,8 @@ export default function AdminOrdersPage() {
     <div className="space-y-8">
       <section className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
-          <h1 className="text-3xl font-bold text-primary">Payment Verifications</h1>
-          <p className="text-muted-foreground">Review UTR submissions and unlock courses for students.</p>
+          <h1 className="text-3xl font-bold text-primary">Order History</h1>
+          <p className="text-muted-foreground">Monitor automated payments and verify manual UTR submissions.</p>
         </div>
         <div className="relative w-full md:w-80">
           <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
@@ -126,7 +127,7 @@ export default function AdminOrdersPage() {
                   <TableHead>Student</TableHead>
                   <TableHead>Course</TableHead>
                   <TableHead>Amount</TableHead>
-                  <TableHead>UTR Number</TableHead>
+                  <TableHead>Reference / UTR</TableHead>
                   <TableHead>Status</TableHead>
                   <TableHead className="text-right">Action</TableHead>
                 </TableRow>
@@ -146,20 +147,20 @@ export default function AdminOrdersPage() {
                     <TableCell className="max-w-[150px] truncate">{purchase.seriesName}</TableCell>
                     <TableCell className="font-bold">₹{purchase.amount}</TableCell>
                     <TableCell>
-                      <span className="font-mono bg-muted px-2 py-1 rounded text-sm font-bold">
-                        {purchase.utr}
+                      <span className="font-mono bg-muted px-2 py-1 rounded text-[10px] font-bold">
+                        {purchase.utr || purchase.razorpay_payment_id || purchase.razorpay_order_id || "NOT_ASSIGNED"}
                       </span>
                     </TableCell>
                     <TableCell>
                       <span className={`px-2 py-1 rounded-full text-[10px] font-bold uppercase ${
                         purchase.status === 'pending' ? 'bg-yellow-100 text-yellow-700' :
-                        purchase.status === 'verified' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'
+                        (purchase.status === 'verified' || purchase.status === 'success') ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'
                       }`}>
-                        {purchase.status}
+                        {purchase.status === 'success' ? 'AUTOMATED' : purchase.status}
                       </span>
                     </TableCell>
-                    <TableCell className="text-right">
-                      {purchase.status === 'pending' && (
+                     <TableCell className="text-right">
+                      {purchase.status === 'pending' && !purchase.razorpay_payment_id && !purchase.razorpay_order_id && (
                         <div className="flex justify-end gap-2">
                           <Button 
                             variant="ghost" 
@@ -179,10 +180,17 @@ export default function AdminOrdersPage() {
                           </Button>
                         </div>
                       )}
-                      {purchase.status === 'verified' && (
-                        <Button variant="ghost" size="sm" disabled className="text-green-600 opacity-100">
-                          Approved
-                        </Button>
+                       {(purchase.status === 'verified' || purchase.status === 'success' || purchase.razorpay_payment_id || purchase.razorpay_order_id) && (
+                        <div className="flex justify-end">
+                           <span className={`text-xs font-bold flex items-center gap-1 px-3 py-1 rounded-full ${
+                             (purchase.status === 'success' || purchase.status === 'verified') 
+                             ? "text-green-600 bg-green-50" 
+                             : "text-yellow-600 bg-yellow-50"
+                           }`}>
+                              { (purchase.status === 'success' || purchase.status === 'verified') ? <CheckCircle className="w-3 h-3" /> : <Loader2 className="w-3 h-3 animate-spin" /> }
+                              { (purchase.status === 'success' || purchase.status === 'verified') ? "Confirmed" : "In Progress" }
+                           </span>
+                        </div>
                       )}
                     </TableCell>
                   </TableRow>

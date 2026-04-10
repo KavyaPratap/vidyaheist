@@ -4,6 +4,7 @@ import {
   useFirebaseApp,
   useFirestore,
   useAuth,
+  useStorage,
 } from './provider';
 import { FirebaseClientProvider, initializeFirebase } from './client-provider';
 import { useCollection, useCollectionQuery } from './firestore/use-collection';
@@ -22,4 +23,5 @@ export {
   useFirebaseApp,
   useFirestore,
   useAuth,
+  useStorage,
 };

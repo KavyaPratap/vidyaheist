@@ -4,17 +4,20 @@ import { createContext, useContext } from 'react';
 import type { FirebaseApp } from 'firebase/app';
 import type { Firestore } from 'firebase/firestore';
 import type { Auth } from 'firebase/auth';
+import type { FirebaseStorage } from 'firebase/storage';
 
 export interface FirebaseContextValue {
   firebaseApp: FirebaseApp | null;
   firestore: Firestore | null;
   auth: null | Auth;
+  storage: FirebaseStorage | null;
 }
 
 export const FirebaseContext = createContext<FirebaseContextValue>({
   firebaseApp: null,
   firestore: null,
   auth: null,
+  storage: null,
 });
 
 export const FirebaseProvider = ({
@@ -25,6 +28,7 @@ export const FirebaseProvider = ({
   firebaseApp: FirebaseApp;
   firestore: Firestore;
   auth: Auth;
+  storage: FirebaseStorage;
 }) => {
   return (
     <FirebaseContext.Provider value={value}>{children}</FirebaseContext.Provider>
@@ -61,4 +65,11 @@ export function useAuth() {
     throw new Error('Firebase Auth is not available');
   }
   return auth;
+}
+export function useStorage() {
+  const { storage } = useFirebase();
+  if (!storage) {
+    throw new Error('Firebase Storage is not available');
+  }
+  return storage;
 }
