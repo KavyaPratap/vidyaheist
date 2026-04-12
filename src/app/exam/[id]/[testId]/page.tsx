@@ -22,7 +22,7 @@ import { MathText } from "@/components/shared/MathText";
 import { Trophy, Target, Zap, RotateCcw, LayoutDashboard, ChevronRight, MessageSquareCode, Save } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import { setDoc, deleteDoc, updateDoc } from "firebase/firestore";
-import { generateExplanationFlow } from "@/ai/flows/generate-explanation";
+import { streamFlow } from "@genkit-ai/next/client";
 
 const QuestionPalette = memo(function QuestionPalette({
   questions,
@@ -333,11 +333,14 @@ export default function ExamPage() {
     ));
 
     try {
-        const { stream, output } = await generateExplanationFlow.stream({
-            question: question.text,
-            topic: test?.name || "General Science",
-            studentAnswer: selectedOption?.text || "Not Answered",
-            correctAnswer: correctOption?.text || "None"
+        const { stream, output } = streamFlow({
+            url: "/api/genkit/generateExplanationFlow",
+            input: {
+                question: question.text,
+                topic: test?.name || "General Science",
+                studentAnswer: selectedOption?.text || "Not Answered",
+                correctAnswer: correctOption?.text || "None"
+            }
         });
 
         let fullText = "";
@@ -564,7 +567,7 @@ export default function ExamPage() {
                                  {isGenerating ? (
                                      <> <Loader2 className="animate-spin mr-2 h-4 w-4" /> Thinking... </>
                                  ) : (
-                                     <> <MessageSquareCode className="mr-2 w-4 h-4 text-primary" /> Generate with Gemini 3.0 </>
+                                     <> <MessageSquareCode className="mr-2 w-4 h-4 text-primary" /> Review </>
                                  )}
                              </Button>
                         )}
