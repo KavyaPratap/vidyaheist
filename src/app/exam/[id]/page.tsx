@@ -198,16 +198,20 @@ export default function ExamPage() {
     const fetchTestDetails = async () => {
       if (userLoading || !user || !firestore) return;
       setExamPhase('loading');
+      
+      const isAdminUser = user.email === ADMIN_EMAIL;
+      let fetchedSeries: TestSeriesType;
+      let fetchedQuestions: QuestionType[];
 
       try {
         const seriesDocRef = doc(firestore, "testSeries", testId);
         const seriesSnap = await getDoc(seriesDocRef);
         if (!seriesSnap.exists()) throw new Error("Test series not found.");
         fetchedSeries = { id: seriesSnap.id, ...seriesSnap.data() } as TestSeriesType;
+        
         const questionsQuery = collection(firestore, "testSeries", testId, "questions");
-            const questionsSnap = await getDocs(questionsQuery);
-            fetchedQuestions = questionsSnap.docs.map(doc => ({ id: doc.id, ...doc.data() } as QuestionType)).sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
-        }
+        const questionsSnap = await getDocs(questionsQuery);
+        fetchedQuestions = questionsSnap.docs.map(doc => ({ id: doc.id, ...doc.data() } as QuestionType)).sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
 
         // Check ownership if not free and not admin
         if (!isAdminUser && fetchedSeries.price > 0) {
