@@ -15,6 +15,7 @@ export type QuestionType = {
   createdBy?: string;
   createdAt?: any;
   updatedAt?: any;
+  order?: number;
 };
 
 export type TestType = {

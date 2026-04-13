@@ -8,3 +8,11 @@ export const ADMIN_EMAIL = "vidyaheist@gmail.com";
 export const MOCK_TEST_SERIES: TestSeriesType[] = [];
 
 export const MOCK_QUESTIONS: QuestionType[] = [];
+
+export const EXAM_SUBJECTS = [
+  "Biology",
+  "Physics",
+  "Chemistry",
+  "Mathematics",
+  "General",
+] as const;

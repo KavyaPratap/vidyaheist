@@ -48,34 +48,8 @@ export default function StorePage() {
           id: doc.id,
         })) as TestSeriesType[];
 
-        const questionBankSeries: TestSeriesType = {
-          id: 'latex-question-bank',
-          name: 'General Question Bank (Free)',
-          description: 'A collection of questions rendered from a LaTeX file to test the quiz interface.',
-          price: 0,
-          imageUrl: 'https://picsum.photos/seed/latex-questions/600/400',
-          data_ai_hint: 'library books',
-          subject: 'General',
-          numberOfTests: 1,
-          durationPerTest: null,
-          createdAt: new Date().toISOString(),
-        };
-
-        const demoPaidSeries: TestSeriesType = {
-          id: 'demo-paid-test',
-          name: 'Premium Mock Test (Demo)',
-          description: 'A sample paid test to verify the payment and paywall system. Buy this for ₹1 to test the UTR submission flow.',
-          price: 1,
-          imageUrl: 'https://picsum.photos/seed/demo-pay/600/400',
-          data_ai_hint: 'online test',
-          subject: 'IAT',
-          numberOfTests: 1,
-          durationPerTest: 180,
-          createdAt: new Date().toISOString(),
-        };
-
-        setAllTestSeries([questionBankSeries, demoPaidSeries, ...mappedData]);
-        setFilteredSeries([questionBankSeries, demoPaidSeries, ...mappedData]);
+        setAllTestSeries(mappedData);
+        setFilteredSeries(mappedData);
       } catch (err: any) {
         console.error("Error fetching test series:", err);
         setError("Failed to load courses. Please try again later.");

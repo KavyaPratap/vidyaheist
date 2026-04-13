@@ -200,57 +200,13 @@ export default function ExamPage() {
       setExamPhase('loading');
 
       try {
-        const isLatexBank = testId === 'latex-question-bank';
-        const isDemo = testId === 'demo-paid-test';
-        const isAdminUser = user.email === ADMIN_EMAIL;
-        
-        let fetchedSeries: TestSeriesType;
-        let fetchedQuestions: QuestionType[] = [];
-
-        if (isLatexBank) {
-            fetchedQuestions = await getQuestionsFromTex();
-            fetchedSeries = {
-                id: 'latex-question-bank',
-                name: 'General Question Bank (Free)',
-                description: 'A collection of questions rendered from a LaTeX file.',
-                price: 0,
-                imageUrl: 'https://picsum.photos/seed/latex-questions/600/400',
-                subject: 'General',
-                durationPerTest: 60,
-                createdAt: new Date().toISOString(),
-            };
-        } else if (isDemo) {
-            fetchedSeries = {
-                id: 'demo-paid-test',
-                name: 'Premium Mock Test (Demo)',
-                description: 'A sample paid test to verify the payment and paywall system.',
-                price: 1,
-                imageUrl: 'https://picsum.photos/seed/demo-pay/600/400',
-                subject: 'IAT',
-                durationPerTest: 180,
-                createdAt: new Date().toISOString(),
-            };
-            fetchedQuestions = [
-                {
-                    id: 'demo-q1',
-                    text: 'What is the correct way to test the VidyaHeist paywall?',
-                    options: [
-                        { id: 'a', text: 'Scan QR, Pay, submit UTR' },
-                        { id: 'b', text: 'Call Admin' },
-                        { id: 'c', text: 'Wait forever' }
-                    ],
-                    correctAnswerId: 'a',
-                    topic: 'System Demo'
-                }
-            ];
-        } else {
-            const seriesDocRef = doc(firestore, "testSeries", testId);
-            const seriesSnap = await getDoc(seriesDocRef);
-            if (!seriesSnap.exists()) throw new Error("Test series not found.");
-            fetchedSeries = { id: seriesSnap.id, ...seriesSnap.data() } as TestSeriesType;
-            const questionsQuery = collection(firestore, "testSeries", testId, "questions");
+        const seriesDocRef = doc(firestore, "testSeries", testId);
+        const seriesSnap = await getDoc(seriesDocRef);
+        if (!seriesSnap.exists()) throw new Error("Test series not found.");
+        fetchedSeries = { id: seriesSnap.id, ...seriesSnap.data() } as TestSeriesType;
+        const questionsQuery = collection(firestore, "testSeries", testId, "questions");
             const questionsSnap = await getDocs(questionsQuery);
-            fetchedQuestions = questionsSnap.docs.map(doc => ({ id: doc.id, ...doc.data() } as QuestionType));
+            fetchedQuestions = questionsSnap.docs.map(doc => ({ id: doc.id, ...doc.data() } as QuestionType)).sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
         }
 
         // Check ownership if not free and not admin

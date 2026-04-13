@@ -166,7 +166,7 @@ export default function ExamPage() {
         const testData = { id: testDoc.id, ...testDoc.data() } as TestType;
         
         const qSnap = await getDocs(collection(firestore, "testSeries", id, "tests", testId, "questions"));
-        const qData = qSnap.docs.map(d => ({ ...d.data() as QuestionType, id: d.id }));
+        const qData = qSnap.docs.map(d => ({ ...d.data() as QuestionType, id: d.id })).sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
 
         setTest(testData);
         setQuestions(qData);

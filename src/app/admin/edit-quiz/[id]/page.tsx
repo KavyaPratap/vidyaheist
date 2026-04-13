@@ -23,7 +23,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
-import { Loader2, ShieldAlert, Trash2, Edit, Check, X, PlusCircle, ChevronRight, ChevronDown, ListChecks, Wrench, Zap, SquareCheck, Square } from "lucide-react";
+import { Loader2, ShieldAlert, Trash2, Edit, Check, X, PlusCircle, ChevronRight, ChevronDown, ListChecks, Wrench, Zap, SquareCheck, Square, RefreshCcw } from "lucide-react";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -48,8 +48,10 @@ import {
 } from "@/components/ui/alert-dialog";
 import type { TestSeriesFullType, AdminQuestionType, TestType } from "@/lib/types";
 import { cn } from "@/lib/utils";
-import { ADMIN_EMAIL } from "@/lib/constants";
+import { ADMIN_EMAIL, EXAM_SUBJECTS } from "@/lib/constants";
 import { MathText } from "@/components/shared/MathText";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
+import { Badge } from "@/components/ui/badge";
 
 const testSeriesSchema = z.object({
   name: z.string().min(5, { message: "Course name must be at least 5 characters." }),
@@ -143,8 +145,16 @@ function QuestionEditForm({ questionData, onSave, onCancel, formInstance }: Ques
   const watchedImageUrl = watch("imageUrl");
 
   return (
+    <div className="bg-muted/10 p-6 rounded-2xl border-2 border-primary/20 space-y-6 animate-in fade-in zoom-in-95 duration-200">
+      <div className="flex justify-between items-center bg-primary/5 -mx-6 -mt-6 p-4 rounded-t-2xl border-b border-primary/10">
+        <h3 className="font-black text-primary flex items-center gap-2">
+            <Edit className="w-4 h-4" /> Quick Edit Mode
+        </h3>
+        <Badge variant="outline" className="bg-primary/10 border-primary/20 text-primary">ID: {questionData.id}</Badge>
+      </div>
+
     <Form {...formInstance}>
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 p-4 border rounded-lg shadow-md bg-background">
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
         <FormField
           control={control}
           name="text"
@@ -176,7 +186,14 @@ function QuestionEditForm({ questionData, onSave, onCancel, formInstance }: Ques
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Subject (Optional)</FormLabel>
-                <FormControl><Input {...field} placeholder="e.g., Physics" /></FormControl>
+                <Select onValueChange={field.onChange} defaultValue={field.value || undefined}>
+                  <FormControl>
+                    <SelectTrigger><SelectValue placeholder="Select Subject" /></SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    {EXAM_SUBJECTS.map(s => <SelectItem key={s} value={s}>{s}</SelectItem>)}
+                  </SelectContent>
+                </Select>
                 <FormMessage />
               </FormItem>
             )}
@@ -234,19 +251,18 @@ function QuestionEditForm({ questionData, onSave, onCancel, formInstance }: Ques
             </RadioGroup>
         </FormItem>
 
-        <div className="flex justify-end space-x-3">
-          <Button type="button" variant="ghost" onClick={onCancel} disabled={isSubmitting}>
-            <X className="mr-2 h-4 w-4" /> Cancel
-          </Button>
-          <Button type="submit" disabled={isSubmitting}>
-            {isSubmitting ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Check className="mr-2 h-4 w-4"/>}
-            Save Changes
-          </Button>
+        <div className="flex gap-3 justify-end pt-4 border-t">
+            <Button type="button" variant="ghost" onClick={onCancel} disabled={isSubmitting}>Cancel</Button>
+            <Button type="submit" className="font-bold scale-105" disabled={isSubmitting}>
+                {isSubmitting ? <><Loader2 className="animate-spin mr-2 h-4 w-4"/> Saving...</> : "Save Question Changes"}
+            </Button>
         </div>
       </form>
     </Form>
+    </div>
   );
 }
+
 
 
 export default function EditQuizPage() {
@@ -262,6 +278,22 @@ export default function EditQuizPage() {
   const [editingTestMetadata, setEditingTestMetadata] = useState<TestType | null>(null);
   const [currentEditingQuestionData, setCurrentEditingQuestionData] = useState<AdminQuestionType | null>(null);
   const [selectedQuestionIds, setSelectedQuestionIds] = useState<string[]>([]);
+  const [uploadingBanner, setUploadingBanner] = useState(false);
+  const [subjectDialogOpen, setSubjectDialogOpen] = useState(false);
+  const [topicDialogOpen, setTopicDialogOpen] = useState(false);
+  const [reorderDialogOpen, setReorderDialogOpen] = useState(false);
+  const [activeTestId, setActiveTestId] = useState<string | null>(null);
+  const [tempSubjectOrder, setTempSubjectOrder] = useState<string[]>([]);
+  const [tempTopic, setTempTopic] = useState("");
+
+  const getSubjectColor = (subject?: string | null) => {
+      const s = subject?.toLowerCase() || '';
+      if (s.includes('physics')) return 'bg-blue-100 text-blue-700 border-blue-200 dark:bg-blue-900/30 dark:text-blue-300 dark:border-blue-800';
+      if (s.includes('chemistry')) return 'bg-orange-100 text-orange-700 border-orange-200 dark:bg-orange-900/30 dark:text-orange-300 dark:border-orange-800';
+      if (s.includes('biology')) return 'bg-green-100 text-green-700 border-green-200 dark:bg-green-900/30 dark:text-green-300 dark:border-green-800';
+      if (s.includes('math')) return 'bg-purple-100 text-purple-700 border-purple-200 dark:bg-purple-900/30 dark:text-purple-300 dark:border-purple-800';
+      return 'bg-muted text-muted-foreground border-border';
+  };
 
   const router = useRouter();
   const params = useParams();
@@ -311,9 +343,9 @@ export default function EditQuizPage() {
           const questionsSnap = await getDocs(collection(firestore, "testSeries", id, "tests", testDoc.id, "questions"));
           tData.questions = questionsSnap.docs.map(qDoc => {
               const qData = { id: qDoc.id, ...qDoc.data() } as AdminQuestionType;
-              qData.id = qDoc.id; // Force priority over payload
+              qData.id = qDoc.id; 
               return qData;
-          });
+          }).sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
           testsData.push(tData);
       }
 
@@ -437,6 +469,83 @@ export default function EditQuizPage() {
           toast({ title: "Error", description: "Update failed: " + err.message, variant: "destructive" });
       }
   };
+
+  const handleBannerUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+      const file = e.target.files?.[0];
+      if (!file) return;
+      setUploadingBanner(true);
+      try {
+          const { getApps } = await import("firebase/app");
+          const { getStorage, ref, uploadBytes, getDownloadURL } = await import("firebase/storage");
+          const app = getApps()[0];
+          const storage = getStorage(app);
+          const storageRef = ref(storage, `banners/${seriesId}_${Date.now()}_${file.name}`);
+          const snapshot = await uploadBytes(storageRef, file);
+          const url = await getDownloadURL(snapshot.ref);
+          testSeriesEditForm.setValue("imageUrl", url, { shouldDirty: true, shouldValidate: true });
+          toast({ title: "Success", description: "Banner uploaded! Save the course to apply changes." });
+      } catch (err: any) {
+          toast({ title: "Upload Failed", description: err.message || "Could not upload banner.", variant: "destructive" });
+      } finally {
+          setUploadingBanner(false);
+          if (e.target) e.target.value = '';
+      }
+  };
+
+  const handleFinalizeReorder = async () => {
+      if (!activeTestId || !firestore || tempSubjectOrder.length === 0) return;
+      const test = testSeriesData?.tests?.find(t => t.id === activeTestId);
+      if (!test || !test.questions) return;
+
+      try {
+          const batch = writeBatch(firestore);
+          let globalIdx = 0;
+          const grouped: Record<string, AdminQuestionType[]> = {};
+          test.questions.forEach(q => {
+              const sub = q.subject || "No Subject";
+              if (!grouped[sub]) grouped[sub] = [];
+              grouped[sub].push(q);
+          });
+
+          tempSubjectOrder.forEach(subject => {
+              if (grouped[subject]) {
+                  grouped[subject].forEach(q => {
+                      const qRef = doc(firestore, "testSeries", seriesId, "tests", activeTestId, "questions", q.id);
+                      batch.update(qRef, { order: globalIdx++, updatedAt: serverTimestamp() });
+                  });
+                  delete grouped[subject];
+              }
+          });
+
+          Object.values(grouped).flat().forEach(q => {
+              const qRef = doc(firestore, "testSeries", seriesId, "tests", activeTestId, "questions", q.id);
+              batch.update(qRef, { order: globalIdx++, updatedAt: serverTimestamp() });
+          });
+
+          await batch.commit();
+          toast({ title: "Success", description: "Questions reordered by subject." });
+          setReorderDialogOpen(false);
+          await fetchTestSeriesAndQuestions(seriesId);
+      } catch (err: any) {
+          toast({ title: "Error", description: "Reordering failed: " + err.message, variant: "destructive" });
+      }
+  };
+
+  const handleApplyBulkSubject = async (subject: string) => {
+      const targetId = activeTestId || 'selected';
+      await handleBulkUpdateQuestions(targetId, { subject }, 'metadata');
+      setSubjectDialogOpen(false);
+      setActiveTestId(null);
+  };
+
+  const handleApplyBulkTopic = async () => {
+      const targetId = activeTestId || 'selected';
+      await handleBulkUpdateQuestions(targetId, { topic: tempTopic }, 'metadata');
+      setTopicDialogOpen(false);
+      setTempTopic("");
+      setActiveTestId(null);
+  };
+
 
   const handleDeleteTest = async (testId: string) => {
     if (!seriesId || !isAdmin || !firestore) return;
@@ -661,6 +770,26 @@ export default function EditQuizPage() {
                     <FormItem><FormLabel>Category</FormLabel><FormControl><Input {...field} /></FormControl><FormMessage /></FormItem>
                   )} />
                 </div>
+
+                <div className="space-y-4 border p-4 rounded bg-muted/20">
+                    <FormLabel>Course Banner Image</FormLabel>
+                    {testSeriesEditForm.watch("imageUrl") ? (
+                        <div className="relative inline-block border rounded overflow-hidden group">
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                            <img src={testSeriesEditForm.watch("imageUrl")} alt="Banner" className="max-h-48 object-contain" />
+                            <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
+                                <Button type="button" variant="secondary" size="sm" onClick={() => testSeriesEditForm.setValue("imageUrl", "")}><Trash2 className="w-4 h-4 mr-1"/> Remove</Button>
+                                <Label htmlFor="replace-banner" className="cursor-pointer bg-primary text-primary-foreground px-3 py-1.5 rounded-md text-sm font-medium hover:bg-primary/90">Replace</Label>
+                                <Input id="replace-banner" type="file" accept="image/*" onChange={handleBannerUpload} className="hidden" />
+                            </div>
+                        </div>
+                    ) : (
+                        <div className="flex items-center gap-4">
+                            <Input type="file" accept="image/*" onChange={handleBannerUpload} disabled={uploadingBanner} className="w-full max-w-sm" />
+                            {uploadingBanner && <Loader2 className="w-5 h-5 animate-spin text-primary" />}
+                        </div>
+                    )}
+                </div>
               <div className="flex flex-col sm:flex-row justify-between gap-4 border-t pt-6">
                 <Button type="submit" disabled={testSeriesEditForm.formState.isSubmitting}>
                   {testSeriesEditForm.formState.isSubmitting ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
@@ -728,6 +857,20 @@ export default function EditQuizPage() {
                                 <PlusCircle className="w-4 h-4 mr-1"/> Add Questions
                              </Button>
 
+                             <Button 
+                                onClick={() => {
+                                    setActiveTestId(test.id);
+                                    const subjectsInTest = [...new Set((test.questions || []).map(q => q.subject || "General"))];
+                                    setTempSubjectOrder(subjectsInTest);
+                                    setReorderDialogOpen(true);
+                                }}
+                                variant="ghost" 
+                                size="sm" 
+                                className="text-primary hover:bg-primary/10"
+                             >
+                                <RefreshCcw className="w-4 h-4 mr-1"/> Reorder Sections
+                             </Button>
+
                              <AlertDialog open={!!editingTestMetadata && editingTestMetadata.id === test.id} onOpenChange={(open) => {
                                  if (open) {
                                      setEditingTestMetadata(test);
@@ -769,15 +912,25 @@ export default function EditQuizPage() {
                                     <DropdownMenuItem onClick={() => handleBulkUpdateQuestions(test.id, { correctAnswerId: 'C' }, 'correctAnswer')}>Set All to (C)</DropdownMenuItem>
                                     <DropdownMenuItem onClick={() => handleBulkUpdateQuestions(test.id, { correctAnswerId: 'D' }, 'correctAnswer')}>Set All to (D)</DropdownMenuItem>
                                     <DropdownMenuSeparator />
-                                    <DropdownMenuLabel>Batch Metadata</DropdownMenuLabel>
+                                    <DropdownMenuLabel className="text-[10px] text-destructive uppercase tracking-widest px-2 py-1 bg-destructive/5 rounded">Test-Wide Actions (ALL Questions)</DropdownMenuLabel>
                                     <DropdownMenuItem onClick={() => {
-                                        const sub = prompt("Enter Subject for all questions:");
-                                        if (sub) handleBulkUpdateQuestions(test.id, { subject: sub }, 'metadata');
-                                    }}>Set Subject...</DropdownMenuItem>
+                                        setActiveTestId(test.id);
+                                        setSubjectDialogOpen(true);
+                                    }}>Set Subject for ALL...</DropdownMenuItem>
                                     <DropdownMenuItem onClick={() => {
-                                        const top = prompt("Enter Topic for all questions:");
-                                        if (top) handleBulkUpdateQuestions(test.id, { topic: top }, 'metadata');
-                                    }}>Set Topic...</DropdownMenuItem>
+                                        setActiveTestId(test.id);
+                                        setTopicDialogOpen(true);
+                                    }}>Set Topic for ALL...</DropdownMenuItem>
+                                    <DropdownMenuSeparator />
+                                    <DropdownMenuLabel>Reordering Tools</DropdownMenuLabel>
+                                    <DropdownMenuItem onClick={() => {
+                                        setActiveTestId(test.id);
+                                        const subjectsInTest = [...new Set((test.questions || []).map(q => q.subject || "General"))];
+                                        setTempSubjectOrder(subjectsInTest);
+                                        setReorderDialogOpen(true);
+                                    }} className="text-primary font-bold">
+                                        <RefreshCcw className="w-4 h-4 mr-2"/> Reorder by Subject
+                                    </DropdownMenuItem>
                                 </DropdownMenuContent>
                             </DropdownMenu>
 
@@ -814,21 +967,39 @@ export default function EditQuizPage() {
                                                             onCheckedChange={() => toggleQuestionSelection(q.id)}
                                                             className="mt-1"
                                                         />
-                                                        <div className="flex-grow space-y-3">
-                                                            <div className="text-sm font-semibold flex gap-2">
-                                                                <span className="text-muted-foreground">Q{idx+1}.</span>
-                                                                <div className="overflow-hidden"><MathText text={q.text} /></div>
-                                                            </div>
+                                                        <div className="flex-grow space-y-3" onDoubleClick={() => handleEditQuestionClick(test.id, q)}>
+                                                              <div className="flex items-center gap-3">
+                                                                  <span className="text-muted-foreground font-bold font-mono">Q{idx+1}</span>
+                                                                  <div className="flex gap-1.5 flex-wrap">
+                                                                      {q.subject && (
+                                                                          <Badge className={cn("text-[9px] px-1.5 py-0 h-4 uppercase font-black border tracking-wider", getSubjectColor(q.subject))}>
+                                                                              {q.subject}
+                                                                          </Badge>
+                                                                      )}
+                                                                      {q.topic && (
+                                                                          <Badge variant="outline" className="text-[9px] px-1.5 py-0 h-4 uppercase font-bold text-muted-foreground border-dashed">
+                                                                              {q.topic}
+                                                                          </Badge>
+                                                                      )}
+                                                                  </div>
+                                                              </div>
+                                                              <div className="text-sm font-semibold flex gap-2 cursor-text group relative">
+                                                                  <div className="overflow-hidden flex-grow"><MathText text={q.text} /></div>
+                                                                  <Edit className="w-3 h-3 opacity-0 group-hover:opacity-50 transition-opacity absolute -right-4 top-1"/>
+                                                              </div>
                                                         {q.imageUrl && (
                                                             // eslint-disable-next-line @next/next/no-img-element
                                                             <div className="pl-7"><img src={q.imageUrl} alt="Diagram" className="max-h-64 object-contain rounded border" /></div>
                                                         )}
                                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-2 pl-7">
                                                             {q.options.map((opt, oIdx) => (
-                                                                <div key={opt.id} className={cn(
-                                                                    "text-xs p-2 rounded border flex items-center gap-2",
-                                                                    q.correctAnswerId === opt.id ? "bg-green-100 dark:bg-green-900/40 border-green-500 font-bold" : "bg-muted/30"
-                                                                )}>
+                                                                <div key={opt.id} 
+                                                                    className={cn(
+                                                                        "text-xs p-2 rounded border flex items-center gap-2 cursor-pointer hover:bg-muted/50 transition-colors",
+                                                                        q.correctAnswerId === opt.id ? "bg-green-100 dark:bg-green-900/40 border-green-500 font-bold" : "bg-muted/30"
+                                                                    )}
+                                                                    onDoubleClick={() => handleEditQuestionClick(test.id, q)}
+                                                                >
                                                                     <span className="text-[10px] text-muted-foreground">({String.fromCharCode(65+oIdx)})</span>
                                                                     <MathText text={opt.text}/>
                                                                 </div>
@@ -881,9 +1052,14 @@ export default function EditQuizPage() {
                        <Button variant="outline" size="sm" onClick={() => handleBulkUpdateQuestions('selected', { correctAnswerId: 'D' }, 'correctAnswer')}>D</Button>
                        <div className="w-px h-8 bg-border mx-2" />
                        <Button variant="outline" size="sm" onClick={() => {
-                           const sub = prompt("Subject for selected questions:");
-                           if (sub) handleBulkUpdateQuestions('selected', { subject: sub }, 'metadata');
-                       }}><ListChecks className="w-4 h-4 mr-1"/> Metadata</Button>
+                           setActiveTestId(null); // 'selected' mode
+                           setSubjectDialogOpen(true);
+                       }}><ListChecks className="w-4 h-4 mr-1"/> Set Subject</Button>
+
+                       <Button variant="outline" size="sm" onClick={() => {
+                           setActiveTestId(null); // 'selected' mode
+                           setTopicDialogOpen(true);
+                       }}><Zap className="w-4 h-4 mr-1"/> Set Topic</Button>
                        
                        <Button variant="outline" size="sm" onClick={() => {
                            const letter = prompt("Which option to update? (A/B/C/D)");
@@ -909,6 +1085,124 @@ export default function EditQuizPage() {
               </Card>
           </div>
       )}
+
+      {/* Global Dialogs for Subject Selection */}
+      <Dialog open={subjectDialogOpen} onOpenChange={setSubjectDialogOpen}>
+          <DialogContent className="max-w-md">
+              <DialogHeader>
+                  <DialogTitle>Select Subject</DialogTitle>
+                  <DialogDescription>Apply this subject to all selected questions.</DialogDescription>
+              </DialogHeader>
+              <div className="grid grid-cols-2 gap-3 py-4">
+                  {EXAM_SUBJECTS.map(sub => (
+                      <Button key={sub} variant="outline" onClick={() => handleApplyBulkSubject(sub)} className="justify-start">
+                          {sub}
+                      </Button>
+                  ))}
+              </div>
+          </DialogContent>
+      </Dialog>
+
+      <Dialog open={topicDialogOpen} onOpenChange={setTopicDialogOpen}>
+          <DialogContent className="max-w-md">
+              <DialogHeader>
+                  <DialogTitle>Update Topic</DialogTitle>
+                  <DialogDescription>Enter a topic to apply to all selected questions (e.g. "Thermodynamics").</DialogDescription>
+              </DialogHeader>
+              <div className="py-4">
+                  <Input 
+                    placeholder="Enter topic name..." 
+                    value={tempTopic} 
+                    onChange={(e) => setTempTopic(e.target.value)}
+                    onKeyDown={(e) => e.key === 'Enter' && handleApplyBulkTopic()}
+                  />
+              </div>
+              <DialogFooter>
+                  <Button variant="ghost" onClick={() => setTopicDialogOpen(false)}>Cancel</Button>
+                  <Button onClick={handleApplyBulkTopic} disabled={!tempTopic.trim()}>Update Topic</Button>
+              </DialogFooter>
+          </DialogContent>
+      </Dialog>
+
+      <Dialog open={reorderDialogOpen} onOpenChange={setReorderDialogOpen}>
+          <DialogContent className="max-w-md">
+              <DialogHeader>
+                  <DialogTitle className="flex items-center gap-2">
+                      <RefreshCcw className="w-5 h-5 text-primary"/> Reorder Sections
+                  </DialogTitle>
+                  <DialogDescription>
+                      Build the order you want your questions to appear in. Questions will be grouped by subject accordingly.
+                  </DialogDescription>
+              </DialogHeader>
+              <div className="space-y-6 py-4">
+                  <div className="space-y-2">
+                       <Label className="text-[10px] uppercase font-bold text-muted-foreground tracking-widest pl-1">New Sequence Order</Label>
+                       <div className="flex flex-wrap gap-2 min-h-[60px] p-3 border-2 border-dashed rounded-xl bg-muted/20">
+                           {tempSubjectOrder.map((sub, i) => (
+                                <Badge key={`${sub}-${i}`} className={cn("pr-1.5 py-1 gap-1.5 animate-in slide-in-from-left-2 duration-200", getSubjectColor(sub))}>
+                                    <span className="text-[10px] opacity-50 font-mono">{i+1}</span>
+                                    <span className="font-black text-[10px] uppercase">{sub}</span>
+                                    <X className="w-3 h-3 cursor-pointer hover:text-destructive transition-colors" onClick={() => setTempSubjectOrder(prev => prev.filter((_, idx) => idx !== i))}/>
+                                </Badge>
+                           ))}
+                           {tempSubjectOrder.length === 0 && (
+                               <div className="flex flex-col items-center justify-center w-full h-full text-muted-foreground text-xs italic gap-1 opacity-50">
+                                   <span>No order set yet...</span>
+                                   <span>Click options below to build sequence</span>
+                               </div>
+                           )}
+                       </div>
+                  </div>
+
+                  <div className="space-y-2">
+                       <Label className="text-[10px] uppercase font-bold text-muted-foreground tracking-widest pl-1">Detected Subjects in Test</Label>
+                       <div className="grid grid-cols-2 gap-2">
+                           {[...new Set((testSeriesData?.tests?.find(t => t.id === activeTestId)?.questions || []).map(q => q.subject || "No Subject"))].map(sub => (
+                                <Button 
+                                    key={sub} 
+                                    variant="outline" 
+                                    size="sm" 
+                                    className={cn("justify-start border h-9 transition-all hover:scale-[1.02]", tempSubjectOrder.includes(sub) && "opacity-30 grayscale")} 
+                                    onClick={() => !tempSubjectOrder.includes(sub) && setTempSubjectOrder(p => [...p, sub])}
+                                >
+                                    <PlusCircle className="w-3 h-3 mr-2 opacity-50"/> 
+                                    <span className="font-bold text-[10px] uppercase">{sub}</span>
+                                </Button>
+                           ))}
+                       </div>
+                  </div>
+                  
+                  <div className="flex gap-2">
+                       <Button 
+                        variant="secondary" 
+                        size="sm" 
+                        className="flex-1 h-9 text-[10px] font-black uppercase tracking-tighter" 
+                        onClick={() => setTempSubjectOrder(["Biology", "Physics", "Chemistry", "Mathematics"])}
+                       >
+                           Preset: BIO &gt; PHY &gt; CHE &gt; MAT
+                       </Button>
+                       <Button 
+                        variant="ghost" 
+                        size="sm" 
+                        className="h-9 text-[10px] font-black uppercase tracking-tighter text-destructive hover:bg-destructive/10" 
+                        onClick={() => setTempSubjectOrder([])}
+                       >
+                           Clear
+                       </Button>
+                  </div>
+              </div>
+              <DialogFooter className="bg-muted/30 -mx-6 -mb-6 p-4 border-t mt-4">
+                  <Button variant="ghost" className="font-bold" onClick={() => setReorderDialogOpen(false)}>Cancel</Button>
+                  <Button 
+                    className="font-black animate-pulse shadow-primary/20 shadow-lg" 
+                    onClick={handleFinalizeReorder} 
+                    disabled={tempSubjectOrder.length === 0}
+                  >
+                      Apply Grouped Reordering
+                  </Button>
+              </DialogFooter>
+          </DialogContent>
+      </Dialog>
     </div>
   );
 }
