@@ -27,11 +27,19 @@ export async function GET(request: Request) {
       const content = await fs.readFile(absolutePath, "utf-8");
       const ext = path.extname(absolutePath).toLowerCase();
       
+      // Heuristic: identify subject from path
+      const pathParts = filePath.split("/");
+      let subject = "Physics"; // default
+      if (pathParts.includes("biology")) subject = "Biology";
+      else if (pathParts.includes("chemistry")) subject = "Chemistry";
+      else if (pathParts.includes("maths")) subject = "Maths";
+      else if (pathParts.includes("physics")) subject = "Physics";
+
       let questions: any[] = [];
       if (ext === ".tex") {
-        questions = parseQuestionFile(content, "tex");
+        questions = parseQuestionFile(content, "tex", subject);
       } else if (ext === ".txt") {
-        questions = parseQuestionFile(content, "txt");
+        questions = parseQuestionFile(content, "txt", subject);
       }
 
       return NextResponse.json({ questions });
@@ -49,7 +57,6 @@ export async function GET(request: Request) {
   }
 }
 
-// NEW: POST route handles batch extraction for selected checkboxes
 export async function POST(request: Request) {
   try {
     const { filePaths } = await request.json();
@@ -64,10 +71,18 @@ export async function POST(request: Request) {
       try {
         const content = await fs.readFile(absolutePath, "utf-8");
         const ext = path.extname(absolutePath).toLowerCase();
+
+        const pathParts = relativePath.split("/");
+        let subject = "Physics";
+        if (pathParts.includes("biology")) subject = "Biology";
+        else if (pathParts.includes("chemistry")) subject = "Chemistry";
+        else if (pathParts.includes("maths")) subject = "Maths";
+        else if (pathParts.includes("physics")) subject = "Physics";
+
         if (ext === ".tex") {
-          allQuestions.push(...parseQuestionFile(content, "tex"));
+          allQuestions.push(...parseQuestionFile(content, "tex", subject));
         } else if (ext === ".txt") {
-          allQuestions.push(...parseQuestionFile(content, "txt"));
+          allQuestions.push(...parseQuestionFile(content, "txt", subject));
         }
       } catch (err) {
         console.error("Failed to read", relativePath, err);
@@ -98,9 +113,9 @@ async function buildDirectoryTree(dirPath: string, relativePath: string): Promis
           nodes.push({
             name: entry.name,
             type: "directory",
-            path: relPath.replace(/\\/g, '/'),
+            path: relPath.replace(/\\/g, "/"),
             children,
-            questionCount: folderCount
+            questionCount: folderCount,
           });
         }
       } else if (entry.isFile()) {
@@ -109,28 +124,40 @@ async function buildDirectoryTree(dirPath: string, relativePath: string): Promis
           
           let questionCount = 0;
           try {
-              const content = await fs.readFile(fullPath, "utf-8");
-              if (ext === ".tex") {
-                  questionCount = parseQuestionFile(content, "tex").length;
-              } else if (ext === ".txt") {
-                  let inferredType: 'tex' | 'txt' = (content.includes('\\item') || content.includes('\\begin{document}')) ? 'tex' : 'txt';
-                  questionCount = parseQuestionFile(content, inferredType).length;
-              }
+            const content = await fs.readFile(fullPath, "utf-8");
+            if (ext === ".tex") {
+              const pathParts = relPath.split("/");
+              let subject = "Physics";
+              if (pathParts.includes("biology")) subject = "Biology";
+              else if (pathParts.includes("chemistry")) subject = "Chemistry";
+              else if (pathParts.includes("maths")) subject = "Maths";
+              else if (pathParts.includes("physics")) subject = "Physics";
+              questionCount = parseQuestionFile(content, "tex", subject).length;
+            } else if (ext === ".txt") {
+              const pathParts = relPath.split("/");
+              let subject = "Physics";
+              if (pathParts.includes("biology")) subject = "Biology";
+              else if (pathParts.includes("chemistry")) subject = "Chemistry";
+              else if (pathParts.includes("maths")) subject = "Maths";
+              else if (pathParts.includes("physics")) subject = "Physics";
+              let inferredType: "tex" | "txt" = (content.includes("\\item") || content.includes("\\begin{document}")) ? "tex" : "txt";
+              questionCount = parseQuestionFile(content, inferredType, subject).length;
+            }
           } catch(e) {
-              console.error("Error reading file for count:", e);
+            console.error("Error reading file for count:", e);
           }
 
           nodes.push({
             name: entry.name,
             type: "file",
-            path: relPath.replace(/\\/g, '/'),
-            questionCount
+            path: relPath.replace(/\\/g, "/"),
+            questionCount,
           });
         }
       }
     }
   } catch (error: any) {
-    if (error.code === 'ENOENT') return [];
+    if (error.code === "ENOENT") return [];
     throw error;
   }
   

@@ -1,34 +1,20 @@
-import type { QuestionType, QuestionOption } from './types';
+import fs from 'fs';
+import path from 'path';
 
-export function parseQuestionFile(content: string, type: 'tex' | 'txt', subject: string = "Physics"): QuestionType[] {
-  // Intelligent sniffing: if it's meant to be a TXT but contains LaTeX code, switch it.
-  if (type === 'txt' && (content.includes('\\item') || content.includes('\\begin{document}'))) {
-    type = 'tex';
-  }
-
-  if (type === 'tex') {
-    return parseLatex(content, subject);
-  } else if (type === 'txt') {
-    return parseText(content, subject);
-  }
-  return [];
-}
-
-export function parseLatex(latexContent: string, defaultSubject: string = "Physics"): QuestionType[] {
-  const questions: QuestionType[] = [];
+function parseLatex(latexContent, defaultSubject = "Physics") {
+  const questions = [];
 
   let content = latexContent;
   const docStart = content.indexOf('\\begin{document}');
   if (docStart !== -1) content = content.substring(docStart);
 
-  // Strip tikzpicture and center environments to clean up the text
   content = content.replace(/\\begin\{tikzpicture\}[\s\S]*?\\end\{tikzpicture\}/g, '');
   content = content.replace(/\\begin\{center\}/g, '').replace(/\\end\{center\}/g, '');
 
   const splits = content.split(/\\item\s+/);
 
   let currentQuestionText = "";
-  let currentOptions: QuestionOption[] = [];
+  let currentOptions = [];
   let inOptionsPhase = false;
   let correctLetter = '';
 
@@ -53,7 +39,7 @@ export function parseLatex(latexContent: string, defaultSubject: string = "Physi
 
         if (currentQuestionText && currentOptions.length > 0) {
           questions.push({
-            id: `tex-q-${Date.now()}-${i}-${Math.random().toString(36).substring(7)}`,
+            id: `tex-q-${Date.now()}-${i}`,
             text: currentQuestionText,
             options: [...currentOptions],
             correctAnswerId,
@@ -76,18 +62,14 @@ export function parseLatex(latexContent: string, defaultSubject: string = "Physi
 
       if (beginEnumIndex !== -1) {
         currentQuestionText = block.substring(0, beginEnumIndex).trim();
-
-        // Try finding inline correct answer hint
         const answerMatch = currentQuestionText.match(/\\hfill\s*\\textbf{\s*(?:\({1,2}(.+?)\){1,2}|\((.+?)\))/);
         if (answerMatch) {
           correctLetter = (answerMatch[1] || answerMatch[2]).trim().toUpperCase();
           currentQuestionText = currentQuestionText.replace(answerMatch[0], '').trim();
         }
-
         currentOptions = [];
         inOptionsPhase = true;
       } else {
-        // Fallback: If no \begin{enumerate} found, check if options are inline e.g. (A) Option1, A) Option2
         const optionRegexFilter = /(?:^|[\s\\]+)(?:\([A-Ea-e]\)|[A-Ea-e]\))/g;
         const matchInline = block.match(optionRegexFilter);
         if (matchInline && matchInline.length >= 2) {
@@ -96,8 +78,6 @@ export function parseLatex(latexContent: string, defaultSubject: string = "Physi
           
           if (firstOptionIndex !== -1) {
               currentQuestionText = block.substring(0, firstOptionIndex).trim();
-
-              // Handle optional answer marking inside question text or at the end
               const answerMatch = currentQuestionText.match(/\\hfill\s*\\textbf{\s*(?:\({1,2}([A-Ea-e])\){1,2}|\(([A-Ea-e])\))/i);
               if (answerMatch) {
                 correctLetter = (answerMatch[1] || answerMatch[2]).trim().toUpperCase();
@@ -120,7 +100,7 @@ export function parseLatex(latexContent: string, defaultSubject: string = "Physi
 
               if (currentQuestionText && currentOptions.length >= 2) {
                 questions.push({
-                  id: `tex-q-${Date.now()}-${i}-${Math.random().toString(36).substring(7)}`,
+                  id: `tex-q-${Date.now()}-${i}`,
                   text: currentQuestionText,
                   options: [...currentOptions],
                   correctAnswerId: foundCorrectId,
@@ -139,50 +119,18 @@ export function parseLatex(latexContent: string, defaultSubject: string = "Physi
   return questions;
 }
 
-export function parseText(textContent: string, defaultSubject: string = "General"): QuestionType[] {
-  const questions: QuestionType[] = [];
-  const questionBlocks = textContent.split(/(?:^|\n)Q\.\s*/).slice(1);
+const filePath = '/home/kavyapratapsingh/Desktop/vidyaheist/papers/biology/Biology Latex Code Question(Ch. 1 to 38)/ch22_chemical_coordination.tex';
+const content = fs.readFileSync(filePath, 'utf-8');
+const questions = parseLatex(content, "Biology");
 
-  for (let i = 0; i < questionBlocks.length; i++) {
-    const block = questionBlocks[i];
-
-    const answerMatch = block.match(/Answer:\s*([A-Za-z])/i);
-    const correctAnswerLetter = answerMatch ? answerMatch[1].toUpperCase() : null;
-
-    const cleanBlock = (answerMatch ? block.replace(answerMatch[0], '') : block).trim();
-
-    const firstOptionIndex = cleanBlock.search(/\s*\([A-Z]\)/);
-    if (firstOptionIndex === -1) continue;
-
-    const questionText = cleanBlock.substring(0, firstOptionIndex).trim();
-    const optionsString = cleanBlock.substring(firstOptionIndex).trim();
-
-    const optionRegex = /\(([A-Z])\)\s*(.*?)(?=\s*\([A-Z]\)\s|$)/gs;
-    let optionMatch;
-    const options: QuestionOption[] = [];
-    let foundCorrectAnswerId = '';
-
-    while ((optionMatch = optionRegex.exec(optionsString)) !== null) {
-      const optionLetter = optionMatch[1].trim().toUpperCase();
-      const optionText = optionMatch[2].trim();
-      const id = `opt-${Math.random().toString(36).substr(2, 9)}`;
-      options.push({ id, text: optionText });
-      if (optionLetter === correctAnswerLetter) {
-        foundCorrectAnswerId = id;
-      }
-    }
-
-    if (questionText && options.length > 0) {
-      questions.push({
-        id: `txt-q-${Date.now()}-${i}-${Math.random().toString(36).substring(7)}`,
-        text: questionText,
-        options: options,
-        correctAnswerId: foundCorrectAnswerId,
-        topic: "Imported",
-        subject: defaultSubject,
-      });
-    }
-  }
-
-  return questions;
+console.log(`Parsed ${questions.length} questions from ${path.basename(filePath)}`);
+if (questions.length > 0) {
+    console.log("Example Question 1:");
+    console.log("Text:", questions[0].text);
+    console.log("Options:", questions[0].options.map(o => o.text).join(" | "));
+}
+if (questions.length > 13) {
+    console.log("Example Match Question (Q14):");
+    console.log("Text:", questions[13].text);
+    console.log("Options:", questions[13].options.map(o => o.text).join(" | "));
 }
