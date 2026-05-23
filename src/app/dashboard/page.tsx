@@ -1,7 +1,6 @@
 "use client";
 
 import { useUser } from "@/firebase";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Loader2, BookOpenCheck, User, TrendingUp, Award } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -79,30 +78,28 @@ export default function DashboardPage() {
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
         {dashboardCards.map((item) => (
           <Link href={item.href} key={item.title} className="group">
-            <Card className="h-full flex flex-col justify-between">
-              <CardHeader>
-                <div className="bg-primary/10 p-3 rounded-full w-fit">
+            <div className="hybrid-clay-card h-full p-6 flex flex-col justify-between">
+              <div>
+                <div className="bg-primary/10 p-3 rounded-2xl w-fit mb-4 border border-primary/20">
                     {item.icon}
                 </div>
-              </CardHeader>
-              <CardContent>
-                <CardTitle className="mb-2 group-hover:text-primary transition-colors">{item.title}</CardTitle>
-                <CardDescription>{item.description}</CardDescription>
-              </CardContent>
-            </Card>
+                <h3 className="text-xl font-extrabold mb-2 group-hover:text-primary transition-colors">{item.title}</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">{item.description}</p>
+              </div>
+            </div>
           </Link>
         ))}
       </div>
 
-       <Card className="shadow-xl bg-card border-2 border-primary/5">
-        <CardHeader className="flex flex-row items-center justify-between border-b py-6">
+       <div className="hybrid-clay-card p-6 md:p-8">
+        <div className="flex flex-col sm:flex-row items-center justify-between border-b pb-6 mb-6">
             <div>
-                <CardTitle className="text-2xl font-black">Recent Activity</CardTitle>
-                <CardDescription>Track your journey and performance overview.</CardDescription>
+                <h2 className="text-2xl font-black text-foreground">Recent Activity</h2>
+                <p className="text-sm text-muted-foreground">Track your journey and performance overview.</p>
             </div>
             {stats.totalTests > 0 && <Badge variant="secondary" className="px-4 py-1.5 rounded-full font-bold">{stats.totalTests} Tests Completed</Badge>}
-        </CardHeader>
-        <CardContent className="pt-8">
+        </div>
+        <div>
             {analyticsLoading ? (
                 <div className="py-20 flex justify-center items-center gap-4 text-muted-foreground italic">
                     <Loader2 className="animate-spin h-6 w-6" /> Calculating data...
@@ -110,8 +107,8 @@ export default function DashboardPage() {
             ) : (
                 <ActivityFeed activities={recentActivity} />
             )}
-        </CardContent>
-       </Card>
+        </div>
+       </div>
     </div>
   );
 }

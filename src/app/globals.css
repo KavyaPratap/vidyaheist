@@ -3,104 +3,108 @@
 @tailwind utilities;
 
 body {
-  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  font-family: var(--font-jakarta), var(--font-geist-sans), 'Segoe UI', system-ui, -apple-system, Arial, sans-serif;
 }
 
+/* ── CSS Custom Properties ───────────────────────────────────────────────── */
 @layer base {
   html, body {
-    @apply overflow-x-clip; /* Prevents horizontal scroll/overflow */
+    @apply overflow-x-clip;
   }
 
+  /* ── LIGHT MODE ── */
   :root {
-    --background: 210 27% 95%; /* Light Gray #F0F4F8 */
-    --foreground: 220 10% 20%; /* Dark Gray */
+    /* Saffron & Slate — Light */
+    --background: 36 33% 97%;          /* Warm off-white #F9F6F1 */
+    --foreground: 20 15% 10%;          /* Near-black warm */
 
-    --card: 210 27% 95%;
-    --card-foreground: 220 10% 20%;
+    --card: 36 30% 99%;
+    --card-foreground: 20 15% 10%;
 
-    --popover: 210 27% 95%;
-    --popover-foreground: 220 10% 20%;
+    --popover: 36 30% 99%;
+    --popover-foreground: 20 15% 10%;
 
-    --primary: 220 38% 27%; /* Deep Blue #293B5F */
-    --primary-foreground: 0 0% 98%; /* Light color for text on primary */
+    --primary: 24 90% 48%;             /* Saffron #E8650A */
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 210 20% 90%; /* Lighter than background */
-    --secondary-foreground: 220 38% 27%; /* Primary color for text on secondary */
+    --secondary: 36 20% 92%;           /* Warm light gray */
+    --secondary-foreground: 24 90% 40%;
 
-    --muted: 210 20% 85%;
-    --muted-foreground: 210 15% 45%;
+    --muted: 36 15% 88%;
+    --muted-foreground: 20 10% 45%;
 
-    --accent: 192 46% 45%; /* Teal #3D94A6 */
-    --accent-foreground: 0 0% 98%; /* Light color for text on accent */
+    --accent: 43 96% 48%;              /* Golden #F5B800 */
+    --accent-foreground: 20 15% 8%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 210 20% 88%;
-    --input: 210 20% 88%;
-    --ring: 192 46% 45%; /* Teal for focus rings */
+    --border: 36 20% 86%;
+    --input: 36 20% 86%;
+    --ring: 24 90% 48%;
 
-    --radius: 0.5rem;
+    --radius: 0.75rem;
 
-    --chart-1: 12 76% 61%;
-    --chart-2: 173 58% 39%;
-    --chart-3: 197 37% 24%;
-    --chart-4: 43 74% 66%;
-    --chart-5: 27 87% 67%;
+    --chart-1: 24 90% 48%;   /* Saffron */
+    --chart-2: 43 96% 48%;   /* Gold */
+    --chart-3: 142 71% 45%;  /* Green */
+    --chart-4: 221 83% 53%;  /* Blue */
+    --chart-5: 280 68% 60%;  /* Purple */
 
-    --sidebar-background: 220 30% 22%; /* Slightly lighter Deep Blue for sidebar */
-    --sidebar-foreground: 210 20% 90%;
-    --sidebar-primary: 192 46% 45%; /* Teal for active items */
-    --sidebar-primary-foreground: 220 15% 10%;
-    --sidebar-accent: 220 30% 28%; /* Hover state */
-    --sidebar-accent-foreground: 210 20% 95%;
-    --sidebar-border: 220 30% 35%;
-    --sidebar-ring: 192 46% 45%;
+    --sidebar-background: 20 20% 12%;
+    --sidebar-foreground: 36 20% 90%;
+    --sidebar-primary: 24 90% 55%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 20 20% 18%;
+    --sidebar-accent-foreground: 36 20% 95%;
+    --sidebar-border: 20 20% 20%;
+    --sidebar-ring: 24 90% 48%;
   }
 
+  /* ── DARK MODE ── */
   .dark {
-    --background: 220 15% 10%; /* Very dark blue/gray */
-    --foreground: 210 20% 90%; /* Light gray for text */
+    --background: 222 28% 8%;          /* Deep midnight #0F1117 */
+    --foreground: 36 25% 94%;          /* Warm white */
 
-    --card: 220 15% 10%;
-    --card-foreground: 210 20% 90%;
+    --card: 222 25% 11%;               /* Slightly lighter than bg */
+    --card-foreground: 36 25% 94%;
 
-    --popover: 220 15% 10%;
-    --popover-foreground: 210 20% 90%;
+    --popover: 222 25% 11%;
+    --popover-foreground: 36 25% 94%;
 
-    --primary: 192 46% 45%; /* Teal as primary in dark mode */
-    --primary-foreground: 220 15% 10%; /* Dark text on Teal */
+    --primary: 24 90% 55%;             /* Saffron — slightly brighter on dark */
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 220 15% 15%;
-    --secondary-foreground: 210 20% 90%;
+    --secondary: 222 20% 16%;          /* Dark slate */
+    --secondary-foreground: 36 25% 90%;
 
-    --muted: 220 15% 20%;
-    --muted-foreground: 210 15% 60%;
+    --muted: 222 18% 20%;
+    --muted-foreground: 36 10% 55%;
 
-    --accent: 220 38% 27%; /* Deep Blue as accent in dark mode */
-    --accent-foreground: 210 20% 90%;
+    --accent: 43 96% 52%;              /* Golden */
+    --accent-foreground: 20 15% 8%;
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
+    --destructive: 0 72% 50%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 220 15% 25%;
-    --input: 220 15% 25%;
-    --ring: 192 46% 45%; /* Teal for focus rings */
-    
-    --chart-1: 220 70% 50%;
-    --chart-2: 160 60% 45%;
-    --chart-3: 30 80% 55%;
-    --chart-4: 280 65% 60%;
-    --chart-5: 340 75% 55%;
+    --border: 222 18% 20%;
+    --input: 222 18% 20%;
+    --ring: 24 90% 55%;
 
-    --sidebar-background: 220 10% 5%; /* Very dark */
-    --sidebar-foreground: 210 20% 85%;
-    --sidebar-primary: 192 46% 45%;
-    --sidebar-primary-foreground: 220 10% 5%;
-    --sidebar-accent: 220 10% 12%;
-    --sidebar-accent-foreground: 210 20% 90%;
-    --sidebar-border: 220 10% 15%;
-    --sidebar-ring: 192 46% 45%;
+    --chart-1: 24 90% 55%;
+    --chart-2: 43 96% 52%;
+    --chart-3: 142 71% 50%;
+    --chart-4: 217 91% 60%;
+    --chart-5: 280 68% 65%;
+
+    --sidebar-background: 222 30% 6%;
+    --sidebar-foreground: 36 20% 88%;
+    --sidebar-primary: 24 90% 55%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 222 25% 13%;
+    --sidebar-accent-foreground: 36 20% 95%;
+    --sidebar-border: 222 20% 18%;
+    --sidebar-ring: 24 90% 55%;
   }
 }
 
@@ -113,42 +117,59 @@ body {
   }
 }
 
+/* ── Gradient text animation ─────────────────────────────────────────────── */
+@keyframes gradient-x {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+.animate-gradient-x {
+  background-size: 200% 200%;
+  animation: gradient-x 4s ease infinite;
+}
+
+/* ── Mesh gradient blob ──────────────────────────────────────────────────── */
+.mesh-gradient {
+  background:
+    radial-gradient(ellipse 60% 50% at 20% 30%, hsl(24 90% 55% / 0.18), transparent),
+    radial-gradient(ellipse 50% 60% at 80% 70%, hsl(43 96% 52% / 0.12), transparent),
+    radial-gradient(ellipse 80% 60% at 50% 0%, hsl(24 90% 55% / 0.08), transparent);
+}
+
+/* ── Glowing button ──────────────────────────────────────────────────────── */
 @layer components {
-  /* Link Glow Effect */
   .nav-link-glow {
     @apply transition-all duration-300;
   }
   .nav-link-glow:hover {
     @apply text-primary;
-    text-shadow: 0 0 10px hsla(var(--primary) / 0.6);
+    text-shadow: 0 0 12px hsl(24 90% 55% / 0.7);
   }
 
-  /* Glowing Button Styling */
   .btn-container-glow {
     @apply relative p-[2px] rounded-lg transition-all duration-300 inline-flex items-center justify-center overflow-hidden;
-    background: linear-gradient(90deg, hsl(var(--primary)), hsl(var(--accent)));
+    background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)));
   }
 
   .btn-glow {
-    @apply relative z-10 px-6 py-2.5 rounded-[calc(var(--radius)-2px)] bg-background text-foreground font-medium text-sm transition-all duration-200 block w-full text-center;
-    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    @apply relative z-10 px-6 py-2.5 rounded-[calc(var(--radius)-2px)] bg-background text-foreground font-semibold text-sm transition-all duration-200 block w-full text-center;
   }
 
   .btn-container-glow:hover {
-    @apply shadow-lg transform scale-[1.02];
+    @apply shadow-lg scale-[1.02];
+    box-shadow: 0 0 20px hsl(24 90% 55% / 0.4);
   }
 
   .btn-container-glow::before {
     content: "";
     @apply absolute inset-0 opacity-0 transition-opacity duration-300 blur-md;
-    background: linear-gradient(90deg, hsl(var(--primary)), hsl(var(--accent)));
+    background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)));
   }
 
   .btn-container-glow:hover::before {
-    @apply opacity-70;
+    @apply opacity-60;
   }
 
-  /* Login & Signup Form Styles */
+  /* ── Login & Form Styles ── */
   .login-form-container {
     @apply flex min-h-[calc(100vh-10rem)] items-center justify-center py-12 px-4;
   }
@@ -167,6 +188,7 @@ body {
 
   .login-button-submit {
     @apply w-full py-4 bg-primary text-primary-foreground font-bold rounded-xl hover:scale-[1.02] active:scale-[0.98] transition-all shadow-lg mt-2;
+    box-shadow: 0 4px 24px hsl(24 90% 55% / 0.4);
   }
 
   .login-p {
@@ -191,5 +213,54 @@ body {
 
   .login-p.line {
     @apply relative flex items-center gap-4 before:content-[''] before:h-[1px] before:flex-1 before:bg-border after:content-[''] after:h-[1px] after:flex-1 after:bg-border;
+  }
+
+  /* ── Saffron glow utility ── */
+  .saffron-glow {
+    box-shadow: 0 0 30px hsl(24 90% 55% / 0.35), 0 0 80px hsl(24 90% 55% / 0.15);
+  }
+
+  .saffron-text-glow {
+    text-shadow: 0 0 30px hsl(24 90% 55% / 0.5);
+  }
+
+  /* ── Card hover effect ── */
+  .card-hover {
+    @apply transition-all duration-300;
+  }
+  .card-hover:hover {
+    @apply border-primary/50 shadow-xl;
+    box-shadow: 0 8px 40px hsl(24 90% 55% / 0.15);
+  }
+
+  /* ── Hybrid Claymorphism + Glassmorphism + Neo-brutalism Card ── */
+  .hybrid-clay-card {
+    @apply rounded-3xl border-2 border-primary/80 bg-card/60 backdrop-blur-xl transition-all duration-300;
+    box-shadow: 
+      inset 4px 4px 8px 0 rgba(255, 255, 255, 0.06), 
+      inset -6px -6px 12px 0 rgba(0, 0, 0, 0.5),
+      6px 6px 0px 0px hsl(var(--primary));
+  }
+
+  :root:not(.dark) .hybrid-clay-card {
+    box-shadow: 
+      inset 4px 4px 8px 0 rgba(255, 255, 255, 0.7), 
+      inset -6px -6px 12px 0 rgba(0, 0, 0, 0.08),
+      6px 6px 0px 0px hsl(var(--primary));
+  }
+
+  .hybrid-clay-card:hover {
+    @apply border-accent scale-[1.02] -translate-y-1;
+    box-shadow: 
+      inset 4px 4px 8px 0 rgba(255, 255, 255, 0.1), 
+      inset -6px -6px 12px 0 rgba(0, 0, 0, 0.6),
+      10px 10px 0px 0px hsl(var(--accent));
+  }
+
+  :root:not(.dark) .hybrid-clay-card:hover {
+    box-shadow: 
+      inset 4px 4px 8px 0 rgba(255, 255, 255, 0.9), 
+      inset -6px -6px 12px 0 rgba(0, 0, 0, 0.12),
+      10px 10px 0px 0px hsl(var(--accent));
   }
 }
