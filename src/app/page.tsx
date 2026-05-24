@@ -109,13 +109,16 @@ export default function MarketingPage() {
   }
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-background text-foreground transition-colors duration-300">
+    <div className="relative min-h-screen overflow-hidden bg-background text-foreground transition-colors duration-300 -mx-4 md:-mx-8 -my-6 md:-my-8">
+      {/* Saffron mouse-follower glow */}
       <div 
-        className="pointer-events-none fixed inset-0 z-0 transition-opacity duration-300"
+        className="pointer-events-none fixed inset-0 z-0 transition-all duration-500"
         style={{
-          background: `radial-gradient(600px circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(41, 59, 95, 0.05), transparent 80%)`,
+          background: `radial-gradient(700px circle at ${mousePosition.x}px ${mousePosition.y}px, hsl(24 90% 55% / 0.07), transparent 70%)`,
         }}
       />
+      {/* Static mesh gradient */}
+      <div className="pointer-events-none fixed inset-0 z-0 mesh-gradient opacity-60" />
 
       <div className="relative z-10 flex flex-col items-center pb-20">
         <HeroSection />
@@ -145,17 +148,18 @@ function HeroSection() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className="inline-flex items-center rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-sm font-medium text-primary backdrop-blur-sm"
+              className="inline-flex items-center rounded-full border border-primary/40 bg-primary/15 px-4 py-1.5 text-sm font-bold text-primary backdrop-blur-sm gap-2"
             >
+              <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
               <span>Rank #1 in IAT & NEST Prep</span>
             </motion.div>
             
             <h1 className="text-5xl font-extrabold tracking-tight sm:text-6xl md:text-7xl lg:text-8xl leading-[1.1]">
               <span className="block">Heist your</span>
-              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-primary animate-gradient-x">
-                Dream College 
+              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-orange-300 animate-gradient-x" style={{backgroundSize:'200% auto'}}>
+                Dream College
               </span>
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-primary animate-gradient-x">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent via-primary to-orange-400 animate-gradient-x" style={{backgroundSize:'200% auto'}}>
                 with {APP_NAME}
               </span>
             </h1>
@@ -233,7 +237,8 @@ function StatsSection() {
   ];
 
   return (
-    <section className="w-full py-10 border-y border-border bg-secondary/20 backdrop-blur-sm z-10">
+    <section className="w-full py-14 border-y border-border bg-secondary/10 backdrop-blur-sm z-10 relative overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-to-r from-primary/5 via-transparent to-accent/5 pointer-events-none" />
       <div className="container mx-auto px-4 md:px-6">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
           {stats.map((stat, index) => (
@@ -243,9 +248,9 @@ function StatsSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              className="space-y-2"
+              className="space-y-2 group"
             >
-              <h3 className="text-3xl md:text-4xl font-extrabold text-primary">{stat.value}</h3>
+              <h3 className="text-3xl md:text-4xl font-extrabold text-primary group-hover:saffron-text-glow transition-all">{stat.value}</h3>
               <p className="text-sm md:text-base text-muted-foreground font-medium">{stat.label}</p>
             </motion.div>
           ))}
@@ -312,25 +317,25 @@ function FeaturesSection() {
               viewport={{ once: true }}
               transition={{ delay: idx * 0.1, duration: 0.5 }}
             >
-              <Card className="h-full transition-all hover:shadow-xl hover:border-primary/50 group">
-                <CardHeader>
-                  <div className="mb-4 bg-primary/10 w-fit p-3 rounded-xl group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
+              <div className="hybrid-clay-card h-full p-6 md:p-8 flex flex-col justify-between group">
+                <div className="space-y-4">
+                  <div className="mb-4 bg-primary/10 w-fit p-3 rounded-2xl group-hover:bg-primary group-hover:text-primary-foreground transition-all border border-primary/20 shadow-inner">
                     {feature.icon}
                   </div>
-                  <CardTitle className="text-2xl">{feature.title}</CardTitle>
-                  <CardDescription className="text-base">{feature.description}</CardDescription>
-                </CardHeader>
-                <CardContent>
+                  <h3 className="text-2xl font-extrabold text-foreground">{feature.title}</h3>
+                  <p className="text-base text-muted-foreground leading-relaxed">{feature.description}</p>
+                </div>
+                <div className="mt-6 pt-6 border-t border-border/50">
                   <ul className="space-y-3">
                     {feature.items.map((item, i) => (
-                      <li key={i} className="flex items-center text-sm text-muted-foreground">
+                      <li key={i} className="flex items-center text-sm font-semibold text-muted-foreground/80">
                         <CheckCircle2 className="mr-2 h-4 w-4 text-green-500 flex-shrink-0" />
                         {item}
                       </li>
                     ))}
                   </ul>
-                </CardContent>
-              </Card>
+                </div>
+              </div>
             </motion.div>
           ))}
         </div>
@@ -350,7 +355,7 @@ function TestimonialsSection() {
   }, []);
 
   return (
-    <section className="w-full py-24 bg-primary/5 relative z-10 overflow-hidden">
+    <section className="w-full py-24 relative z-10 overflow-hidden" style={{background: 'linear-gradient(180deg, transparent 0%, hsl(24 90% 55% / 0.04) 50%, transparent 100%)'}}>
       <div className="container px-4 md:px-6 mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl mb-4 text-primary">Success Stories</h2>
@@ -365,7 +370,7 @@ function TestimonialsSection() {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -20 }}
               transition={{ duration: 0.5 }}
-              className="bg-background rounded-3xl p-8 md:p-12 shadow-2xl border border-primary/10 flex flex-col md:flex-row gap-8 items-center"
+              className="hybrid-clay-card p-8 md:p-12 flex flex-col md:flex-row gap-8 items-center"
             >
               <div className="relative flex-shrink-0">
                 <div className="w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden border-4 border-primary/20 shadow-xl">
@@ -430,49 +435,71 @@ function TestimonialsSection() {
 function HowItWorksSection() {
   const steps = [
     { num: "01", title: "Create Profile", desc: "Sign up and tell us your target exam and current prep level." },
-    { num: "02", title: "Dashboard", desc: "A personalized dashbaord to identify your strong and weak zones." },
-    { num: "03", title: "Take test", desc: "Get a personalized study roadmap and targeted practice questions." },
+    { num: "02", title: "Dashboard Analysis", desc: "A personalized dashboard to identify your strong and weak zones." },
+    { num: "03", title: "Take Guided Tests", desc: "Get a personalized study roadmap and targeted practice questions." },
     { num: "04", title: "Track & Conquer", desc: "Watch your rank improve in real-time as you clear your weaknesses." },
   ];
 
   return (
     <section className="w-full py-24 relative z-10">
-      <div className="container px-4 md:px-6 mx-auto">
-        <div className="flex flex-col md:flex-row gap-16 items-center">
-          
-          <div className="w-full md:w-1/3 space-y-6 text-center md:text-left">
-            <h2 className="text-3xl md:text-5xl font-bold tracking-tight">Your Path to <span className="text-primary">Victory</span></h2>
-            <p className="text-lg text-muted-foreground">We've distilled the success strategies of top rankers into a simple, automated 4-step process. No more guessing, just focused execution.</p>
-            <a href="/store" className="inline-flex items-center justify-center px-6 py-3 font-semibold rounded-lg bg-secondary text-foreground hover:bg-secondary/80 transition-colors">
-              View Test Series
-            </a>
+      <div className="container px-4 md:px-6 mx-auto max-w-5xl">
+        {/* Centered Heading */}
+        <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
+          <motion.div 
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="inline-block rounded-full bg-primary/10 px-4 py-1.5 text-sm font-bold text-primary border border-primary/20"
+          >
+            Our Methodology
+          </motion.div>
+          <motion.h2 
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+            className="text-4xl md:text-5xl font-extrabold tracking-tight"
+          >
+            Your Path to <span className="text-primary font-black saffron-text-glow">Victory</span>
+          </motion.h2>
+          <p className="text-foreground/70 md:text-xl leading-relaxed">
+            We've distilled the success strategies of top rankers into a simple, automated 4-step process. No more guessing, just focused execution.
+          </p>
+        </div>
+
+        {/* Steps Listed Vertically */}
+        <div className="relative max-w-3xl mx-auto">
+          {/* Timeline Line */}
+          <div className="absolute left-10 md:left-12 top-4 bottom-4 w-1 bg-gradient-to-b from-primary via-accent to-transparent z-0 opacity-20 hidden sm:block"></div>
+
+          <div className="space-y-8 relative z-10">
+            {steps.map((step, idx) => (
+              <motion.div 
+                key={idx}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: idx * 0.1, duration: 0.5 }}
+                className="hybrid-clay-card p-6 md:p-8 flex flex-col sm:flex-row gap-6 items-center sm:items-start text-center sm:text-left"
+              >
+                {/* Neo-brutalist circle for step number */}
+                <div className="w-16 h-16 rounded-2xl bg-primary text-primary-foreground border-2 border-foreground flex items-center justify-center text-2xl font-black flex-shrink-0 shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] dark:shadow-[3px_3px_0px_0px_rgba(255,255,255,1)]">
+                  {step.num}
+                </div>
+                <div className="space-y-2 flex-grow">
+                  <h3 className="text-2xl font-black text-foreground">{step.title}</h3>
+                  <p className="text-muted-foreground text-lg leading-relaxed">{step.desc}</p>
+                </div>
+              </motion.div>
+            ))}
           </div>
+        </div>
 
-          <div className="w-full md:w-2/3 relative">
-            <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary via-accent to-transparent z-0 opacity-20 hidden md:block"></div>
-
-            <div className="space-y-12 relative z-10">
-              {steps.map((step, idx) => (
-                <motion.div 
-                  key={idx}
-                  initial={{ opacity: 0, x: 50 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: idx * 0.15, duration: 0.5 }}
-                  className="flex gap-6 items-start group"
-                >
-                  <div className="w-16 h-16 rounded-full bg-background border-2 border-primary/30 flex items-center justify-center text-xl font-bold text-primary flex-shrink-0 group-hover:border-primary group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300 shadow-lg">
-                    {step.num}
-                  </div>
-                  <div className="space-y-2 pt-2 md:pt-4">
-                    <h3 className="text-2xl font-bold">{step.title}</h3>
-                    <p className="text-muted-foreground text-lg">{step.desc}</p>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-
+        {/* Centered CTA */}
+        <div className="text-center mt-12">
+          <a href="/store" className="inline-flex items-center justify-center px-8 py-4 font-extrabold rounded-full bg-primary text-primary-foreground hover:bg-primary/95 transition-all shadow-lg hover:scale-105 active:scale-95 saffron-glow">
+            View Test Series
+          </a>
         </div>
       </div>
     </section>
@@ -481,7 +508,7 @@ function HowItWorksSection() {
 
 function FAQSection() {
   return (
-    <section className="w-full py-24 bg-secondary/10 relative z-10 overflow-hidden">
+    <section className="w-full py-24 relative z-10 overflow-hidden" style={{background: 'linear-gradient(180deg, transparent 0%, hsl(24 90% 55% / 0.03) 100%)'}}>
       <div className="container px-4 md:px-6 mx-auto max-w-4xl">
         <div className="text-center mb-16 space-y-4">
           <motion.div 
@@ -534,7 +561,8 @@ function CTASection() {
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="relative rounded-[3rem] overflow-hidden bg-primary px-6 py-16 md:py-24 text-center text-primary-foreground shadow-2xl"
+          className="relative rounded-[3rem] overflow-hidden px-6 py-16 md:py-24 text-center text-white shadow-2xl saffron-glow"
+          style={{background: 'linear-gradient(135deg, hsl(24 90% 48%) 0%, hsl(24 90% 40%) 40%, hsl(20 80% 35%) 100%)'}}
         >
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] border border-white/10 rounded-full animate-[spin_60s_linear_infinite] z-0 pointer-events-none"></div>
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] border border-white/20 rounded-full animate-[spin_40s_linear_infinite_reverse] z-0 pointer-events-none"></div>

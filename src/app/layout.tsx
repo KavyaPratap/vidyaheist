@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import { Inter as FontSans } from 'next/font/google'; // Using Inter as a common clean sans-serif
 import './globals.css';
 import 'katex/dist/katex.min.css';
 import { cn } from '@/lib/utils';
@@ -9,7 +8,7 @@ import { Header } from '@/components/shared/Header';
 import { Footer } from '@/components/shared/Footer';
 import { APP_NAME } from '@/lib/constants';
 
-import { Geist, Geist_Mono } from 'next/font/google';
+import { Geist, Geist_Mono, Plus_Jakarta_Sans } from 'next/font/google';
 import { FirebaseClientProvider } from '@/firebase/client-provider';
 import { FirebaseErrorListener } from '@/components/FirebaseErrorListener';
 import { FloatingContact } from '@/components/shared/FloatingContact';
@@ -24,6 +23,11 @@ const geistMono = Geist_Mono({
   subsets: ['latin'],
 });
 
+const jakarta = Plus_Jakarta_Sans({
+  variable: '--font-jakarta',
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700', '800'],
+});
 
 export const metadata: Metadata = {
   title: `${APP_NAME} - Your Exam Preparation Partner`,
@@ -41,18 +45,19 @@ export default function RootLayout({
         className={cn(
           "min-h-screen bg-background font-sans antialiased flex flex-col",
           geistSans.variable,
-          geistMono.variable
+          geistMono.variable,
+          jakarta.variable
         )}
       >
         <ThemeProvider
           attribute="class"
-          defaultTheme="system"
+          defaultTheme="dark"
           enableSystem
           disableTransitionOnChange
         >
           <FirebaseClientProvider>
             <Header />
-            <main className="flex-grow container mx-auto py-8">
+            <main className="flex-grow container mx-auto px-4 py-6 md:py-8">
               {children}
             </main>
             <Footer />
