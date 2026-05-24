@@ -254,7 +254,7 @@ function PredictionResult({
           </div>
           <div className="text-center md:text-left">
             <p className="text-sm font-semibold text-muted-foreground uppercase tracking-widest mb-1">
-              Best Expected College
+              Expected (college)
             </p>
             {best ? (
               <>
@@ -265,7 +265,7 @@ function PredictionResult({
               </>
             ) : (
               <h3 className="text-2xl font-bold text-muted-foreground">
-                Score needs improvement — below minimum threshold
+                Not Eligible
               </h3>
             )}
           </div>
@@ -274,10 +274,9 @@ function PredictionResult({
 
       {/* Rank badge */}
       {best && (
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+        <div className="grid grid-cols-2 gap-4 max-w-md mx-auto">
           {[
             { label: "Your Score", value: `${marks}`, sub: "marks" },
-            { label: "Tier Rank", value: `#${rank}`, sub: `out of ${total} tiers` },
             { label: "Category", value: category, sub: "reservation" },
           ].map((s) => (
             <div key={s.label} className="rounded-2xl border border-border bg-secondary/30 p-5 text-center">
@@ -322,7 +321,7 @@ function PredictionResult({
                     <td className="px-5 py-4 text-right">
                       {achieved ? (
                         <span className="inline-flex items-center gap-1 text-xs font-semibold text-green-600 dark:text-green-400 bg-green-500/10 px-2.5 py-1 rounded-full">
-                          ✓ Eligible
+                          ✓ Expected
                         </span>
                       ) : (
                         <span className="text-xs text-muted-foreground">—</span>
@@ -405,7 +404,7 @@ export default function PredictorPage() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.15 }}
-        className="hybrid-clay-card p-6 md:p-8 mb-6"
+        className="relative z-20 hybrid-clay-card p-6 md:p-8 mb-6"
       >
         <h2 className="text-xl font-bold mb-5 flex items-center gap-2">
           <Search className="w-5 h-5 text-primary" />
