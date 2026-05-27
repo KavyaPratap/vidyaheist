@@ -13,6 +13,7 @@ import { Geist, Geist_Mono, Plus_Jakarta_Sans } from 'next/font/google';
 import { FirebaseClientProvider } from '@/firebase/client-provider';
 import { FirebaseErrorListener } from '@/components/FirebaseErrorListener';
 import { FloatingContact } from '@/components/shared/FloatingContact';
+import { CartProvider } from '@/providers/CartProvider';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -73,15 +74,17 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <FirebaseClientProvider>
-            <Header />
-            <main className="flex-grow container mx-auto px-4 py-6 md:py-8 pb-24 md:pb-8">
-              {children}
-            </main>
-            <Footer />
-            <BottomNavbar />
-            <Toaster />
-            <FirebaseErrorListener />
-            <FloatingContact />
+            <CartProvider>
+              <Header />
+              <main className="flex-grow container mx-auto px-4 py-6 md:py-8 pb-24 md:pb-8">
+                {children}
+              </main>
+              <Footer />
+              <BottomNavbar />
+              <Toaster />
+              <FirebaseErrorListener />
+              <FloatingContact />
+            </CartProvider>
           </FirebaseClientProvider>
         </ThemeProvider>
       </body>

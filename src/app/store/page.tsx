@@ -437,25 +437,27 @@ export default function StorePage() {
                 const isPending = pendingBookIds.includes(book.id);
 
                 return (
-                  <div key={book.id} className="hybrid-clay-card flex flex-col h-full overflow-hidden">
-                    <div className="relative h-48 w-full overflow-hidden rounded-t-[22px] border-b border-border/50">
+                  <div key={book.id} className="hybrid-clay-card flex flex-col h-full overflow-hidden hover:shadow-xl transition-shadow group">
+                    <Link href={`/store/books/${book.id}/details`} className="relative h-48 w-full overflow-hidden rounded-t-[22px] border-b border-border/50 block">
                       <Image
                         src={book.imageUrl || "https://picsum.photos/seed/book/600/400"}
                         alt={book.name}
                         fill
-                        className="object-cover"
+                        className="object-cover group-hover:scale-105 transition-transform duration-300"
                       />
                       {!isFree && !isBought && (
                         <div className="absolute inset-0 bg-background/60 backdrop-blur-[2px] flex items-center justify-center">
-                          <div className="bg-primary text-primary-foreground p-3 rounded-full shadow-2xl border border-foreground/10">
+                          <div className="bg-primary/90 text-primary-foreground p-3 rounded-full shadow-2xl border border-foreground/10">
                             <Lock className="w-6 h-6" />
                           </div>
                         </div>
                       )}
-                    </div>
+                    </Link>
                     <div className="p-6 flex flex-col flex-grow">
                       <div className="flex justify-between items-start gap-2 mb-3">
-                        <h3 className="text-xl font-extrabold text-foreground leading-snug">{book.name}</h3>
+                        <Link href={`/store/books/${book.id}/details`} className="hover:text-primary transition-colors">
+                          <h3 className="text-xl font-extrabold text-foreground leading-snug">{book.name}</h3>
+                        </Link>
                         {isPending && (
                           <span className="bg-yellow-500/20 text-yellow-600 text-[10px] px-2.5 py-1 rounded-full font-extrabold border border-yellow-500/30">
                             PENDING
@@ -491,12 +493,8 @@ export default function StorePage() {
                             Pending Verification
                           </Button>
                         ) : (
-                          <Button
-                            onClick={() => handleBuyBook(book)}
-                            size="sm"
-                            className="rounded-full px-6 font-extrabold hover:scale-105 active:scale-95 transition-all shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]"
-                          >
-                            Buy Book
+                          <Button asChild size="sm" className="rounded-full px-6 font-extrabold hover:scale-105 active:scale-95 transition-all shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] bg-primary text-primary-foreground">
+                            <Link href={`/store/books/${book.id}/details`}>View Details</Link>
                           </Button>
                         )}
                       </div>

@@ -1,7 +1,7 @@
 
 "use client";
 import Link from "next/link";
-import { Home, ShoppingBag, User, Menu, MessageSquareHeart, GitBranch, LayoutDashboard, PlusCircle, ClipboardList } from "lucide-react";
+import { Home, ShoppingBag, User, Menu, MessageSquareHeart, GitBranch, LayoutDashboard, PlusCircle, ClipboardList, ShoppingCart } from "lucide-react";
 import { AuthButton } from "./AuthButton";
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
@@ -11,6 +11,7 @@ import { useIsMobile } from "@/hooks/use-mobile";
 import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetClose, SheetDescription } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { useUser } from "@/firebase";
+import { useCart } from "@/providers/CartProvider";
 import Image from 'next/image';
 
 const signedOutNavItems = [
@@ -33,6 +34,7 @@ export function Header() {
   const isMobile = useIsMobile();
   const { user, loading, isAdmin, isMicroAdmin } = useUser();
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
+  const { cartCount } = useCart();
 
   useEffect(() => {
     setIsMobileNavOpen(false);
@@ -67,6 +69,14 @@ export function Header() {
         </Link>
         {isMobile ? (
           <div className="flex flex-1 items-center justify-end space-x-2">
+            <Link href="/store/cart" className="relative p-2 text-foreground/75 hover:text-primary transition-all mr-1">
+              <ShoppingCart className="h-5.5 w-5.5" />
+              {cartCount > 0 && (
+                <span className="absolute -top-0.5 -right-0.5 bg-primary text-primary-foreground text-[9px] font-black h-4.5 w-4.5 rounded-full flex items-center justify-center border border-background shadow-sm animate-pulse">
+                  {cartCount}
+                </span>
+              )}
+            </Link>
             <AuthButton />
             {(isAdmin || isMicroAdmin) && (
               <Sheet open={isMobileNavOpen} onOpenChange={setIsMobileNavOpen}>
@@ -118,6 +128,14 @@ export function Header() {
               ))}
             </nav>
             <div className="flex flex-1 items-center justify-end space-x-4">
+              <Link href="/store/cart" className="relative p-2 text-foreground/75 hover:text-primary transition-all">
+                <ShoppingCart className="h-6 w-6" />
+                {cartCount > 0 && (
+                  <span className="absolute top-0 right-0 bg-primary text-primary-foreground text-[10px] font-black h-5 w-5 rounded-full flex items-center justify-center border-2 border-background shadow-md animate-pulse">
+                    {cartCount}
+                  </span>
+                )}
+              </Link>
               <AuthButton />
             </div>
           </>

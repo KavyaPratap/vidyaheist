@@ -83,6 +83,12 @@ service cloud.firestore {
     match /books/{bookId} {
       allow read: if true;
       allow create, update, delete: if isAdmin();
+
+      match /reviews/{reviewId} {
+        allow read: if true;
+        allow create: if isUserAuthenticated();
+        allow update, delete: if isAdmin();
+      }
     }
 
     // Secure Book Orders collection
@@ -92,15 +98,19 @@ service cloud.firestore {
       allow create: if isUserAuthenticated() && 
         request.resource.data.userId == request.auth.uid && 
         request.resource.data.status == 'pending';
-      allow update: if isAdmin() || (isMicroAdmin() && 
-        resource.data.status != 'pending' && 
-        resource.data.status != 'rejected' &&
-        (request.resource.data.status == 'processing' || 
-         request.resource.data.status == 'shipped' || 
-         request.resource.data.status == 'delivered') &&
-        request.resource.data.userId == resource.data.userId &&
-        request.resource.data.bookId == resource.data.bookId
-      );
+      allow update: if isAdmin() || 
+        (isUserAuthenticated() && resource.data.userId == request.auth.uid && 
+         resource.data.status == 'pending' && 
+         request.resource.data.status == 'rejected') ||
+        (isMicroAdmin() && 
+          resource.data.status != 'pending' && 
+          resource.data.status != 'rejected' &&
+          (request.resource.data.status == 'processing' || 
+           request.resource.data.status == 'shipped' || 
+           request.resource.data.status == 'delivered') &&
+          request.resource.data.userId == resource.data.userId &&
+          request.resource.data.bookId == resource.data.bookId
+        );
     }
 
     // Secure Counselling Leads collection
