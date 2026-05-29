@@ -135,8 +135,23 @@ export default function MarketingPage() {
 
 function HeroSection() {
   return (
-    <section className="relative w-full pt-20 md:pt-32 lg:pt-40 pb-16 overflow-hidden">
-      <div className="container px-4 md:px-6 mx-auto grid gap-12 lg:grid-cols-2 lg:gap-8 items-center">
+    <section className="relative w-full pt-20 md:pt-32 lg:pt-40 pb-20 overflow-hidden min-h-[85vh] flex items-center">
+      {/* Cinematic Silent Ambient Video Background */}
+      <div className="absolute inset-0 w-full h-full overflow-hidden z-0">
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="w-full h-full object-cover scale-[1.02]"
+        >
+          <source src="/landing.mp4" type="video/mp4" />
+        </video>
+        {/* Sleek Gradient Overlay for Premium Readability */}
+        <div className="absolute inset-0 bg-gradient-to-r from-background via-background/95 to-background/50 backdrop-blur-[2px]" />
+      </div>
+
+      <div className="container px-4 md:px-6 mx-auto grid gap-12 lg:grid-cols-2 lg:gap-8 items-center relative z-10">
         <motion.div 
           initial={{ opacity: 0, x: -50 }}
           animate={{ opacity: 1, x: 0 }}
@@ -188,40 +203,45 @@ function HeroSection() {
         </motion.div>
 
         <motion.div 
-          initial={{ opacity: 0, scale: 0.8 }}
+          initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1, ease: "easeOut" }}
-          className="relative w-full max-w-[600px] mx-auto flex flex-col gap-4"
+          className="relative w-full max-w-[500px] mx-auto flex flex-col gap-4 z-10"
         >
           <motion.div 
-            initial={{ x: -20, opacity: 0 }}
+            initial={{ x: 20, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             transition={{ delay: 0.6 }}
-            className="bg-background/90 backdrop-blur-md rounded-lg p-3 shadow-lg border border-border flex items-center gap-3 w-fit self-start ml-4 z-20"
+            className="bg-background/80 backdrop-blur-xl rounded-[2.5rem] p-8 shadow-2xl border border-primary/20 flex flex-col gap-5 self-center w-full relative overflow-hidden"
           >
-            <div className="w-10 h-10 rounded-full bg-green-500/20 flex items-center justify-center text-green-500">
-              <BarChart3 className="w-5 h-5" />
+            <div className="absolute top-0 right-0 w-24 h-24 bg-primary/10 blur-2xl animate-pulse" />
+            <div className="flex items-center gap-3">
+              <div className="w-12 h-12 rounded-full bg-primary/15 flex items-center justify-center text-primary border border-primary/20 shrink-0">
+                <Target className="w-6 h-6 animate-pulse" />
+              </div>
+              <div>
+                <p className="text-[10px] font-black uppercase tracking-widest text-primary">IISER Aptitude Test</p>
+                <p className="text-lg font-black text-foreground">Interactive Learning Hub</p>
+              </div>
             </div>
-            <div>
-              <p className="text-xs text-muted-foreground">Est. Rank</p>
-              <p className="text-sm font-bold text-primary">Top 1%</p>
+            
+            <p className="text-xs text-muted-foreground leading-relaxed font-semibold">
+              Unrivaled mock test simulators, detailed concept maps, real-time alumni mentoring, and choice list building in one premium research ecosystem.
+            </p>
+
+            <div className="grid grid-cols-2 gap-3 pt-2">
+              <div className="p-3.5 bg-secondary/35 rounded-2xl border border-border">
+                <p className="text-[9px] text-muted-foreground font-black tracking-wider">EST. SUCCESS RATE</p>
+                <p className="text-xs font-black text-primary mt-1">Top 1% Rankers</p>
+              </div>
+              <div className="p-3.5 bg-secondary/35 rounded-2xl border border-border">
+                <p className="text-[9px] text-muted-foreground font-black tracking-wider">PLATFORM STATUS</p>
+                <p className="text-xs font-black text-green-500 flex items-center gap-1 mt-1">
+                  <span className="w-1.5 h-1.5 bg-green-500 rounded-full animate-ping" /> Online & Active
+                </p>
+              </div>
             </div>
           </motion.div>
-
-          <div className="relative z-10 w-full rounded-2xl border border-border bg-background shadow-2xl overflow-hidden">
-            <div className="relative aspect-[4/3] bg-background">
-              <Image 
-                src="/imghome.jpeg"
-                alt="Student analyzing performance" 
-                width={800}
-                height={600}
-                className="object-cover w-full h-full"
-                priority
-              />
-            </div>
-          </div>
-          
-          <div className="absolute -top-1/4 left-1/2 -translate-x-1/2 w-[120%] h-[120%] bg-gradient-to-tr from-primary/10 to-accent/10 blur-[100px] rounded-full -z-10 pointer-events-none"></div>
         </motion.div>
       </div>
     </section>
