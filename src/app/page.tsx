@@ -134,43 +134,62 @@ export default function MarketingPage() {
 }
 
 function HeroSection() {
+  const videoRef = React.useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.defaultMuted = true;
+      videoRef.current.muted = true;
+      videoRef.current.play().catch((err) => {
+        console.log("Autoplay blocked:", err);
+      });
+    }
+  }, []);
+
   return (
-    <section className="relative w-full pt-20 md:pt-32 lg:pt-40 pb-20 overflow-hidden min-h-[85vh] flex items-center">
+    <section className="relative w-full pt-24 md:pt-36 lg:pt-44 pb-28 overflow-hidden min-h-[90vh] flex items-center">
       {/* Cinematic Silent Ambient Video Background */}
       <div className="absolute inset-0 w-full h-full overflow-hidden z-0">
         <video
+          ref={videoRef}
           autoPlay
           loop
           muted
           playsInline
+          preload="auto"
           className="w-full h-full object-cover scale-[1.02]"
         >
           <source src="/landing.mp4" type="video/mp4" />
         </video>
-        {/* Sleek Gradient Overlay for Premium Readability */}
-        <div className="absolute inset-0 bg-gradient-to-r from-background via-background/95 to-background/50 backdrop-blur-[2px]" />
+        {/* Sleek Highly-Visible Gradient Overlay */}
+        <div 
+          className="absolute inset-0 z-10" 
+          style={{
+            background: 'linear-gradient(to right, hsl(var(--background) / 0.5) 0%, hsl(var(--background) / 0.25) 55%, hsl(var(--background) / 0.05) 100%)'
+          }}
+        />
       </div>
 
-      <div className="container px-4 md:px-6 mx-auto grid gap-12 lg:grid-cols-2 lg:gap-8 items-center relative z-10">
+      <div className="container px-4 md:px-6 mx-auto relative z-20">
         <motion.div 
-          initial={{ opacity: 0, x: -50 }}
-          animate={{ opacity: 1, x: 0 }}
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          className="flex flex-col justify-center space-y-8 text-center lg:text-left z-10"
+          className="flex flex-col justify-center space-y-8 text-left max-w-4xl z-10"
         >
-          <div className="space-y-4">
+          <div className="space-y-5">
             <motion.div 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className="inline-flex items-center rounded-full border border-primary/40 bg-primary/15 px-4 py-1.5 text-sm font-bold text-primary backdrop-blur-sm gap-2"
+              className="inline-flex items-center rounded-full border border-primary/40 bg-primary/15 px-4 py-1.5 text-sm font-bold text-primary backdrop-blur-sm gap-2 w-fit"
             >
               <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
               <span>Rank #1 in IAT & NEST Prep</span>
             </motion.div>
             
             <h1 className="text-5xl font-extrabold tracking-tight sm:text-6xl md:text-7xl lg:text-8xl leading-[1.1]">
-              <span className="block">Heist your</span>
+              <span className="block text-foreground">Heist your</span>
               <span className="block text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-cyan-400 animate-gradient-x" style={{backgroundSize:'200% auto'}}>
                 Dream College
               </span>
@@ -179,7 +198,7 @@ function HeroSection() {
               </span>
             </h1>
             
-            <p className="max-w-[600px] mx-auto lg:mx-0 text-foreground/70 md:text-xl leading-relaxed font-light">
+            <p className="max-w-[680px] text-foreground/90 md:text-2xl leading-relaxed font-semibold drop-shadow-sm pt-2">
               VidyaHeist helps you turn ambition into admission with proper personal mentorship and structured planning.
             </p>
           </div>
@@ -188,7 +207,7 @@ function HeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
-            className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4"
+            className="flex flex-col sm:flex-row items-center justify-start gap-4"
           >
             <a href="/signup" className="group relative inline-flex items-center justify-center px-8 py-4 font-bold text-primary-foreground bg-primary rounded-full overflow-hidden transition-transform hover:scale-105 active:scale-95 shadow-lg">
               <span className="relative flex items-center gap-2">
@@ -199,48 +218,6 @@ function HeroSection() {
               <PlayCircle className="mr-2 w-5 h-5 text-primary group-hover:scale-110 transition-transform" />
               Watch Demo
             </a>
-          </motion.div>
-        </motion.div>
-
-        <motion.div 
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1, ease: "easeOut" }}
-          className="relative w-full max-w-[500px] mx-auto flex flex-col gap-4 z-10"
-        >
-          <motion.div 
-            initial={{ x: 20, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            transition={{ delay: 0.6 }}
-            className="bg-background/80 backdrop-blur-xl rounded-[2.5rem] p-8 shadow-2xl border border-primary/20 flex flex-col gap-5 self-center w-full relative overflow-hidden"
-          >
-            <div className="absolute top-0 right-0 w-24 h-24 bg-primary/10 blur-2xl animate-pulse" />
-            <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-full bg-primary/15 flex items-center justify-center text-primary border border-primary/20 shrink-0">
-                <Target className="w-6 h-6 animate-pulse" />
-              </div>
-              <div>
-                <p className="text-[10px] font-black uppercase tracking-widest text-primary">IISER Aptitude Test</p>
-                <p className="text-lg font-black text-foreground">Interactive Learning Hub</p>
-              </div>
-            </div>
-            
-            <p className="text-xs text-muted-foreground leading-relaxed font-semibold">
-              Unrivaled mock test simulators, detailed concept maps, real-time alumni mentoring, and choice list building in one premium research ecosystem.
-            </p>
-
-            <div className="grid grid-cols-2 gap-3 pt-2">
-              <div className="p-3.5 bg-secondary/35 rounded-2xl border border-border">
-                <p className="text-[9px] text-muted-foreground font-black tracking-wider">EST. SUCCESS RATE</p>
-                <p className="text-xs font-black text-primary mt-1">Top 1% Rankers</p>
-              </div>
-              <div className="p-3.5 bg-secondary/35 rounded-2xl border border-border">
-                <p className="text-[9px] text-muted-foreground font-black tracking-wider">PLATFORM STATUS</p>
-                <p className="text-xs font-black text-green-500 flex items-center gap-1 mt-1">
-                  <span className="w-1.5 h-1.5 bg-green-500 rounded-full animate-ping" /> Online & Active
-                </p>
-              </div>
-            </div>
           </motion.div>
         </motion.div>
       </div>
