@@ -57,8 +57,8 @@ export function ExplanationModal({ isOpen, onClose, question, studentAnswer }: E
         correctAnswer: correctAnswerText,
         topic: question.topic || "General",
       };
-      const result: GenerateExplanationOutput = await generateExplanation(input);
-      setExplanation(result.explanation);
+      const result = await generateExplanation(input);
+      setExplanation(result);
     } catch (err) {
       console.error("Failed to generate explanation:", err);
       setError("Sorry, we couldn't generate an explanation at this time. Please try again later.");

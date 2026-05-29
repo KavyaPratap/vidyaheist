@@ -478,23 +478,26 @@ export default function StorePage() {
                     </div>
                     <div className="flex justify-between items-center p-6 pt-0 mt-2">
                       <p className="text-2xl font-black text-primary">{isFree ? "FREE" : `₹${book.price}`}</p>
-                      <div className="flex gap-2">
+                      <div className="flex gap-1.5 sm:gap-2">
                         {isAdmin && (
                           <Button asChild variant="outline" size="sm" className="rounded-full">
                             <Link href={`/admin/books?edit=${book.id}`}>Edit</Link>
                           </Button>
                         )}
+                        <Button asChild variant="outline" size="sm" className="rounded-full px-4 font-bold border-primary/25 text-primary hover:bg-primary/5 hover:scale-103 active:scale-97 transition-all text-xs">
+                          <Link href={`/store/books/${book.id}/details`}>View Details</Link>
+                        </Button>
                         {isFree || isBought ? (
-                          <Button asChild size="sm" className="rounded-full px-6 font-extrabold hover:scale-105 active:scale-95 transition-all shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
+                          <Button asChild size="sm" className="rounded-full px-5 font-extrabold hover:scale-103 active:scale-97 transition-all shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] text-xs">
                             <Link href={`/store/books/${book.id}`}>Read Book</Link>
                           </Button>
                         ) : isPending ? (
-                          <Button disabled size="sm" className="rounded-full px-6 font-extrabold opacity-70">
+                          <Button disabled size="sm" className="rounded-full px-5 font-extrabold opacity-70 text-xs">
                             Pending Verification
                           </Button>
                         ) : (
-                          <Button asChild size="sm" className="rounded-full px-6 font-extrabold hover:scale-105 active:scale-95 transition-all shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] bg-primary text-primary-foreground">
-                            <Link href={`/store/books/${book.id}/details`}>View Details</Link>
+                          <Button asChild size="sm" className="rounded-full px-5 font-extrabold hover:scale-103 active:scale-97 transition-all shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] bg-primary text-primary-foreground text-xs">
+                            <Link href={`/store/books/${book.id}/details`}>Buy Now</Link>
                           </Button>
                         )}
                       </div>

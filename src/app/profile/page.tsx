@@ -416,6 +416,66 @@ export default function ProfilePage() {
                         <div>Price: <span className="text-foreground">₹{o.amount}</span></div>
                       </div>
 
+                      {/* Interactive shipping progress stepper bar */}
+                      <div className="pt-4 pb-2 border-t border-dashed">
+                        <div className="flex justify-between items-center relative px-2">
+                          {/* Background Connective line */}
+                          <div className="absolute left-4 right-4 top-3 h-0.5 bg-muted rounded-full z-0" />
+                          {/* Active Connective line */}
+                          <div className="absolute left-4 top-3 h-0.5 bg-green-500 rounded-full z-0 transition-all duration-500" style={{
+                            width: o.status === 'delivered' ? 'calc(100% - 2rem)' : o.status === 'shipped' ? '66%' : (o.status === 'processing' || o.status === 'verified') ? '33%' : '0%'
+                          }} />
+
+                          {/* Step 1: Placed */}
+                          <div className="flex flex-col items-center z-10 relative">
+                            <div className={`w-6.5 h-6.5 rounded-full border flex items-center justify-center text-[9px] font-black shadow-sm transition-all duration-300 ${
+                              o.status === 'pending' || o.status === 'verified' || o.status === 'processing' || o.status === 'shipped' || o.status === 'delivered'
+                                ? 'bg-green-500 border-green-600 text-white'
+                                : 'bg-background border-muted text-muted-foreground'
+                            }`}>
+                              ✓
+                            </div>
+                            <span className="text-[8px] font-black text-foreground mt-1">Placed</span>
+                          </div>
+
+                          {/* Step 2: Processing */}
+                          <div className="flex flex-col items-center z-10 relative">
+                            <div className={`w-6.5 h-6.5 rounded-full border flex items-center justify-center text-[9px] font-black shadow-sm transition-all duration-300 ${
+                              o.status === 'verified' || o.status === 'processing' || o.status === 'shipped' || o.status === 'delivered'
+                                ? 'bg-green-500 border-green-600 text-white'
+                                : 'bg-background border-muted text-muted-foreground'
+                            }`}>
+                              2
+                            </div>
+                            <span className="text-[8px] font-black text-foreground mt-1">Packed</span>
+                          </div>
+
+                          {/* Step 3: Shipped */}
+                          <div className="flex flex-col items-center z-10 relative">
+                            <div className={`w-6.5 h-6.5 rounded-full border flex items-center justify-center text-[9px] font-black shadow-sm transition-all duration-300 ${
+                              o.status === 'shipped' || o.status === 'delivered'
+                                ? 'bg-green-500 border-green-600 text-white'
+                                : 'bg-background border-muted text-muted-foreground'
+                            }`}>
+                              3
+                            </div>
+                            <span className="text-[8px] font-black text-foreground mt-1">Shipped</span>
+                          </div>
+
+                          {/* Step 4: Delivered */}
+                          <div className="flex flex-col items-center z-10 relative">
+                            <div className={`w-6.5 h-6.5 rounded-full border flex items-center justify-center text-[9px] font-black shadow-sm transition-all duration-300 ${
+                              o.status === 'delivered'
+                                ? 'bg-green-500 border-green-600 text-white'
+                                : 'bg-background border-muted text-muted-foreground'
+                            }`}>
+                              ✓
+                            </div>
+                            <span className="text-[8px] font-black text-foreground mt-1">Arrived</span>
+                          </div>
+                        </div>
+                      </div>
+
                       {o.trackingInfo && (
                         <div className="bg-primary/5 p-2.5 rounded border border-primary/20 mt-1 flex gap-2 items-center">
                           <Truck className="w-4 h-4 text-primary shrink-0" />

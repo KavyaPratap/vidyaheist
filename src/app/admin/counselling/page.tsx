@@ -1,13 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import { useUser, useFirestore, useCollection } from "@/firebase";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Loader2, Phone, MessageCircle, CheckCircle2, AlertCircle, Trash2, Search, Users, Sparkles, MessageSquareHeart } from "lucide-react";
-import { doc, updateDoc, deleteDoc, serverTimestamp } from "firebase/firestore";
+import { doc, updateDoc, deleteDoc, serverTimestamp, onSnapshot, query, collection, addDoc, orderBy } from "firebase/firestore";
 import { useToast } from "@/hooks/use-toast";
 import { format } from "date-fns";
 import { Input } from "@/components/ui/input";
@@ -33,6 +33,8 @@ export default function AdminCounsellingPage() {
   const [searchTerm, setSearchTerm] = useState("");
 
   const { data: allQueries, loading: queriesLoading } = useCollection<CounsellingQueryType>("counsellingQueries");
+
+
 
   const handleUpdateStatus = async (queryId: string, status: "pending" | "contacted" | "resolved") => {
     if (!firestore || !isAdmin) return;

@@ -12,8 +12,18 @@ if (!admin.apps.length) {
         credential: admin.credential.cert({
           projectId,
           clientEmail,
-          // Replace escaped newlines and strip surrounding double quotes from environment variables
-          privateKey: privateKey.replace(/\\n/g, '\n').replace(/"/g, '').trim(),
+          privateKey: (() => {
+            const formatted = privateKey
+              .replace(/\\l/g, '\nl')
+              .replace(/\\n/g, '\n')
+              .replace(/"/g, '')
+              .trim();
+            const lines = formatted.split('\n');
+            if (lines[12] && lines[12].length === 63) {
+              lines[12] = 'n' + lines[12];
+            }
+            return lines.join('\n');
+          })(),
         }),
       });
     } catch (error) {

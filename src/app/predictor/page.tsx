@@ -430,7 +430,7 @@ Predict yours at: ${typeof window !== "undefined" ? window.location.origin + "/p
             const blurs = clonedCard.querySelectorAll(".backdrop-blur-sm") as NodeListOf<HTMLElement>;
             blurs.forEach(b => {
               b.style.backdropFilter = "none";
-              b.style.webkitBackdropFilter = "none";
+              b.style.setProperty("-webkit-backdrop-filter", "none");
               b.style.backgroundColor = "rgba(255, 255, 255, 0.22)";
             });
           }

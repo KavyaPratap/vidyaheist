@@ -14,6 +14,7 @@ import { FirebaseClientProvider } from '@/firebase/client-provider';
 import { FirebaseErrorListener } from '@/components/FirebaseErrorListener';
 import { FloatingContact } from '@/components/shared/FloatingContact';
 import { CartProvider } from '@/providers/CartProvider';
+import { GlobalPromoModal } from '@/components/shared/GlobalPromoModal';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -84,6 +85,7 @@ export default function RootLayout({
               <Toaster />
               <FirebaseErrorListener />
               <FloatingContact />
+              <GlobalPromoModal />
             </CartProvider>
           </FirebaseClientProvider>
         </ThemeProvider>

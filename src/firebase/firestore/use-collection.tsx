@@ -89,7 +89,7 @@ export function useCollectionQuery<T>(
       } catch (err) {
         // Only emit if it's a real error, not just a missing auth on a public page
         const permissionError = new FirestorePermissionError({
-          path: (q as Query).path,
+          path: collectionPath,
           operation: 'list',
         } satisfies SecurityRuleContext);
 

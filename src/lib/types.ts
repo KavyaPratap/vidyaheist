@@ -76,7 +76,9 @@ export type PurchaseType = {
   seriesName: string;
   amount: number;
   utr: string;
-  status: 'pending' | 'verified' | 'rejected';
+  status: 'pending' | 'verified' | 'rejected' | 'success';
+  razorpay_payment_id?: string;
+  razorpay_order_id?: string;
   createdAt: any;
 };
 

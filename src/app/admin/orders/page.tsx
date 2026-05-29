@@ -16,24 +16,13 @@ import { Input } from "@/components/ui/input";
 import { ADMIN_EMAIL } from "@/lib/constants";
 
 export default function AdminOrdersPage() {
-  const { user, loading: userLoading } = useUser();
+  const { user, loading: userLoading, isAdmin } = useUser();
   const firestore = useFirestore();
   const router = useRouter();
   const { toast } = useToast();
-  const [isAdmin, setIsAdmin] = useState<boolean | null>(null);
   const [searchTerm, setSearchTerm] = useState("");
 
   const { data: allPurchases, loading: purchasesLoading } = useCollection<PurchaseType>("purchases");
-
-  useEffect(() => {
-    if (!userLoading) {
-      if (user && user.email === ADMIN_EMAIL) {
-        setIsAdmin(true);
-      } else {
-        setIsAdmin(false);
-      }
-    }
-  }, [user, userLoading]);
 
   const handleStatusUpdate = async (purchaseId: string, newStatus: 'verified' | 'rejected') => {
     if (!firestore) return;
@@ -57,7 +46,7 @@ export default function AdminOrdersPage() {
     }
   };
 
-  if (userLoading || isAdmin === null) {
+  if (userLoading) {
     return (
       <div className="flex items-center justify-center h-[calc(100vh-10rem)]">
         <Loader2 className="h-12 w-12 animate-spin text-primary" />

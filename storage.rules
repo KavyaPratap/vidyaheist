@@ -1,0 +1,45 @@
+rules_version = '2';
+
+service firebase.storage {
+  match /b/{bucket}/o {
+    
+    // Helper functions
+    function isUserAuthenticated() {
+      return request.auth != null;
+    }
+
+    function isAdmin() {
+      return isUserAuthenticated() && request.auth.token.email.lower() == 'vidyaheist@gmail.com';
+    }
+
+    // CMS assets (Banners, attachments, PDFs, excels sheets): read by everyone, write by admin
+    match /cms/{allPaths=**} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // Banners: anyone can read, only admin can upload/write
+    match /banners/{bannerId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // Book covers: anyone can read, only admin can upload/write
+    match /books/covers/{coverId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // Book PDFs: authenticated students can read/view, only admin can upload/write
+    match /books/pdfs/{pdfId} {
+      allow read: if isUserAuthenticated();
+      allow write: if isAdmin();
+    }
+
+    // Fallback default rules
+    match /{allPaths=**} {
+      allow read: if isUserAuthenticated();
+      allow write: if isAdmin();
+    }
+  }
+}

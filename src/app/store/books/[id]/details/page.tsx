@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { useUser, useFirestore, useCollectionQuery } from "@/firebase";
 import type { BookType, BookOrderType } from "@/lib/types";
-import { doc, getDoc, collection, addDoc, getDocs, query, orderBy, serverTimestamp } from "firebase/firestore";
+import { doc, getDoc, collection, addDoc, getDocs, query, orderBy, serverTimestamp, where } from "firebase/firestore";
 import { Loader2, ArrowLeft, Star, ShoppingBag, Share2, Award, BookOpen, Layers, MessageSquare, Sparkles, ShoppingCart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -14,6 +14,7 @@ import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, D
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useCart } from "@/providers/CartProvider";
+import { MathText } from "@/components/shared/MathText";
 
 type ReviewType = {
   id: string;
@@ -36,6 +37,7 @@ export default function BookDetailsPage() {
   const [loading, setLoading] = useState(true);
   const [reviews, setReviews] = useState<ReviewType[]>([]);
   const [reviewsLoading, setReviewsLoading] = useState(true);
+  const [cmsItem, setCmsItem] = useState<any | null>(null);
 
   // Review Form state
   const [reviewDialogOpen, setReviewDialogOpen] = useState(false);
@@ -66,6 +68,28 @@ export default function BookDetailsPage() {
 
         const bookData = { ...bookDoc.data(), id: bookDoc.id } as BookType;
         setBook(bookData);
+
+        // Fetch Extended Details from CMS content if present
+        try {
+          const cmsDocRef = doc(firestore, "cms_content", id);
+          const cmsSnap = await getDoc(cmsDocRef);
+          if (cmsSnap.exists()) {
+            setCmsItem(cmsSnap.data());
+          } else {
+            // Check by slug as well
+            const qSlug = query(
+              collection(firestore, "cms_content"),
+              where("collection", "==", "productDetails"),
+              where("slug", "==", id)
+            );
+            const slugSnap = await getDocs(qSlug);
+            if (!slugSnap.empty) {
+              setCmsItem(slugSnap.docs[0].data());
+            }
+          }
+        } catch (cmsErr) {
+          console.error("No extended details found in CMS collection:", cmsErr);
+        }
 
         // Fetch Reviews
         setReviewsLoading(true);
@@ -238,6 +262,18 @@ export default function BookDetailsPage() {
             </p>
           </div>
 
+          {cmsItem && (
+            <div className="bg-primary/[0.02] border-2 border-primary/15 rounded-3xl p-6 space-y-4 shadow-sm">
+              <h3 className="font-black text-base text-primary flex items-center gap-1.5">
+                <Sparkles className="w-4 h-4 text-secondary animate-pulse" />
+                Extended Course Syllabus & Highlights
+              </h3>
+              <div className="text-sm leading-relaxed max-h-[400px] overflow-y-auto pr-1 bg-background/40 p-4 rounded-2xl border">
+                <MathText text={cmsItem.content} />
+              </div>
+            </div>
+          )}
+
           {/* Book Specifications */}
           <div className="grid grid-cols-2 gap-4 text-xs font-bold bg-muted/10 p-5 rounded-3xl border border-primary/5">
             <div className="flex items-center gap-2">
@@ -346,7 +382,9 @@ export default function BookDetailsPage() {
                 <div className="flex justify-between items-start">
                   <div>
                     <h5 className="font-extrabold text-sm text-foreground">{r.userName}</h5>
-                    <span className="text-[10px] text-muted-foreground font-semibold">Verified Student</span>
+                    <span className="inline-flex items-center gap-1 text-[9px] bg-green-500/10 text-green-600 border border-green-500/20 font-black uppercase px-2 py-0.5 rounded-full mt-1">
+                      <span className="w-1 h-1 rounded-full bg-green-500" /> Verified Purchase
+                    </span>
                   </div>
                   <div className="flex gap-0.5 text-yellow-500">
                     {Array.from({ length: 5 }).map((_, i) => (

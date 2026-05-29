@@ -25,9 +25,16 @@ export default function CheckoutPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
-  // Handle Demo Course logic
+  // Handle Demo Course and Counselling Program logic
+  const isCounselling = seriesId === 'counselling_2026';
   const isDemo = seriesId === 'demo-paid-test';
-  const series = isDemo ? {
+  const series = isCounselling ? {
+    id: 'counselling_2026',
+    name: 'VidyaHeist IAT 2026 Counselling & Research Guidance Program',
+    price: 0,
+    subject: 'Counselling & Mentorship',
+    imageUrl: '/banner.jpeg'
+  } as any : isDemo ? {
     id: 'demo-paid-test',
     name: 'Premium Mock Test (Demo)',
     price: 1,
@@ -43,6 +50,38 @@ export default function CheckoutPage() {
 
   const handleRazorpayPayment = async () => {
     if (!user || !series || !firestore) return;
+
+    if (series.price === 0) {
+      setIsSubmitting(true);
+      try {
+        await addDoc(collection(firestore, "purchases"), {
+          userId: user.uid,
+          userName: user.displayName || user.email?.split('@')[0] || "Student",
+          userEmail: user.email,
+          seriesId: series.id,
+          seriesName: series.name,
+          amount: 0,
+          status: "verified",
+          razorpay_order_id: "free_test_bypass",
+          createdAt: serverTimestamp(),
+        });
+        setSubmitted(true);
+        toast({
+          title: "Program Unlocked!",
+          description: "Free testing tier unlocked successfully!",
+        });
+      } catch (err: any) {
+        console.error("Free bypass failed:", err);
+        toast({
+          title: "Error",
+          description: "Failed to unlock free program.",
+          variant: "destructive"
+        });
+      } finally {
+        setIsSubmitting(false);
+      }
+      return;
+    }
 
     setIsSubmitting(true);
     try {
@@ -217,7 +256,7 @@ export default function CheckoutPage() {
                 src={series.imageUrl || "https://placehold.co/600x400.png"} 
                 alt={series.name} 
                 fill 
-                className="object-cover"
+                className="object-contain bg-slate-50"
               />
             </div>
             <div>

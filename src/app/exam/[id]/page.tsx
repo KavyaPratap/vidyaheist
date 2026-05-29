@@ -252,7 +252,7 @@ export default function ExamPage() {
     if (examPhase !== 'taking' || timeLeft <= 0) {
       if (examPhase === 'taking' && timeLeft <= 0) {
         handleSubmitTest();
-        toast({ title: "Time's Up!", description: "Your test has been automatically submitted.", variant: "info"});
+        toast({ title: "Time's Up!", description: "Your test has been automatically submitted.", variant: "default"});
       }
       return;
     };
@@ -467,7 +467,7 @@ export default function ExamPage() {
             <RadioGroup
               value={currentAnswer?.selectedOptionId || ""}
               onValueChange={(value) => handleAnswerChange(currentQuestion.id, value)}
-              disabled={examPhase === 'review' || examPhase === 'summary'}
+              disabled={examPhase === 'review'}
               className="space-y-3"
             >
               {currentQuestion.options.map((option) => (
@@ -477,7 +477,7 @@ export default function ExamPage() {
                     examPhase === 'review' && option.id === currentAnswer?.selectedOptionId && option.id !== currentQuestion.correctAnswerId && "bg-red-100 dark:bg-red-800 border-red-500",
                     currentAnswer?.selectedOptionId === option.id && "border-primary ring-1 ring-primary"
                   )}
-                  onClick={() => (examPhase !== 'review' && examPhase !== 'summary') && handleAnswerChange(currentQuestion.id, option.id)}
+                  onClick={() => examPhase !== 'review' && handleAnswerChange(currentQuestion.id, option.id)}
                 >
                   <RadioGroupItem value={option.id} id={option.id} />
                   <Label htmlFor={option.id} className="flex-1 cursor-pointer text-sm md:text-base">
@@ -500,7 +500,7 @@ export default function ExamPage() {
             <Button
               variant="outline"
               onClick={() => navigateQuestion(currentQuestionIndex - 1)}
-              disabled={currentQuestionIndex === 0 || examPhase === 'review' || examPhase === 'summary'}
+              disabled={currentQuestionIndex === 0 || examPhase === 'review'}
             >
               <ArrowLeft className="mr-2 h-4 w-4" /> Previous
             </Button>
@@ -509,7 +509,7 @@ export default function ExamPage() {
               <Button
                 variant={currentAnswer?.isMarkedForReview ? "secondary" : "outline"}
                 onClick={() => handleMarkForReview(currentQuestion.id)}
-                disabled={examPhase === 'review' || examPhase === 'summary'}
+                disabled={examPhase === 'review'}
                 className={currentAnswer?.isMarkedForReview ? "bg-purple-500 hover:bg-purple-600 text-white" : ""}
               >
                 <Bookmark className="mr-2 h-4 w-4" /> Mark for Review
@@ -517,13 +517,13 @@ export default function ExamPage() {
             </div>
 
             {currentQuestionIndex === questions.length - 1 ? (
-              <Button onClick={handleSubmitTest} disabled={examPhase === 'review' || examPhase === 'summary'} className="bg-green-600 hover:bg-green-700 text-white">
+              <Button onClick={handleSubmitTest} disabled={examPhase === 'review'} className="bg-green-600 hover:bg-green-700 text-white">
                 <Send className="mr-2 h-4 w-4" /> Submit Test
               </Button>
             ) : (
               <Button
                 onClick={() => navigateQuestion(currentQuestionIndex + 1)}
-                disabled={currentQuestionIndex === questions.length - 1 || examPhase === 'review' || examPhase === 'summary'}
+                disabled={currentQuestionIndex === questions.length - 1 || examPhase === 'review'}
               >
                 Save & Next <ArrowRight className="ml-2 h-4 w-4" />
               </Button>

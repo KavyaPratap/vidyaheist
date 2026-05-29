@@ -1,7 +1,7 @@
 
 "use client";
 import Link from "next/link";
-import { Home, ShoppingBag, User, Menu, MessageSquareHeart, GitBranch, LayoutDashboard, PlusCircle, ClipboardList, ShoppingCart } from "lucide-react";
+import { Home, ShoppingBag, User, Menu, MessageSquareHeart, GitBranch, LayoutDashboard, PlusCircle, ClipboardList, ShoppingCart, FileText } from "lucide-react";
 import { AuthButton } from "./AuthButton";
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
@@ -17,6 +17,9 @@ import Image from 'next/image';
 const signedOutNavItems = [
   { href: "/", label: "Home", icon: Home },
   { href: "/store", label: "Store", icon: ShoppingBag },
+  { href: "/research", label: "Research Hub", icon: FileText },
+  { href: "/blogs", label: "Prep Blogs", icon: FileText },
+  { href: "/resources", label: "Resources", icon: FileText },
   { href: "/counselling", label: "Counselling", icon: MessageSquareHeart },
   { href: "/predictor", label: "Predictor", icon: GitBranch },
 ];
@@ -24,6 +27,9 @@ const signedOutNavItems = [
 const signedInNavItems = [
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { href: "/store", label: "Store", icon: ShoppingBag },
+  { href: "/research", label: "Research Hub", icon: FileText },
+  { href: "/blogs", label: "Prep Blogs", icon: FileText },
+  { href: "/resources", label: "Resources", icon: FileText },
   { href: "/predictor", label: "Predictor", icon: GitBranch },
   { href: "/counselling", label: "Counselling", icon: MessageSquareHeart },
   { href: "/profile", label: "Profile", icon: User },
@@ -42,14 +48,14 @@ export function Header() {
 
   const adminNavItems = [
     { href: "/admin/orders", label: "Admin Orders", icon: ClipboardList },
-    { href: "/admin/create-quiz", label: "Create Course", icon: PlusCircle },
-    { href: "/admin/books", label: "Manage Books", icon: PlusCircle },
     { href: "/admin/book-orders", label: "Book Orders", icon: ClipboardList },
     { href: "/admin/counselling", label: "Counselling Leads", icon: MessageSquareHeart },
+    { href: "/admin/cms", label: "Content Hub", icon: FileText },
   ];
 
   const microAdminNavItems = [
     { href: "/admin/book-orders", label: "Book Orders", icon: ClipboardList },
+    { href: "/admin/cms", label: "Content Hub", icon: FileText },
   ];
 
   const navItems = !loading && user 

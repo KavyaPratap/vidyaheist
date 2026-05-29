@@ -157,7 +157,7 @@ export function parseText(textContent: string, defaultSubject: string = "General
     const questionText = cleanBlock.substring(0, firstOptionIndex).trim();
     const optionsString = cleanBlock.substring(firstOptionIndex).trim();
 
-    const optionRegex = /\(([A-Z])\)\s*(.*?)(?=\s*\([A-Z]\)\s|$)/gs;
+    const optionRegex = /\(([A-Z])\)\s*([\s\S]*?)(?=\s*\([A-Z]\)\s|$)/g;
     let optionMatch;
     const options: QuestionOption[] = [];
     let foundCorrectAnswerId = '';

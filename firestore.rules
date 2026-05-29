@@ -1,4 +1,3 @@
-
 rules_version = '2';
  
 service cloud.firestore {
@@ -30,7 +29,8 @@ service cloud.firestore {
  
     match /users/{userId} {
       allow read: if isUserAuthenticated();
-      allow create, update: if isOwner(userId);
+      allow create: if isOwner(userId);
+      allow update: if isOwner(userId) || isAdmin();
     }
 
     match /testSeries/{seriesId} {
@@ -63,6 +63,12 @@ service cloud.firestore {
       allow update, delete: if isAdmin();
     }
 
+    match /counselling_messages/{messageId} {
+      allow read: if isUserAuthenticated() && (resource.data.userId == request.auth.uid || isAdmin() || isMicroAdmin());
+      allow create: if isUserAuthenticated() && (request.resource.data.userId == request.auth.uid || isAdmin() || isMicroAdmin());
+      allow update, delete: if isAdmin() || isMicroAdmin();
+    }
+
     // Results collection - Students save their final score
     match /results/{resultId} {
       // Allowing read for all authenticated users for the leaderboard
@@ -79,11 +85,12 @@ service cloud.firestore {
       allow read, write: if isUserAuthenticated() && (progressId.split('_')[0] == request.auth.uid);
     }
 
-    // Secure Books collection
+    // Secure Books collection - Anyone can browse, only admin can manage catalog
     match /books/{bookId} {
       allow read: if true;
       allow create, update, delete: if isAdmin();
 
+      // Nested subcollection for book reviews
       match /reviews/{reviewId} {
         allow read: if true;
         allow create: if isUserAuthenticated();
@@ -93,11 +100,16 @@ service cloud.firestore {
 
     // Secure Book Orders collection
     match /bookOrders/{orderId} {
+      // Users can read their own orders, Admin & Micro-admin can view all for tracking
       allow read: if isUserAuthenticated() && 
         (resource.data.userId == request.auth.uid || isAdmin() || isMicroAdmin());
+        
+      // Users can submit their own pending orders during checkout (THIS WAS MISSING)
       allow create: if isUserAuthenticated() && 
         request.resource.data.userId == request.auth.uid && 
         request.resource.data.status == 'pending';
+        
+      // Admin, Micro-admin tracking edits, and Buyer self-rejections
       allow update: if isAdmin() || 
         (isUserAuthenticated() && resource.data.userId == request.auth.uid && 
          resource.data.status == 'pending' && 
@@ -118,6 +130,12 @@ service cloud.firestore {
       allow read: if isAdmin();
       allow create: if true;
       allow update, delete: if isAdmin();
+    }
+
+    // Dynamic Content Hub (CMS) collection
+    match /cms_content/{contentId} {
+      allow read: if true;
+      allow create, update, delete: if isAdmin() || isMicroAdmin();
     }
   }
 }
